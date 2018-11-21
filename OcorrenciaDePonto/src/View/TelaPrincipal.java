@@ -12,6 +12,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JMonthChooser;
+import com.toedter.calendar.JYearChooser;
+
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -19,8 +23,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import com.toedter.calendar.JMonthChooser;
-import com.toedter.calendar.JYearChooser;
 import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -206,7 +208,7 @@ public class TelaPrincipal {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("icons\\icons8-cartão-de-ponto-48.png"));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("icons\\icons8-cartao-de-ponto-48.png"));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JMenuBar menuBar = new JMenuBar();
