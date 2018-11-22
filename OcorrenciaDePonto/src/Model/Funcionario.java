@@ -12,15 +12,12 @@ public class Funcionario {
 	
 	
 	
-	public Funcionario(int id_Funcionario, String nome_Funcionario, String num_Registro, String idCargo, String setor) {
+	public Funcionario(int id_Funcionario, String nome_Funcionario, String num_Registro, Cargo Cargo, Setor setor) {
 		setId_Funcionario(id_Funcionario);
 		setNome_Funcionario(nome_Funcionario);
 		setNum_Registro(num_Registro);
-		this.cargo = new Cargo(Integer.parseInt(idCargo), "Chamar um código aqui!");/*Chamar um código para buscar o nome do cargo no banco referente a este idCargo*/
-		/*
-		Fazer o mesmo conceito de cargo para Setor logo abaixo
-		*/
-		//setSetor(setor);
+		setCargo(cargo);
+		setSetor(setor);
 		apontamentos = new Apontamentos();
 	}
 
@@ -66,11 +63,11 @@ public class Funcionario {
 	}
 
 
-	public void setCargo(String cargo) throws NumberFormatException {
+	public void setCargo(Cargo cargo) throws NumberFormatException {
 		/*Aqui deve ser implementado um código,
 		caso necessário, para relizar as devidas
 		validações dos dados vindos do usuário*/
-		this.cargo.setIdCargo(Integer.parseInt(cargo));
+		this.cargo = cargo;
 	}
 
 
