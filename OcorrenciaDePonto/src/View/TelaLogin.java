@@ -73,7 +73,7 @@ public class TelaLogin {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("icons\\icons8-cart„o-de-ponto-filled-16.png"));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("icons\\icons8-cartÔøΩo-de-ponto-filled-16.png"));
 		frame.getContentPane().setBackground(UIManager.getColor("Label.background"));
 		frame.setBounds(100, 100, 450, 250);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,13 +101,11 @@ public class TelaLogin {
 		frame.getContentPane().add(btnLogin);
 		
 		fieldSenha = new JPasswordField("Digite sua senha!");
-		fieldSenha.setEchoChar('*');
-		fieldSenha.setEchoChar((char) 0);
 		fieldSenha.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				fieldSenha.setText("");
-				fieldSenha.setEchoChar('*');			}
+				fieldSenha.setEchoChar('‚óè');			}
 		});
 		fieldSenha.setToolTipText("");
 		fieldSenha.setBounds(130, 130, 213, 25);
