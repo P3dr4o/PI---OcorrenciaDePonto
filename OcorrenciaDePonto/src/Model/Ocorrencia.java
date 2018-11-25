@@ -1,29 +1,80 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Ocorrencia {
-	private int id_FuncionarioAprovador;
-	private int id_FuncionarioSolicitante;
-	private int id_FuncionarioTrocaTurno;
+public class Ocorrencia implements Serializable{
+	
+	private int id;
+	private Funcionario FuncionarioAprovador;
+	private Funcionario FuncionarioSolicitante;
+	
 	private Date dataHora;
 	private String motivo;
-	private int tipo;
+	//private int tipo;
 	
 	private Apontamento apontamento;
 	private char status;
 	private String observacaoGestor;
-	private boolean abonado;
-	private int tipoSolicitacao;// 1-Folga extra, 2-Hora extra, 3-troca de plantão
+	protected int tipo;
 	
-	private Date chegadaAntecipada;
-	private Date chegadaAtrasada;
-	private Date ausenteMarcacao;
-	private Date saidaAntecipada;
-	private 
+	//private boolean abonado;
+
 	
-	//Criar ocorrências com erança, criando uma ocorrência mãe com caracteristicas comuns a todas as ocorrências, 
-	//e outras para cada tipo de ocorrência, tendo cada uma as suas caracteristicas adicionais e seus contrutores
+	public int getId() {
+		return id;
+	}
+	
+	public int getTipo() {
+		return tipo;
+	}
+	public Funcionario getFuncionarioAprovador() {
+		return FuncionarioAprovador;
+	}
+	public void setFuncionarioAprovador(Funcionario funcionarioAprovador) {
+		FuncionarioAprovador = funcionarioAprovador;
+	}
+	public Funcionario getFuncionarioSolicitante() {
+		return FuncionarioSolicitante;
+	}
+	public void setFuncionarioSolicitante(Funcionario funcionarioSolicitante) {
+		FuncionarioSolicitante = funcionarioSolicitante;
+	}
+	public Date getDataHora() {
+		return dataHora;
+	}
+	public void setDataHora(Date dataHora) {
+		this.dataHora = dataHora;
+	}
+	public String getMotivo() {
+		return motivo;
+	}
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	public Apontamento getApontamento() {
+		return apontamento;
+	}
+	public void setApontamento(Apontamento apontamento) {
+		this.apontamento = apontamento;
+	}
+	public char getStatus() {
+		return status;
+	}
+	public void setStatus(char status) {
+		this.status = status;
+	}
+	public String getObservacaoGestor() {
+		return observacaoGestor;
+	}
+	public void setObservacaoGestor(String observacaoGestor) {
+		this.observacaoGestor = observacaoGestor;
+	}
+	
+	public Ocorrencia getClone() throws CloneNotSupportedException {
+		return (Ocorrencia) this.clone();
+	}
+	
 
 }
 	

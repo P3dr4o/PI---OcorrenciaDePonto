@@ -1,9 +1,11 @@
 package Model;
 
 
-import sun.util.calendar.BaseCalendar.Date;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Apontamento {
+
+public class Apontamento implements Serializable{
 	
 	private Date dataDoApontamento;
 	private char diaSemana;

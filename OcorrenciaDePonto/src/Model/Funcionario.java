@@ -1,24 +1,29 @@
 package Model;
 
-public class Funcionario {
+import java.io.Serializable;
+
+public class Funcionario implements Serializable{
 	private int id_Funcionario;
 	private String nome_Funcionario;
 	private int num_Registro;
 	
+	private String login;
+	private String senha;
+	
 	private Cargo cargo;
 	private Setor setor;
 	
-	private Apontamentos apontamentos;
+	//private Apontamentos apontamentos;
 	
 	
 	
-	public Funcionario(int id_Funcionario, String nome_Funcionario, String num_Registro, Cargo Cargo, Setor setor) {
+	public Funcionario(int id_Funcionario, String nome_Funcionario, int num_Registro, Cargo Cargo, Setor setor) {
 		setId_Funcionario(id_Funcionario);
 		setNome_Funcionario(nome_Funcionario);
 		setNum_Registro(num_Registro);
 		setCargo(cargo);
 		setSetor(setor);
-		apontamentos = new Apontamentos();
+		//apontamentos = new Apontamentos();
 	}
 
 
@@ -50,11 +55,11 @@ public class Funcionario {
 	}
 
 
-	public void setNum_Registro(String num_Registro) throws NumberFormatException {
+	public void setNum_Registro(int num_Registro) throws NumberFormatException {
 		/*Aqui deve ser implementado um código,
 		caso necessário, para relizar as devidas
 		validações dos dados vindos do usuário*/
-		this.num_Registro = Integer.parseInt(num_Registro);
+		this.num_Registro =num_Registro;
 	}
 
 
@@ -84,17 +89,17 @@ public class Funcionario {
 	}
 
 
-	public Apontamentos getApontamentos() {
+	/*public Apontamentos getApontamentos() {
 		return apontamentos;
 	}
+*/
 
-
-	public void setApontamentos(Apontamentos apontamentos) {
-		/*Aqui deve ser implementado um código,
+	/*public void setApontamentos(Apontamentos apontamentos) {
+		Aqui deve ser implementado um código,
 		caso necessário, para relizar as devidas
-		validações dos dados vindos do usuário*/
+		validações dos dados vindos do usuário
 		this.apontamentos = apontamentos;
-	}
+	}*/
 
 
 	public int getId_Funcionario() {
@@ -105,5 +110,28 @@ public class Funcionario {
 	public void setId_Funcionario(int id_Funcionario) {
 		this.id_Funcionario = id_Funcionario;
 	}
+
+
+	public String getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	
+	
 
 }

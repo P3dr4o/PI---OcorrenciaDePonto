@@ -1,6 +1,8 @@
 package Model;
 
-public class Cargo {
+import java.io.Serializable;
+
+public class Cargo implements Serializable{
 	
 	private int idCargo;
 	private String nomeCargo;

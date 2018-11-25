@@ -1,6 +1,8 @@
 package Model;
 
-public class Setor {
+import java.io.Serializable;
+
+public class Setor implements Serializable{
 	
 	private String nome;
 	private int id_Setor;
