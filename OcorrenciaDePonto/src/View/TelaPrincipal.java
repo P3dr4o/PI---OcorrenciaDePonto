@@ -95,17 +95,28 @@ public class TelaPrincipal {
 	 * 
 	 */
 	public void OrganizaJTable() {
-		DefaultTableModel modelo = new DefaultTableModel();
-		DefaultTableModel modelo_1 = new DefaultTableModel();
+		
+		//cÃ³digo para deixar a tabela NÃƒO editÃ¡vel
+		DefaultTableModel modelo = new DefaultTableModel() {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		DefaultTableModel modelo_1 = new DefaultTableModel() {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
 		modelo.addColumn("Data Apontamento");
-		modelo.addColumn("Horário de Trabalho");
+		modelo.addColumn("HorÃ¡rio de Trabalho");
 		modelo.addColumn("Apontamentos");
 		modelo.addColumn("Rendimento");
 		modelo.addColumn("Descontos");
 		modelo.addColumn("Banco de Horas");
-		modelo.addColumn("Observações");
+		modelo.addColumn("ObservaÃ§Ãµes");
 
-		// este codigo a seguir é apenas para ilustração da tabela
+		// este codigo a seguir ï¿½ apenas para ilustraï¿½ï¿½o da tabela
 		modelo.addRow(new String[] { "01/09/2018 Sab", "", "", "", "", "", "Folga" });
 		modelo.addRow(new String[] { "02/09/2018 Dom", "", "", "", "", "", "Folga" });
 		modelo.addRow(new String[] { "03/09/2018 Seg", "07:00 12:00 13:00 17:00", "07:09 12:39 13:39 17:03", "", "", "",
@@ -140,18 +151,22 @@ public class TelaPrincipal {
 		table.getColumnModel().getColumn(4).setPreferredWidth(60);
 		table.getColumnModel().getColumn(5).setPreferredWidth(85);
 		table.getColumnModel().getColumn(6).setPreferredWidth(800);
+		
+		//cÃ³digo para NÃƒO deixar mover o cabeÃ§alho da tabela
+		table.getTableHeader().setReorderingAllowed(false);
+		
 		addCor(table);
 
 		// table.getColumnModel().getColumn(6).setWidth(100);
 
-		modelo_1.addColumn("Data da Ocorrência");
+		modelo_1.addColumn("Data da Ocorrï¿½ncia");
 		modelo_1.addColumn("Setor");
 		modelo_1.addColumn("Data Apontamento");
-		modelo_1.addColumn("Nome do Funcionário");
+		modelo_1.addColumn("Nome do Funcionï¿½rio");
 
 		modelo_1.addRow(new String[] { "14/09/2018 Sex", "Faturamento", "10/09/2018 Seg", "Sulem Gomes Pereira" });
 		modelo_1.addRow(new String[] { "13/09/2018 Sex", "Qualidade", "13/09/2018 Qui", "Tamires Miranda Silva" });
-		modelo_1.addRow(new String[] { "15/09/2018 Sab", "Compras", "04/09/2018 Ter", "João Pereira Neto" });
+		modelo_1.addRow(new String[] { "15/09/2018 Sab", "Compras", "04/09/2018 Ter", "Joï¿½o Pereira Neto" });
 
 		table_1.setModel(modelo_1);
 		table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -179,9 +194,9 @@ public class TelaPrincipal {
 //				Component renderer = DEFAULT_RENDERER.getTableCellRendererComponent(
 //				        table, value, isSelected, hasFocus, row, column);
 				super.getTableCellRendererComponent(tab, value, isSelected, hasFocus, row, column);
-				// aqui você coloca a condição para pintar a linha, neste caso se o valor da
-				// coluna 4 da linha for menor que 2 (table.getValueAt(row,4), aqui table é o
-				// nome que está no parametro ali em cima, row é a linha atual da verificação)
+				// aqui vocï¿½ coloca a condiï¿½ï¿½o para pintar a linha, neste caso se o valor da
+				// coluna 4 da linha for menor que 2 (table.getValueAt(row,4), aqui table ï¿½ o
+				// nome que estï¿½ no parametro ali em cima, row ï¿½ a linha atual da verificaï¿½ï¿½o)
 				// if (Float.valueOf(table.getValueAt(row, 4).toString()) < 2) {
 				Color foreground, background;
 				if (isSelected) {
@@ -254,7 +269,7 @@ public class TelaPrincipal {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				/*System.out.println(tabbedPane.getSelectedIndex());
-				 * Essa fução utilizada dentro Sysout retorna o indice da aba que está selecionada, talvez ajude pra alguma copisa
+				 * Essa fuï¿½ï¿½o utilizada dentro Sysout retorna o indice da aba que estï¿½ selecionada, talvez ajude pra alguma copisa
 				 * */
 				if (tabbedPane.getIconAt(1).equals(iconOK))
 					tabbedPane.setIconAt(1, iconAten);
