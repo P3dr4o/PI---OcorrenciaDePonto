@@ -3,8 +3,9 @@ package Controller;
 
 public class FuncionarioController {
 	
-	public static void salvarFuncion·rio(int idFuncionario,String nome, int registro, int idcargo, int idsetor) {
-		//teste de atualizaÁ„o do eclipse
+	public static void salvarFuncion√°rio(int idFuncionario,String nome, int registro, int idcargo, int idsetor) {
+		//teste de atualiza√ß√£o do eclipse
+		//teste de postagem do github
 
 
 		
