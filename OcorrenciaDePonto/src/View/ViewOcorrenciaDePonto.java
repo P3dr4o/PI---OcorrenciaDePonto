@@ -67,12 +67,11 @@ public class ViewOcorrenciaDePonto extends JFrame {
 	public ViewOcorrenciaDePonto() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 506, 335);
+		setBounds(450, 100, 506, 335);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		setLocationRelativeTo(null);
 		
 		JLabel lblOcorrnciaDePonto = new JLabel("Ocorr\u00EAncia de Ponto");
 		lblOcorrnciaDePonto.setHorizontalAlignment(SwingConstants.CENTER);
@@ -148,11 +147,11 @@ public class ViewOcorrenciaDePonto extends JFrame {
 		
 		
 		try {
-			txtChegadaAtrasada = new JFormattedTextField(new MaskFormatter("##:## hs"));
-			txtChegadaAntecipada = new JFormattedTextField(new MaskFormatter("##:## hs"));
-			txtSaidaAntecipada = new JFormattedTextField(new MaskFormatter("##:## hs"));
+			txtChegadaAtrasada = new JFormattedTextField(new MaskFormatter("##:##"));
+			txtChegadaAntecipada = new JFormattedTextField(new MaskFormatter("##:##"));
+			txtSaidaAntecipada = new JFormattedTextField(new MaskFormatter("##:##"));
 			txtDia = new JFormattedTextField(new MaskFormatter("##/##/####"));
-			txtNDeHoras = new JFormattedTextField(new MaskFormatter("##:## hs"));
+			txtNDeHoras = new JFormattedTextField(new MaskFormatter("##:##"));
 			txtParaODia = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
