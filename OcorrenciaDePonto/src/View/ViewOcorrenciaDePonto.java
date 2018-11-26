@@ -35,14 +35,13 @@ public class ViewOcorrenciaDePonto extends JFrame {
 	private JFormattedTextField txtSaidaAntecipada;
 	private JTextField txtFuncionarioDaEnfermagem;
 	private JLabel lblDia;
-	//private JFormattedTextField txtDia;
-	JDateChooser txtDia;
+	private JDateChooser jDateChooserDia;
 	private JFormattedTextField txtNDeHoras;
 	private JLabel lblNDeHoras;
 	private JRadioButton rdbtnBH;
 	private JRadioButton rdbtnPagar;
 	private JLabel lblParaODia;
-	private JFormattedTextField txtParaODia;
+	private JDateChooser jDateChooserParaODia;
 	private JLabel lblFuncionarioDaEnfermagem;
 	private JLabel lblJustificativa;
 	private JButton btnSolicitar;
@@ -168,9 +167,9 @@ public class ViewOcorrenciaDePonto extends JFrame {
 			txtChegadaAtrasada = new JFormattedTextField(new MaskFormatter("##:##"));
 			txtChegadaAntecipada = new JFormattedTextField(new MaskFormatter("##:##"));
 			txtSaidaAntecipada = new JFormattedTextField(new MaskFormatter("##:##"));
-			txtDia = new JDateChooser();
+			jDateChooserDia = new JDateChooser();
 			txtNDeHoras = new JFormattedTextField(new MaskFormatter("##:##"));
-			txtParaODia = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			jDateChooserParaODia = new JDateChooser();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -208,11 +207,11 @@ public class ViewOcorrenciaDePonto extends JFrame {
 					txtAreaJustificativa.setBounds(16, 117, 443, 74);
 					panelSolicito.setBounds(10, 200, 469, 205);
 					lblDia.setVisible(true);
-					txtDia.setVisible(true);
+					jDateChooserDia.setVisible(true);
 				} else {
 					//txtDia.setText("");
 					lblDia.setVisible(false);
-					txtDia.setVisible(false);
+					jDateChooserDia.setVisible(false);
 				}
 				
 			}
@@ -232,7 +231,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 					lblJustificativa.setBounds(16, 181, 82, 14);
 					txtAreaJustificativa.setBounds(16, 206, 443, 74);
 					lblDia.setVisible(true);
-					txtDia.setVisible(true);
+					jDateChooserDia.setVisible(true);
 					lblNDeHoras.setVisible(true);
 					txtNDeHoras.setVisible(true);
 					rdbtnBH.setVisible(true);
@@ -242,7 +241,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 					txtNDeHoras.setText("");
 					bgSolicito2.clearSelection();
 					lblDia.setVisible(false);
-					txtDia.setVisible(false);
+					jDateChooserDia.setVisible(false);
 					lblNDeHoras.setVisible(false);
 					txtNDeHoras.setVisible(false);
 					rdbtnBH.setVisible(false);
@@ -267,20 +266,20 @@ public class ViewOcorrenciaDePonto extends JFrame {
 					txtAreaJustificativa.setBounds(16, 206, 443, 74);
 					lblDia.setText("Do Dia:");
 					lblDia.setVisible(true);
-					txtDia.setVisible(true);
+					jDateChooserDia.setVisible(true);
 					lblParaODia.setVisible(true);
-					txtParaODia.setVisible(true);
+					jDateChooserParaODia.setVisible(true);
 					lblFuncionarioDaEnfermagem.setVisible(true);
 					txtFuncionarioDaEnfermagem.setVisible(true);
 				} else {
 					lblDia.setText("Dia:");
 					//txtDia.setText("");
-					txtParaODia.setText("");
+					//txtParaODia.setText("");
 					txtFuncionarioDaEnfermagem.setText("");
 					lblDia.setVisible(false);
-					txtDia.setVisible(false);
+					jDateChooserDia.setVisible(false);
 					lblParaODia.setVisible(false);
-					txtParaODia.setVisible(false);
+					jDateChooserParaODia.setVisible(false);
 					lblFuncionarioDaEnfermagem.setVisible(false);
 					txtFuncionarioDaEnfermagem.setVisible(false);
 				}
@@ -300,9 +299,9 @@ public class ViewOcorrenciaDePonto extends JFrame {
 		lblDia.setVisible(false);
 		panelSolicito.add(lblDia);
 		
-		txtDia.setBounds(85, 65, 134, 21);
-		txtDia.setVisible(false);
-		panelSolicito.add(txtDia);
+		jDateChooserDia.setBounds(65, 65, 134, 21);
+		jDateChooserDia.setVisible(false);
+		panelSolicito.add(jDateChooserDia);
 		
 		txtNDeHoras.setBounds(108, 94, 111, 20);
 		txtNDeHoras.setVisible(false);
@@ -328,13 +327,13 @@ public class ViewOcorrenciaDePonto extends JFrame {
 		bgSolicito2.add(rdbtnPagar);
 		
 		lblParaODia = new JLabel("Para o Dia:");
-		lblParaODia.setBounds(229, 68, 82, 14);
+		lblParaODia.setBounds(270, 68, 82, 14);
 		lblParaODia.setVisible(false);
 		panelSolicito.add(lblParaODia);
 		
-		txtParaODia.setBounds(339, 65, 120, 20);
-		txtParaODia.setVisible(false);
-		panelSolicito.add(txtParaODia);
+		jDateChooserParaODia.setBounds(339, 65, 120, 20);
+		jDateChooserParaODia.setVisible(false);
+		panelSolicito.add(jDateChooserParaODia);
 		
 		lblFuncionarioDaEnfermagem = new JLabel("Funcion\u00E1rio da Enfermagem dispon\u00EDvel para troca:");
 		lblFuncionarioDaEnfermagem.setBounds(97, 125, 303, 14);
