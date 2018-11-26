@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,6 +27,19 @@ public class ViewNovoSetor extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+
+				if ("Windows".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+
+			}
+		} catch (Exception e) {
+		}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

@@ -232,8 +232,32 @@ public class TelaPrincipal {
 		JMenu mnCadastro = new JMenu("Cadastro");
 		menuBar.add(mnCadastro);
 		
-		JMenuItem mntmCadastrarUsurio = new JMenuItem("Cadastrar Usu\u00E1rio");
+		JMenuItem mntmCadastrarUsurio = new JMenuItem("Usuário");
+		mntmCadastrarUsurio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewFuncionario vf = new ViewFuncionario();
+				vf.setVisible(true);
+			}
+		});
 		mnCadastro.add(mntmCadastrarUsurio);
+		
+		JMenuItem mntmSetor = new JMenuItem("Setor");
+		mntmSetor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewSetor vs = new ViewSetor();
+				vs.setVisible(true);
+			}
+		});
+		mnCadastro.add(mntmSetor);
+		
+		JMenuItem mntmCargo = new JMenuItem("Cargo");
+		mntmCargo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewCargo vc = new ViewCargo();
+				vc.setVisible(true);
+			}
+		});
+		mnCadastro.add(mntmCargo);
 
 		JMenu mnRelatrios = new JMenu("Relat\u00F3rios");
 		menuBar.add(mnRelatrios);
@@ -265,6 +289,12 @@ public class TelaPrincipal {
 		panel_3.add(yearChooser);
 
 		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewOcorrenciaDePonto vop = new ViewOcorrenciaDePonto();
+				vop.setVisible(true);
+			}
+		});
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

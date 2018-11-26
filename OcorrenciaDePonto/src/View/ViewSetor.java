@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,6 +24,19 @@ public class ViewSetor extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+
+				if ("Windows".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+
+			}
+		} catch (Exception e) {
+		}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

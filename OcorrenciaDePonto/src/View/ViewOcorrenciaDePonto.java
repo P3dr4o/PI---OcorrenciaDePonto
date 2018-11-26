@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.text.ParseException;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
@@ -49,6 +51,19 @@ public class ViewOcorrenciaDePonto extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+
+				if ("Windows".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+
+			}
+		} catch (Exception e) {
+		}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -67,6 +82,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 	public ViewOcorrenciaDePonto() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//setBounds(450, 100, 506, 335);
 		setBounds(450, 100, 506, 335);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -171,6 +187,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 		
 		JPanel panelSolicito = new JPanel();
 		panelSolicito.setBorder(new TitledBorder(null, "Solicito", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		//panelSolicito.setBounds(10, 200, 469, 60);
 		panelSolicito.setBounds(10, 200, 469, 60);
 		contentPane.add(panelSolicito);
 		panelSolicito.setLayout(null);
