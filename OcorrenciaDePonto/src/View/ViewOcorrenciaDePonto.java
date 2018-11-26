@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import com.toedter.calendar.JDateChooser;
 
 public class ViewOcorrenciaDePonto extends JFrame {
 
@@ -34,7 +35,8 @@ public class ViewOcorrenciaDePonto extends JFrame {
 	private JFormattedTextField txtSaidaAntecipada;
 	private JTextField txtFuncionarioDaEnfermagem;
 	private JLabel lblDia;
-	private JFormattedTextField txtDia;
+	//private JFormattedTextField txtDia;
+	JDateChooser txtDia;
 	private JFormattedTextField txtNDeHoras;
 	private JLabel lblNDeHoras;
 	private JRadioButton rdbtnBH;
@@ -166,7 +168,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 			txtChegadaAtrasada = new JFormattedTextField(new MaskFormatter("##:##"));
 			txtChegadaAntecipada = new JFormattedTextField(new MaskFormatter("##:##"));
 			txtSaidaAntecipada = new JFormattedTextField(new MaskFormatter("##:##"));
-			txtDia = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			txtDia = new JDateChooser();
 			txtNDeHoras = new JFormattedTextField(new MaskFormatter("##:##"));
 			txtParaODia = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		} catch (ParseException e) {
@@ -184,6 +186,8 @@ public class ViewOcorrenciaDePonto extends JFrame {
 		txtSaidaAntecipada.setEditable(false);
 		txtSaidaAntecipada.setBounds(225, 126, 61, 21);
 		panelEventos.add(txtSaidaAntecipada);
+		
+
 		
 		JPanel panelSolicito = new JPanel();
 		panelSolicito.setBorder(new TitledBorder(null, "Solicito", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -206,7 +210,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 					lblDia.setVisible(true);
 					txtDia.setVisible(true);
 				} else {
-					txtDia.setText("");
+					//txtDia.setText("");
 					lblDia.setVisible(false);
 					txtDia.setVisible(false);
 				}
@@ -234,7 +238,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 					rdbtnBH.setVisible(true);
 					rdbtnPagar.setVisible(true);
 				} else {
-					txtDia.setText("");
+					//txtDia.setText("");
 					txtNDeHoras.setText("");
 					bgSolicito2.clearSelection();
 					lblDia.setVisible(false);
@@ -270,7 +274,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 					txtFuncionarioDaEnfermagem.setVisible(true);
 				} else {
 					lblDia.setText("Dia:");
-					txtDia.setText("");
+					//txtDia.setText("");
 					txtParaODia.setText("");
 					txtFuncionarioDaEnfermagem.setText("");
 					lblDia.setVisible(false);
