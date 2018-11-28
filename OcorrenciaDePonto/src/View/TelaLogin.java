@@ -25,7 +25,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TelaLogin {
+public class TelaLogin extends JFrame{
 
 	private JFrame frame;
 	private JTextField fieldUsuario;
@@ -38,6 +38,34 @@ public class TelaLogin {
 	 */
 	public static void main(String[] args) {
 		
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaLogin window = new TelaLogin();
+					window.frame.setVisible(true);
+					
+					
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public static void rodar() {
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 
@@ -104,6 +132,8 @@ public class TelaLogin {
 				else {
 					JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
 					tl = new TelaPrincipal();
+					tl.rodar();
+				
 					
 				}
 			}

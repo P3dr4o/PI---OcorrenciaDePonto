@@ -6,7 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DAO.CargoDao;
+import Model.Cargo;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -15,12 +20,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ViewNovoCargo extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCargo;
 	private JTable tableNovoCargo;
+	private CargoDao cg = new CargoDao();
 
 	/**
 	 * Launch the application.
@@ -72,6 +80,15 @@ public class ViewNovoCargo extends JFrame {
 		txtCargo.setColumns(10);
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(cg.createCargo(new Cargo(cg.gerarMaxID(), txtCargo.getText())))
+					JOptionPane.showMessageDialog(null, "Salvo com sucesso", null, JOptionPane.OK_OPTION);
+				else
+					JOptionPane.showMessageDialog(null, "Erro ao gravar!", null, JOptionPane.ERROR_MESSAGE);
+			}
+		});
 		btnAdicionar.setBounds(379, 7, 89, 23);
 		contentPane.add(btnAdicionar);
 		

@@ -41,7 +41,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.ListSelectionModel;
 import javax.swing.JMenuItem;
 
-public class TelaPrincipal {
+public class TelaPrincipal extends JFrame{
 
 	//protected static final DefaultTableCellRenderer DEFAULT_RENDERER = null;
 	private JFrame frame;
@@ -85,6 +85,33 @@ public class TelaPrincipal {
 	 */
 	public TelaPrincipal() {
 		initialize();
+	}
+	
+	public static void rodar() {
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+
+				if ("Windows".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+
+			}
+		} catch (Exception e) {
+		}
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaPrincipal window = new TelaPrincipal();
+					window.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					window.frame.setVisible(true);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
