@@ -10,33 +10,31 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Conexao.ConexaoBD;
-import Model.Cargo;
+import Model.Setor;
 
-public class CargoDao {
+public class SetorDao {
 	
 	private Connection con = null;
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	
-	public CargoDao() {
+	public SetorDao() {
 		con = ConexaoBD.getConnection();
 	}
 	
-	//metodo para selecionar todos os cargos
-	public List<Cargo> selectAllCargos() {
-		String sql = "SELECT * FROM cargo";
-		List<Cargo> listCargos = new ArrayList<>();
-		Cargo cargo = null;
+	//metodo para selecionar todos os setores
+	public List<Setor> selectAllCargos() {
+		String sql = "SELECT * FROM setor";
+		List<Setor> listSetor = new ArrayList<>();
+		Setor setor = null;
 		
 		try {
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				cargo = new Cargo();
-				cargo.setIdCargo(rs.getInt("id_cargo"));
-				cargo.setNomeCargo(rs.getString("nome_cargo"));
-				listCargos.add(cargo);
+				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), rs.getInt(""), rs.getInt(""));
+				listSetor.add(setor);
 			}
 			
 		} catch (SQLException e) {
@@ -44,21 +42,21 @@ public class CargoDao {
 			e.printStackTrace();
 		}
 	
-		return listCargos;
+		return listSetor;
 	}
 	
-	//metodo para selecionar cargo especifico pesquisando pelo nome
-	public Cargo selectCargo(String nomeCargo) {
-		String sql = "SELECT * FROM cargo WHERE nome_cargo = ?";
-		Cargo cargo = null;
+	//metodo para selecionar setor especifico pesquisando pelo nome
+	public Setor selectSetor(String nomeSetor) {
+		String sql = "SELECT * FROM setor WHERE nome_setor = ?";
+		Setor setor = null;
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setString(0, nomeCargo);
+			stmt.setString(0, nomeSetor);
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				cargo = new Cargo(rs.getInt("id_cargo"), rs.getString("nome_cargo"));
+				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), rs.getInt(""), rs.getInt(""));
 			}
 			
 		} catch (SQLException e) {
@@ -66,14 +64,14 @@ public class CargoDao {
 			e.printStackTrace();
 		}
 		
-		return cargo;
+		return setor;
 	}
 	
-	//metodo para criar novo cargo
-	public boolean createCargo(Cargo cargo) {
-		String sql = "INSERT INTO cargo VALUES(?, ?)";
+	//metodo para criar novo setor
+	public boolean createCargo(Setor setor) {
+		String sql = "INSERT INTO setor VALUES(?, ?, ?)";
 		
-		try {
+		/*try {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(0, gerarMaxID());
 			stmt.setString(1, cargo.getNomeCargo());
@@ -84,16 +82,17 @@ public class CargoDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}
+		}*/
+		return true;
 	}
 	
 	//metodo para excluir um cargo
-	public boolean deleteCargo(Cargo cargo) {
-		String sql = "DELETE FROM cargo WHERE id_cargo = ?";
+	public boolean deleteSetor(Setor setor) {
+		String sql = "DELETE FROM setor WHERE id_setor = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, cargo.getIdCargo());
+			stmt.setInt(0, setor.getId_Setor());
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
