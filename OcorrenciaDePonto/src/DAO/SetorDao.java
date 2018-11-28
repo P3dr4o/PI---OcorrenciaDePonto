@@ -23,7 +23,7 @@ public class SetorDao {
 	}
 	
 	//metodo para selecionar todos os setores
-	public List<Setor> selectAllCargos() {
+	public List<Setor> selectAllSetores() {
 		String sql = "SELECT * FROM setor";
 		List<Setor> listSetor = new ArrayList<>();
 		Setor setor = null;
