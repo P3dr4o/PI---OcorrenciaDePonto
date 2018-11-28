@@ -23,9 +23,9 @@ public class CargoDao {
 	}
 	
 	//metodo para selecionar todos os cargos
-	public List<Cargo> selectAllCargos() {
+	public ArrayList<Cargo> selectAllCargos() {
 		String sql = "SELECT * FROM cargo";
-		List<Cargo> listCargos = new ArrayList<>();
+		ArrayList<Cargo> listCargos = new ArrayList<>();
 		Cargo cargo = null;
 		
 		try {
@@ -33,9 +33,7 @@ public class CargoDao {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				cargo = new Cargo();
-				cargo.setIdCargo(rs.getInt("id_cargo"));
-				cargo.setNomeCargo(rs.getString("nome_cargo"));
+				cargo = new Cargo(rs.getInt("id_cargo"), rs.getString("nome_cargo"));
 				listCargos.add(cargo);
 			}
 			

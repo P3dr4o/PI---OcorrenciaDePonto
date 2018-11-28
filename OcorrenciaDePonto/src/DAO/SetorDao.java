@@ -92,7 +92,7 @@ public class SetorDao {
 		return false;
 	}
 	
-	//metodo para excluir um cargo
+	//metodo para excluir um setor
 	public boolean deleteSetor(Setor setor) {
 		String sql = "DELETE FROM setor WHERE id_setor = ?";
 		
