@@ -6,20 +6,36 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.FuncionarioController;
+import Controller.SetorController;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ViewNovoSetor extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtSetor;
 	private JTable tableNovoSetor;
-	private JTextField textField;
+	private JComboBox jcbFuncionarios;
+	private JComboBox jcbSetores;
+	private ArrayList<String[]> setores;
+	private ArrayList<String[]> gestores;
+	
 
 	/**
 	 * Launch the application.
@@ -36,7 +52,20 @@ public class ViewNovoSetor extends JFrame {
 			}
 		});
 	}
-
+	
+	public void carregarInformacoes() {
+		setores = SetorController.getSetores();
+		for (int i = 0; i < setores.size(); i++) {
+			String[] a = setores.get(i);
+			jcbSetores.addItem(a[1]);
+		}
+		gestores = FuncionarioController.getFuncionarios();
+		for (int i = 0; i < gestores.size(); i++) {
+			String[] a = gestores.get(i);
+			jcbFuncionarios.addItem(a[1]);
+		}
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -58,11 +87,22 @@ public class ViewNovoSetor extends JFrame {
 		txtSetor.setColumns(10);
 		
 		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.setBounds(379, 36, 89, 23);
+		btnAdicionar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				int idSetor =  0; //setor novo
+				String[] a = gestores.get(jcbFuncionarios.getSelectedIndex());
+				int idGestor = Integer.parseInt(a[0]);
+				a = setores.get(jcbFuncionarios.getSelectedIndex());
+				int setorPai = Integer.parseInt(a[0]);
+				SetorController.salvarSetor(txtSetor.getText(), idSetor, idGestor , setorPai);
+			}
+		});
+		btnAdicionar.setBounds(379, 64, 89, 23);
 		contentPane.add(btnAdicionar);
 		
 		JScrollPane scrollPaneNovoSetor = new JScrollPane();
-		scrollPaneNovoSetor.setBounds(10, 70, 458, 180);
+		scrollPaneNovoSetor.setBounds(10, 98, 458, 152);
 		contentPane.add(scrollPaneNovoSetor);
 		
 		tableNovoSetor = new JTable();
@@ -84,9 +124,22 @@ public class ViewNovoSetor extends JFrame {
 		lblGestor.setBounds(10, 40, 46, 14);
 		contentPane.add(lblGestor);
 		
-		textField = new JTextField();
-		textField.setBounds(66, 39, 303, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		String[] teste = new String[3];
+		teste[0] = "Nome1";
+		teste[1] = "Nome2";
+		teste[2] = "Nome3";
+		jcbFuncionarios = new JComboBox(teste);
+		jcbFuncionarios.setBounds(66, 37, 303, 20);
+		contentPane.add(jcbFuncionarios);
+		
+		JLabel lblFilhoDe = new JLabel("Filho de:");
+		lblFilhoDe.setBounds(10, 73, 46, 14);
+		contentPane.add(lblFilhoDe);
+		
+		jcbSetores = new JComboBox(new Object[]{});
+		jcbSetores.setBounds(66, 68, 303, 20);
+		contentPane.add(jcbSetores);
+		
+ 		
 	}
 }

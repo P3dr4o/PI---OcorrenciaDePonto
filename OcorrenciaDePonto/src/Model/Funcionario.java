@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Funcionario implements Serializable{
 	private int id_Funcionario;
@@ -13,7 +14,7 @@ public class Funcionario implements Serializable{
 	private Cargo cargo;
 	private Setor setor;
 	
-	//private Apontamentos apontamentos;
+	private ArrayList<Apontamento> apontamentos;
 	
 	
 	
@@ -29,13 +30,21 @@ public class Funcionario implements Serializable{
 
 	public boolean persistir() {
 		
-/*		Implementar aqui um código para comunicar 
+/*		Implementar aqui um cï¿½digo para comunicar 
 		com a camada Dao solicitando para persistir
-		os as informações deste(this) funcionário
+		os as informaï¿½ï¿½es deste(this) funcionï¿½rio
 		no banco de dados.*/
 		return false;
 	}
-
+	
+	public static boolean isExist(int id) {
+		//CÃ³digo para verificar se existe esse id no banco de dados
+		return true;
+	}
+	public static ArrayList<Funcionario> getFuncionarios(){
+		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+		return funcionarios;
+	}
 
 	public String getNome_Funcionario() {
 		return nome_Funcionario;
@@ -43,9 +52,9 @@ public class Funcionario implements Serializable{
 
 
 	public void setNome_Funcionario(String nome_Funcionario) {
-		/*Aqui deve ser implementado um código,
-		caso necessário, para relizar as devidas
-		validações dos dados vindos do usuário*/
+		/*Aqui deve ser implementado um cï¿½digo,
+		caso necessï¿½rio, para relizar as devidas
+		validaï¿½ï¿½es dos dados vindos do usuï¿½rio*/
 		this.nome_Funcionario = nome_Funcionario;
 	}
 
@@ -56,9 +65,9 @@ public class Funcionario implements Serializable{
 
 
 	public void setNum_Registro(int num_Registro) throws NumberFormatException {
-		/*Aqui deve ser implementado um código,
-		caso necessário, para relizar as devidas
-		validações dos dados vindos do usuário*/
+		/*Aqui deve ser implementado um cï¿½digo,
+		caso necessï¿½rio, para relizar as devidas
+		validaï¿½ï¿½es dos dados vindos do usuï¿½rio*/
 		this.num_Registro =num_Registro;
 	}
 
@@ -69,9 +78,9 @@ public class Funcionario implements Serializable{
 
 
 	public void setCargo(Cargo cargo) throws NumberFormatException {
-		/*Aqui deve ser implementado um código,
-		caso necessário, para relizar as devidas
-		validações dos dados vindos do usuário*/
+		/*Aqui deve ser implementado um cï¿½digo,
+		caso necessï¿½rio, para relizar as devidas
+		validaï¿½ï¿½es dos dados vindos do usuï¿½rio*/
 		this.cargo = cargo;
 	}
 
@@ -82,9 +91,9 @@ public class Funcionario implements Serializable{
 
 
 	public void setSetor(Setor setor) {
-		/*Aqui deve ser implementado um código,
-		caso necessário, para relizar as devidas
-		validações dos dados vindos do usuário*/
+		/*Aqui deve ser implementado um cï¿½digo,
+		caso necessï¿½rio, para relizar as devidas
+		validaï¿½ï¿½es dos dados vindos do usuï¿½rio*/
 		this.setor = setor;
 	}
 
@@ -95,9 +104,9 @@ public class Funcionario implements Serializable{
 */
 
 	/*public void setApontamentos(Apontamentos apontamentos) {
-		Aqui deve ser implementado um código,
-		caso necessário, para relizar as devidas
-		validações dos dados vindos do usuário
+		Aqui deve ser implementado um cï¿½digo,
+		caso necessï¿½rio, para relizar as devidas
+		validaï¿½ï¿½es dos dados vindos do usuï¿½rio
 		this.apontamentos = apontamentos;
 	}*/
 
