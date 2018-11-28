@@ -116,7 +116,7 @@ public class FuncionarioDao {
 	
 	//metodo para retornar o maior ID possivel para ser inserido na tabela
 	public int gerarMaxID() {
-		String sql = "SELECT max(id) AS maior FROM setor";
+		String sql = "SELECT max(idFuncionario) AS maior FROM Funcionario";
 		int max = 1;
 		try {
 			stmt = con.prepareStatement(sql);

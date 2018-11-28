@@ -34,7 +34,7 @@ public class SetorDao {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), 
+				setor = new Setor(rs.getString("nome"), rs.getInt("idSetor"), 
 						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")), selectSetor(rs.getInt("idSetorPai")) );
 				listSetor.add(setor);
 			}
@@ -58,7 +58,7 @@ public class SetorDao {
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), 
+				setor = new Setor(rs.getString("nome"), rs.getInt("idSetor"), 
 						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")), selectSetor(rs.getInt("idSetorPai")) );
 			}
 			
@@ -72,7 +72,7 @@ public class SetorDao {
 	
 	//metodo para criar novo setor
 	public boolean createSetor(Setor setor) {
-		String sql = "INSERT INTO setor VALUES(?, ?, ?)";
+		String sql = "INSERT INTO setor VALUES(?, ?, ?, ?)";
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -98,7 +98,7 @@ public class SetorDao {
 	
 	//metodo para excluir um setor
 	public boolean deleteSetor(Setor setor) {
-		String sql = "DELETE FROM setor WHERE id_setor = ?";
+		String sql = "DELETE FROM setor WHERE idSetor = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -114,7 +114,7 @@ public class SetorDao {
 	
 	//metodo para retornar o maior ID possivel para ser inserido na tabela
 	public int gerarMaxID() {
-		String sql = "SELECT max(id) AS maior FROM setor";
+		String sql = "SELECT max(idSetor) AS maior FROM setor";
 		int max = 1;
 		try {
 			stmt = con.prepareStatement(sql);

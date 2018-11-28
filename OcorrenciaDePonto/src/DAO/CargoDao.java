@@ -47,7 +47,7 @@ public class CargoDao {
 	
 	//metodo para selecionar cargo especifico pesquisando pelo nome
 	public static Cargo selectCargo(int idCargo) {
-		String sql = "SELECT * FROM cargo WHERE id_cargo = ?";
+		String sql = "SELECT * FROM cargo WHERE idCargo = ?";
 		Cargo cargo = null;
 		
 		try {
@@ -56,7 +56,7 @@ public class CargoDao {
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				cargo = new Cargo(rs.getInt("id_cargo"), rs.getString("nome_cargo"));
+				cargo = new Cargo(rs.getInt("idCargo"), rs.getString("nome"));
 			}
 			
 		} catch (SQLException e) {
@@ -87,7 +87,7 @@ public class CargoDao {
 	
 	//metodo para excluir um cargo
 	public boolean deleteCargo(Cargo cargo) {
-		String sql = "DELETE FROM cargo WHERE id_cargo = ?";
+		String sql = "DELETE FROM cargo WHERE idCargo = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -103,7 +103,7 @@ public class CargoDao {
 	
 	//metodo para retornar o maior ID possivel para ser inserido na tabela
 	public int gerarMaxID() {
-		String sql = "SELECT max(id) AS maior FROM cargo";
+		String sql = "SELECT max(idCargo) AS maior FROM cargo";
 		int max = 1;
 		try {
 			stmt = con.prepareStatement(sql);
