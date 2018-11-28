@@ -48,6 +48,7 @@ public class Cargo implements Serializable{
 	
 	public boolean persistir() {
 		//implementar codigo para salvar o cargo no banco de dados;
+		
 		return true;
 	}
 

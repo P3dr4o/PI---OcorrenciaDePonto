@@ -23,9 +23,9 @@ public class SetorDao {
 	}
 	
 	//metodo para selecionar todos os setores
-	public List<Setor> selectAllSetores() {
+	public ArrayList<Setor> selectAllSetores() {
 		String sql = "SELECT * FROM setor";
-		List<Setor> listSetor = new ArrayList<>();
+		ArrayList<Setor> listSetor = new ArrayList<>();
 		Setor setor = null;
 		
 		try {
@@ -68,7 +68,7 @@ public class SetorDao {
 	}
 	
 	//metodo para criar novo setor
-	public boolean createCargo(Setor setor) {
+	public boolean createSetor(Setor setor) {
 		String sql = "INSERT INTO setor VALUES(?, ?, ?)";
 		
 		/*try {
@@ -104,7 +104,7 @@ public class SetorDao {
 	
 	//metodo para retornar o maior ID possivel para ser inserido na tabela
 	public int gerarMaxID() {
-		String sql = "SELECT max(id) AS maior FROM cargo";
+		String sql = "SELECT max(id) AS maior FROM setor";
 		int max = 1;
 		try {
 			stmt = con.prepareStatement(sql);
