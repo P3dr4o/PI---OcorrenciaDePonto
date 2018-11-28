@@ -5,7 +5,7 @@ import java.time.DateTimeException;
 import java.util.Date;
 
 public class OcorrenciaHoraExtra extends Ocorrencia{
-	//private int horas, minutos;//mudar isso, colocar uma variavel para registrar o tempo
+	
 	private Time horasExtras;
 	private boolean pagar;
 	
@@ -13,34 +13,20 @@ public class OcorrenciaHoraExtra extends Ocorrencia{
 		
 	}
 	
-	public OcorrenciaHoraExtra(int horas, int minutos, boolean pagar) {
-		setHoras(horas);
-		setMinutos(minutos);
+	public OcorrenciaHoraExtra(Time horasExtras, boolean pagar) {
+		setHorasExtras(horasExtras);
 		setPagar(pagar);
 		super.tipo = 3;//3 representa o tipo HORAS EXTRAS
 	}
 	
-	public int getHoras() {
-		return horas;
+	
+	
+	public Time getHorasExtras() {
+		return horasExtras;
 	}
 
-	public void setHoras(int horas) {
-		if (horas >= 0)
-			this.horas = horas;
-		else
-			throw new DateTimeException("A hora informada "+horas+" n�o � um valor v�lido");
-	}
-
-	public int getMinutos() {
-		return minutos;
-	}
-
-	public void setMinutos(int minutos) {
-		if (horas >= 0)
-			this.minutos = minutos;
-		else
-			throw new DateTimeException("O minutos informado "+minutos+" n�o � um valor v�lido");
-		
+	public void setHorasExtras(Time horasExtras) {
+		this.horasExtras = horasExtras;
 	}
 
 	public boolean isPagar() {

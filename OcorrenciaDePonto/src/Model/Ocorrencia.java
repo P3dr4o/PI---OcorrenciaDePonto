@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Ocorrencia implements Serializable{
@@ -22,7 +23,12 @@ public abstract class Ocorrencia implements Serializable{
 	
 	public abstract boolean persistir(); //obriga a escrita deste metodo em todas as classe que a extendem
 
-
+	public static ArrayList<Ocorrencia> getOcorrencias(int id_FuncioSolicitante){
+		ArrayList<Ocorrencia> oc = new ArrayList<>();
+		//implementar codigo para buscar todas as ocorrências vinculadas a um funcionario
+		
+		return oc;
+	}
 	
 	public int getId() {
 		return id;
@@ -74,9 +80,6 @@ public abstract class Ocorrencia implements Serializable{
 		this.observacaoGestor = observacaoGestor;
 	}
 	
-	public Ocorrencia getClone() throws CloneNotSupportedException {
-		return (Ocorrencia) this.clone();
-	}
 	
 
 }
