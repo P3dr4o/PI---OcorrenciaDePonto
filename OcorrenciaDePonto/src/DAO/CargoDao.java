@@ -33,7 +33,7 @@ public class CargoDao {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				cargo = new Cargo(rs.getInt("id_cargo"), rs.getString("nome_cargo"));
+				cargo = new Cargo(rs.getInt("idCargo"), rs.getString("nome"));
 				listCargos.add(cargo);
 			}
 			
