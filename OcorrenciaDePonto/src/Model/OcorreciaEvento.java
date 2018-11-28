@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class OcorreciaEvento extends Ocorrencia{
 	
-	private Date chegadaAntecipada;
-	private Date chegadaAtrasada;
-	private Date ausenteMarcacao;
-	private Date saidaAntecipada;
-	private boolean naoComparecimento;
+	private Date chegadaAntecipada;//
+	private Date chegadaAtrasada;//
+	private Date ausenteMarcacao;//
+	private Date saidaAntecipada;//
+	private boolean naoComparecimento;//
 	
 	public OcorreciaEvento() {
 		super.tipo = 1;//define o tipo com EVENTO
