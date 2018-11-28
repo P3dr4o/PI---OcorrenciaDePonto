@@ -34,7 +34,8 @@ public class SetorDao {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), rs.getInt(""), rs.getInt(""));
+				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), 
+						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")), selectSetor(rs.getInt("idSetorPai")) );
 				listSetor.add(setor);
 			}
 			
@@ -57,7 +58,8 @@ public class SetorDao {
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), new Setor(selectSetor(rs.getInt("idSetorPai"))), new Funcionario() );
+				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), 
+						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")), selectSetor(rs.getInt("idSetorPai")) );
 			}
 			
 		} catch (SQLException e) {

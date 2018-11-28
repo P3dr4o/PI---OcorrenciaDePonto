@@ -14,9 +14,9 @@ import Model.Setor;
 
 public class FuncionarioDao {
 	
-	private Connection con = null;
-	private PreparedStatement stmt = null;
-	private ResultSet rs = null;
+	private static Connection con = null;
+	private static PreparedStatement stmt = null;
+	private static ResultSet rs = null;
 	
 	public FuncionarioDao() {
 		con = ConexaoBD.getConnection();
@@ -47,7 +47,7 @@ public class FuncionarioDao {
 	}
 	
 	//metodo para selecionar funcionario especifico pesquisando pelo nome
-	public Funcionario selectFuncionario(int idFuncionario) {
+	public static Funcionario selectFuncionario(int idFuncionario) {
 		String sql = "SELECT * FROM funcionario WHERE idFuncionario = ?";
 		Funcionario funcionario = null;
 		
@@ -100,11 +100,11 @@ public class FuncionarioDao {
 	
 	//metodo para excluir um setor
 	public boolean deleteFuncionario(Funcionario funcionario) {
-		String sql = "DELETE FROM setor WHERE id_setor = ?";
+		String sql = "DELETE FROM funcionario WHERE idFuncionario = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, setor.getId_Setor());
+			stmt.setInt(0, funcionario.getId_Funcionario());
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
