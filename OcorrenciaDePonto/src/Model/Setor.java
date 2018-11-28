@@ -11,6 +11,7 @@ public class Setor implements Serializable{
 	private int id_Setor;
 	private int setorPai;
 	private int id_Funcionario;//Gestor aprovador da área
+	private static SetorDao setorDAO = new SetorDao();
 	
 	public Setor(String nome, int id_Setor, int id_Funcionario,int setorPai) {
 		//Encaminhar uma exce��o caso alguns dos dados sej� inv�lido
@@ -36,7 +37,6 @@ public class Setor implements Serializable{
 	}
 	public static ArrayList<Setor> getSetores(){
 		ArrayList<Setor> setores = new ArrayList<Setor>();
-		SetorDao setorDAO = new SetorDao();
 		return setorDAO.selectAllSetores();
 	}
 	
@@ -66,9 +66,14 @@ public class Setor implements Serializable{
 	}
 	
 	public boolean presistir() {
-		//escrever codigo para salvar no banco de dados as informações
-		
-		return true;
+		if(isExist(this.id_Setor)) {
+			//chamar o update
+			return setorDAO.atualizarSetor(this);
+		}else {
+			//insert into
+			return setorDAO.createSetor(this);
+		}
+			
 	}
 
 }

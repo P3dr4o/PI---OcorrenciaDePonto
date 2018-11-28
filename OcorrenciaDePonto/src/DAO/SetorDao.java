@@ -86,6 +86,12 @@ public class SetorDao {
 		return true;
 	}
 	
+	public boolean atualizarSetor(Setor setor) {
+		String sql = "UPDATE FROM setor WHERE id_setor = ?";
+		//terminar de implementar o codigo
+		return false;
+	}
+	
 	//metodo para excluir um cargo
 	public boolean deleteSetor(Setor setor) {
 		String sql = "DELETE FROM setor WHERE id_setor = ?";
@@ -117,5 +123,7 @@ public class SetorDao {
 		}
 		return max;
 	}
+
+
 
 }
