@@ -39,5 +39,13 @@ public class FuncionarioController {
 		return funcionarios;
 	}
 
-
+	public static boolean verificaLogin(String usu, String senha) {
+		ArrayList<String[]> funcionarios = getFuncionarios();
+		for (int i = 0; i < funcionarios.size(); i++) {
+			String[] a = funcionarios.get(i);
+			if(a[5].equalsIgnoreCase(usu) && a[6].equals(senha))
+				return true;
+		}
+		return false;
+	}
 }

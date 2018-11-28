@@ -7,11 +7,13 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import Controller.FuncionarioController;
 import Model.Funcionario;
 
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
@@ -28,6 +30,8 @@ public class TelaLogin {
 	private JFrame frame;
 	private JTextField fieldUsuario;
 	private JPasswordField fieldSenha;
+	private FuncionarioController f = new FuncionarioController();
+	private TelaPrincipal tl;
 
 	/**
 	 * Launch the application.
@@ -93,6 +97,16 @@ public class TelaLogin {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addMouseListener(new MouseAdapter() {
 			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(f.verificaLogin(fieldUsuario.getText(), fieldSenha.getText()))
+					new TelaPrincipal();
+				else {
+					JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
+					tl = new TelaPrincipal();
+					
+				}
+			}
 		});
 		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnLogin.setForeground(Color.WHITE);
