@@ -14,9 +14,9 @@ import Model.Cargo;
 
 public class CargoDao {
 	
-	private Connection con = null;
-	private PreparedStatement stmt = null;
-	private ResultSet rs = null;
+	private static Connection con = null;
+	private static PreparedStatement stmt = null;
+	private static ResultSet rs = null;
 	
 	public CargoDao() {
 		con = ConexaoBD.getConnection();
@@ -46,13 +46,13 @@ public class CargoDao {
 	}
 	
 	//metodo para selecionar cargo especifico pesquisando pelo nome
-	public Cargo selectCargo(String nomeCargo) {
-		String sql = "SELECT * FROM cargo WHERE nome_cargo = ?";
+	public static Cargo selectCargo(int idCargo) {
+		String sql = "SELECT * FROM cargo WHERE id_cargo = ?";
 		Cargo cargo = null;
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setString(0, nomeCargo);
+			stmt.setInt(0, idCargo);
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {

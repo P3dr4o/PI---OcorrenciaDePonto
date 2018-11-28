@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -13,29 +12,30 @@ import Conexao.ConexaoBD;
 import Model.Funcionario;
 import Model.Setor;
 
-public class SetorDao {
+public class FuncionarioDao {
 	
-	private static Connection con = null;
-	private static PreparedStatement stmt = null;
-	private static ResultSet rs = null;
+	private Connection con = null;
+	private PreparedStatement stmt = null;
+	private ResultSet rs = null;
 	
-	public SetorDao() {
+	public FuncionarioDao() {
 		con = ConexaoBD.getConnection();
 	}
 	
-	//metodo para selecionar todos os setores
-	public ArrayList<Setor> selectAllSetores() {
-		String sql = "SELECT * FROM setor";
-		ArrayList<Setor> listSetor = new ArrayList<>();
-		Setor setor = null;
+	//metodo para selecionar todos os funcionarios
+	public ArrayList<Funcionario> selectAllFuncionarios() {
+		String sql = "SELECT * FROM funcionario";
+		ArrayList<Funcionario> listFuncionario = new ArrayList<>();
+		Funcionario funcionario = null;
 		
 		try {
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), rs.getInt(""), rs.getInt(""));
-				listSetor.add(setor);
+				funcionario = new Funcionario(rs.getInt("idFuncionario"), rs.getString("nome"), 
+						rs.getInt("registro"), CargoDao.selectCargo(rs.getInt("idCargo")), SetorDao.selectSetor(rs.getInt("idSetor")));
+				listFuncionario.add(funcionario);
 			}
 			
 		} catch (SQLException e) {
@@ -43,21 +43,22 @@ public class SetorDao {
 			e.printStackTrace();
 		}
 	
-		return listSetor;
+		return listFuncionario;
 	}
 	
-	//metodo para selecionar setor especifico pesquisando pelo nome
-	public static Setor selectSetor(int idSetor) {
-		String sql = "SELECT * FROM setor WHERE idSetor = ?";
-		Setor setor = null;
+	//metodo para selecionar funcionario especifico pesquisando pelo nome
+	public Funcionario selectFuncionario(int idFuncionario) {
+		String sql = "SELECT * FROM funcionario WHERE idFuncionario = ?";
+		Funcionario funcionario = null;
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, idSetor);
+			stmt.setInt(0, idFuncionario);
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				setor = new Setor(rs.getString("nome_setor"), rs.getInt("id_setor"), new Setor(selectSetor(rs.getInt("idSetorPai"))), new Funcionario() );
+				funcionario = new Funcionario(rs.getInt("idFuncionario"), rs.getString("nome"), 
+						rs.getInt("registro"), CargoDao.selectCargo(rs.getInt("idCargo")), SetorDao.selectSetor(rs.getInt("idSetor")));
 			}
 			
 		} catch (SQLException e) {
@@ -65,19 +66,22 @@ public class SetorDao {
 			e.printStackTrace();
 		}
 		
-		return setor;
+		return funcionario;
 	}
 	
-	//metodo para criar novo setor
-	public boolean createSetor(Setor setor) {
-		String sql = "INSERT INTO setor VALUES(?, ?, ?)";
+	//metodo para criar novo funcionario
+	public boolean createFuncionario(Funcionario funcionario) {
+		String sql = "INSERT INTO funcionario VALUES(?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(0, gerarMaxID());
-			stmt.setString(1, setor.getNome());
-			stmt.setInt(2, setor.getSetorPai().getId_Setor());
-			stmt.setInt(3, setor.getFuncionario().getId_Funcionario());
+			stmt.setString(1, funcionario.getNome_Funcionario());
+			stmt.setInt(2, funcionario.getNum_Registro());
+			stmt.setString(3, funcionario.getLogin());
+			stmt.setString(4, funcionario.getSenha());
+			stmt.setInt(5, funcionario.getSetor().getId_Setor());
+			stmt.setInt(6, funcionario.getCargo().getIdCargo());
 			stmt.executeUpdate();
 			
 			return true;
@@ -88,14 +92,14 @@ public class SetorDao {
 		}
 	}
 	
-	public boolean atualizarSetor(Setor setor) {
-		String sql = "UPDATE FROM setor WHERE id_setor = ?";
+	public boolean atualizarFuncionario(Funcionario funcionario) {
+		String sql = "UPDATE funcionario SET  WHERE id_setor = ?";
 		//terminar de implementar o codigo
 		return false;
 	}
 	
 	//metodo para excluir um setor
-	public boolean deleteSetor(Setor setor) {
+	public boolean deleteFuncionario(Funcionario funcionario) {
 		String sql = "DELETE FROM setor WHERE id_setor = ?";
 		
 		try {
@@ -125,6 +129,7 @@ public class SetorDao {
 		}
 		return max;
 	}
+
 
 
 
