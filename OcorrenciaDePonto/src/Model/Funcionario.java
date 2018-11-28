@@ -43,6 +43,7 @@ public class Funcionario implements Serializable{
 	}
 	public static ArrayList<Funcionario> getFuncionarios(){
 		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+		//desenvolver aki codigo para buscar no banco todos os Funcionários
 		return funcionarios;
 	}
 

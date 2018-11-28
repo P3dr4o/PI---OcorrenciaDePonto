@@ -2,6 +2,8 @@ package Model;
 
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -12,8 +14,8 @@ public class Apontamento implements Serializable{
 	private int id_Funcionario;
 	private boolean feriado;
 	
-	private Date[] horaios = new Date[4];// esse vetor vai conter a informação dos horários de trabalho do funcionário. Hora de chegada, saída para almoço e retorno, e sáida
-	private Date[] apontamentos = new Date[16];//esse vetor vai conter todos os registros de pontos que foram marcados pelo funcionário.
+	private Date[] horaios = new Date[4];// esse vetor vai conter a informaï¿½ï¿½o dos horï¿½rios de trabalho do funcionï¿½rio. Hora de chegada, saï¿½da para almoï¿½o e retorno, e sï¿½ida
+	private Date[] pontos = new Date[16];//esse vetor vai conter todos os registros de pontos que foram marcados pelo funcionï¿½rio.
 	private String observacoes;
 	
 	public void insereOrdenadoApontamentos() {
@@ -21,7 +23,14 @@ public class Apontamento implements Serializable{
 	}
 	
 	public void insereOrdenadoHorarios() {
-		//implementar codigo para inserir o horário de forma ordenada dentro do vetor;
+		//implementar codigo para inserir o horï¿½rio de forma ordenada dentro do vetor;
+	}
+	
+	public static ArrayList<Apontamento> getApontamentos(int id_Funcionario, int mes){
+		ArrayList<Apontamento> a = new ArrayList<Apontamento>();
+		//implementar codigo para buscar no banco todos os apontamentos deste usuÃ¡rio dentro de um mÃªs
+		return a;
+		
 	}
 	
 	

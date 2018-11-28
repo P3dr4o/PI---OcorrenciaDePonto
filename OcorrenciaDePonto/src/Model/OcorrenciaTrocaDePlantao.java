@@ -9,7 +9,7 @@ public class OcorrenciaTrocaDePlantao extends Ocorrencia{
 	private Date dataTrocaDestino;
 	
 	public OcorrenciaTrocaDePlantao() {
-		super.tipo = 4;//define o tipo como TROCA DE PLANTÃO
+		super.tipo = 4;//define o tipo como TROCA DE PLANTï¿½O
 	}
 	
 	public Funcionario getFuncionarioTrocaTurno() {
@@ -34,6 +34,12 @@ public class OcorrenciaTrocaDePlantao extends Ocorrencia{
 
 	public void setDataTrocaDestino(Date dataTrocaDestino) {
 		this.dataTrocaDestino = dataTrocaDestino;
+	}
+
+	@Override
+	public boolean persistir() {
+		//Implementar codigo para gravar no banco
+		return false;
 	}
 
 	

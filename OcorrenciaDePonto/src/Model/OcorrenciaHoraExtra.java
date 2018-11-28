@@ -1,10 +1,12 @@
 package Model;
 
+import java.sql.Time;
 import java.time.DateTimeException;
 import java.util.Date;
 
 public class OcorrenciaHoraExtra extends Ocorrencia{
-	private int horas, minutos;
+	//private int horas, minutos;//mudar isso, colocar uma variavel para registrar o tempo
+	private Time horasExtras;
 	private boolean pagar;
 	
 	public OcorrenciaHoraExtra() {
@@ -26,7 +28,7 @@ public class OcorrenciaHoraExtra extends Ocorrencia{
 		if (horas >= 0)
 			this.horas = horas;
 		else
-			throw new DateTimeException("A hora informada "+horas+" não é um valor válido");
+			throw new DateTimeException("A hora informada "+horas+" nï¿½o ï¿½ um valor vï¿½lido");
 	}
 
 	public int getMinutos() {
@@ -37,7 +39,7 @@ public class OcorrenciaHoraExtra extends Ocorrencia{
 		if (horas >= 0)
 			this.minutos = minutos;
 		else
-			throw new DateTimeException("O minutos informado "+minutos+" não é um valor válido");
+			throw new DateTimeException("O minutos informado "+minutos+" nï¿½o ï¿½ um valor vï¿½lido");
 		
 	}
 
@@ -47,6 +49,12 @@ public class OcorrenciaHoraExtra extends Ocorrencia{
 
 	public void setPagar(boolean pagar) {
 		this.pagar = pagar;
+	}
+
+	@Override
+	public boolean persistir() {
+		// implementar cÃ³digo para gravar no banco
+		return false;
 	}
 
 	

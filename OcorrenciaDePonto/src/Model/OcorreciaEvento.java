@@ -11,7 +11,7 @@ public class OcorreciaEvento extends Ocorrencia{
 	private boolean naoComparecimento;//
 	
 	public OcorreciaEvento() {
-		super.tipo = 1;//define o tipo com EVENTO
+		super.tipo = 1;//define o tipo como EVENTO
 	}
 	
 	
@@ -45,6 +45,14 @@ public class OcorreciaEvento extends Ocorrencia{
 	}
 	public void setSaidaAntecipada(Date saidaAntecipada) {
 		this.saidaAntecipada = saidaAntecipada;
+	}
+
+
+
+	@Override
+	public boolean persistir() {
+		//implementar código para gravar os dados no banco;
+		return true;
 	}
 	
 	

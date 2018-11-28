@@ -3,7 +3,7 @@ package Model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Ocorrencia implements Serializable{
+public abstract class Ocorrencia implements Serializable{
 	
 	private int id;
 	private Funcionario FuncionarioAprovador;
@@ -19,6 +19,9 @@ public class Ocorrencia implements Serializable{
 	protected int tipo;
 	
 	//private boolean abonado;
+	
+	public abstract boolean persistir(); //obriga a escrita deste metodo em todas as classe que a extendem
+
 
 	
 	public int getId() {
