@@ -26,6 +26,8 @@ public class FuncionarioController {
 
 	public static void salvarOcorrencia(Ocorrencia o) { //mudar esse codigo, quem deve chamar codigo para persistência no banco é o Model
 		/*Ocorrencia ocorrencia = (Ocorrencia) Objetos.cloneSerializable(o);
+		 * 
+		 * 
 		String query = ocorrencia.getId() + " ," + ocorrencia.getTipo() + " ," + ocorrencia.getStatus() + " ,"
 				+ ocorrencia.getDataHora() + " ," + ocorrencia.getApontamento().getDataDoApontamento() + " ,"
 				+ ocorrencia.getFuncionarioSolicitante().getId_Funcionario() + " ,"
