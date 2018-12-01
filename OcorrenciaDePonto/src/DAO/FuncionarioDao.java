@@ -78,10 +78,10 @@ public class FuncionarioDao {
 			stmt.setInt(1, funcionario.getId_Funcionario());
 			stmt.setString(2, funcionario.getNome_Funcionario());
 			stmt.setInt(3, funcionario.getNum_Registro());
-			stmt.setString(4, funcionario.getLogin());
-			stmt.setString(5, funcionario.getSenha());
-			stmt.setInt(6, funcionario.getSetor().getId_Setor());
-			stmt.setInt(7, funcionario.getCargo().getIdCargo());
+			//stmt.setString(4, funcionario.getLogin());
+			//stmt.setString(5, funcionario.getSenha());
+			stmt.setInt(4, funcionario.getSetor().getId_Setor());
+			stmt.setInt(5, funcionario.getCargo().getIdCargo());
 			stmt.executeUpdate();
 			
 			return true;

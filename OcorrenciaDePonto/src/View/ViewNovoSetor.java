@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import Controller.FuncionarioController;
 import Controller.SetorController;
+import Model.Setor;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -35,7 +36,7 @@ public class ViewNovoSetor extends JFrame {
 	private JTable tableNovoSetor;
 	private JComboBox jcbFuncionarios;
 	private JComboBox jcbSetores;
-	private ArrayList<String[]> setores;
+	private ArrayList<Setor> setores;
 	private ArrayList<String[]> gestores;
 	
 
@@ -71,7 +72,7 @@ public class ViewNovoSetor extends JFrame {
 	public void carregarInformacoes() {
 		setores = SetorController.getSetores();
 		for (int i = 0; i < setores.size(); i++) {
-			String[] a = setores.get(i);
+			String[] a = setores.get(i).getNome();
 			jcbSetores.addItem(a[1]);
 		}
 		gestores = FuncionarioController.getFuncionarios();

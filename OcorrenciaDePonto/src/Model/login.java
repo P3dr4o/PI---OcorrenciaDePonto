@@ -10,9 +10,10 @@ public class login {
 	private String senha;
 	private Funcionario funcionario;
 
-	public login(String usuario, String senhaMD5) {
+	public login(String usuario, String senhaMD5, Funcionario funcionario) {
 		setUsuario(usuario);
 		this.senha = senhaMD5;
+		this.funcionario = funcionario;
 	}
 	
 	
@@ -30,8 +31,7 @@ public class login {
 		String senN = getMD5(senhaNova);
 		if(autentica(usuario, senhaAntiga)) {
 			this.senha = senN;
-			
-			return true;
+			return persistir();//somente retorna verdadeiro se conseguir gravar no banco de dados 
 		}
 		return false;
 	}
@@ -53,7 +53,8 @@ public class login {
 	}
 	
 	public boolean persistir() {
-		
+		//implementar codigo para realizar a persistencia no banco de dados;
+		return false;
 	}
 
 	public String getUsuario() {
