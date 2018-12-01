@@ -92,10 +92,25 @@ public class FuncionarioDao {
 		}
 	}
 	
+	//metodo para atualizar funcionario
 	public boolean atualizarFuncionario(Funcionario funcionario) {
-		String sql = "UPDATE funcionario SET nome = ?, registro = ?,  WHERE idFuncionario = ?";
-		//terminar de implementar o codigo
-		return false;
+		String sql = "UPDATE funcionario SET nome = ?, registro = ?, cargo = ?, setor = ? WHERE idFuncionario = ?";
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, funcionario.getNome_Funcionario());
+			stmt.setInt(2, funcionario.getNum_Registro());
+			stmt.setInt(3, funcionario.getCargo().getIdCargo());
+			stmt.setInt(4, funcionario.getSetor().getId_Setor());
+			stmt.setInt(5, funcionario.getId_Funcionario());
+			stmt.executeUpdate();
+			
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	//metodo para excluir um setor
