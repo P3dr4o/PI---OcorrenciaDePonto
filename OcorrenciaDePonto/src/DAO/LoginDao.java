@@ -68,7 +68,7 @@ public class LoginDao {
 		return login;
 	}
 	
-	//metodo para criar novo login
+	//*metodo para criar novo login
 	public boolean createLogin(Login login) {
 		String sql = "INSERT INTO cargo VALUES(?, ?)";
 		
