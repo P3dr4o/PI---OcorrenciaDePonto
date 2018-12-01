@@ -54,7 +54,7 @@ public class SetorDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, idSetor);
+			stmt.setInt(1, idSetor);
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
@@ -76,10 +76,10 @@ public class SetorDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, gerarMaxID());
-			stmt.setString(1, setor.getNome());
-			stmt.setInt(2, setor.getSetorPai().getId_Setor());
-			stmt.setInt(3, setor.getFuncionario().getId_Funcionario());
+			stmt.setInt(1, gerarMaxID());
+			stmt.setString(2, setor.getNome());
+			stmt.setInt(3, setor.getSetorPai().getId_Setor());
+			stmt.setInt(4, setor.getFuncionario().getId_Funcionario());
 			stmt.executeUpdate();
 			
 			return true;
@@ -102,7 +102,7 @@ public class SetorDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, setor.getId_Setor());
+			stmt.setInt(1, setor.getId_Setor());
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {

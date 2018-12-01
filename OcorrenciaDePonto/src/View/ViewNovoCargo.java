@@ -29,6 +29,7 @@ public class ViewNovoCargo extends JFrame {
 	private JTextField txtCargo;
 	private JTable tableNovoCargo;
 	private CargoDao cg = new CargoDao();
+	boolean teste;
 
 	/**
 	 * Launch the application.
@@ -83,7 +84,8 @@ public class ViewNovoCargo extends JFrame {
 		btnAdicionar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(cg.createCargo(new Cargo(cg.gerarMaxID(), txtCargo.getText())))
+				teste = cg.createCargo(new Cargo(cg.gerarMaxID(), txtCargo.getText()));
+				if(teste)
 					JOptionPane.showMessageDialog(null, "Salvo com sucesso", null, JOptionPane.OK_OPTION);
 				else
 					JOptionPane.showMessageDialog(null, "Erro ao gravar!", null, JOptionPane.ERROR_MESSAGE);
