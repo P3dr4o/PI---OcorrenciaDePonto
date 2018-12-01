@@ -44,7 +44,7 @@ public class ViewNovoSetor extends JFrame {
 	
 
 	/**
-	 * Launch the application.
+	 * by Pedro e Junio
 	 */
 	public static void main(String[] args) {
 		
