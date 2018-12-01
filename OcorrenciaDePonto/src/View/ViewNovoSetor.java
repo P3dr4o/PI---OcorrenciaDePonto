@@ -6,9 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Controller.FuncionarioController;
 import Controller.SetorController;
+import Model.Funcionario;
 import Model.Setor;
 
 import javax.swing.JLabel;
@@ -37,7 +39,8 @@ public class ViewNovoSetor extends JFrame {
 	private JComboBox jcbFuncionarios;
 	private JComboBox jcbSetores;
 	private ArrayList<Setor> setores;
-	private ArrayList<String[]> gestores;
+	private ArrayList<Funcionario> gestores;
+	private DefaultTableModel modelo;
 	
 
 	/**
@@ -72,13 +75,11 @@ public class ViewNovoSetor extends JFrame {
 	public void carregarInformacoes() {
 		setores = SetorController.getSetores();
 		for (int i = 0; i < setores.size(); i++) {
-			String[] a = setores.get(i).getNome();
-			jcbSetores.addItem(a[1]);
+			jcbSetores.addItem(setores.get(i).getNome());
 		}
 		gestores = FuncionarioController.getFuncionarios();
 		for (int i = 0; i < gestores.size(); i++) {
-			String[] a = gestores.get(i);
-			jcbFuncionarios.addItem(a[1]);
+			jcbFuncionarios.addItem(gestores.get(i).getNome_Funcionario());
 		}
 	}
 	
@@ -86,6 +87,18 @@ public class ViewNovoSetor extends JFrame {
 	 * Create the frame.
 	 */
 	public ViewNovoSetor() {
+		
+		modelo = new DefaultTableModel() {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		modelo.addColumn("Setor");
+		modelo.addColumn("Setor Pai");
+		modelo.addColumn("Gestor");
+		
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 494, 332);
 		contentPane = new JPanel();
@@ -106,12 +119,15 @@ public class ViewNovoSetor extends JFrame {
 		btnAdicionar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				int idSetor =  0; //setor novo
+				modelo.addRow(new String[] { txtSetor.getText(), "setorTeste", "gestorTeste"});
+				//modelo.addRow(new String[] { txtSetor.getText(), setores.get(jcbSetores.getSelectedIndex()).getNome(), gestores.get(jcbFuncionarios.getSelectedIndex()).getNome_Funcionario()});
+				txtSetor.setText("");
+				/*int idSetor =  0; //setor novo
 				String[] a = gestores.get(jcbFuncionarios.getSelectedIndex());
 				int idGestor = Integer.parseInt(a[0]);
 				a = setores.get(jcbFuncionarios.getSelectedIndex());
 				int setorPai = Integer.parseInt(a[0]);
-				SetorController.salvarSetor(txtSetor.getText(), idSetor, idGestor , setorPai);
+				SetorController.salvarSetor(txtSetor.getText(), idSetor, idGestor , setorPai);*/
 			}
 		});
 		btnAdicionar.setBounds(379, 64, 89, 23);
@@ -123,6 +139,10 @@ public class ViewNovoSetor extends JFrame {
 		
 		tableNovoSetor = new JTable();
 		scrollPaneNovoSetor.setViewportView(tableNovoSetor);
+		
+		tableNovoSetor.setModel(modelo);
+
+		tableNovoSetor.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(181, 261, 89, 23);
@@ -140,11 +160,7 @@ public class ViewNovoSetor extends JFrame {
 		lblGestor.setBounds(10, 40, 46, 14);
 		contentPane.add(lblGestor);
 		
-		String[] teste = new String[3];
-		teste[0] = "Nome1";
-		teste[1] = "Nome2";
-		teste[2] = "Nome3";
-		jcbFuncionarios = new JComboBox(teste);
+		jcbFuncionarios = new JComboBox(new String[] {"------"});
 		jcbFuncionarios.setBounds(66, 37, 303, 20);
 		contentPane.add(jcbFuncionarios);
 		
@@ -152,7 +168,7 @@ public class ViewNovoSetor extends JFrame {
 		lblFilhoDe.setBounds(10, 73, 46, 14);
 		contentPane.add(lblFilhoDe);
 		
-		jcbSetores = new JComboBox(new Object[]{});
+		jcbSetores = new JComboBox(new String[] {"------"});
 		jcbSetores.setBounds(66, 68, 303, 20);
 		contentPane.add(jcbSetores);
 		

@@ -8,8 +8,8 @@ public class Funcionario implements Serializable{
 	private String nome_Funcionario;
 	private int num_Registro;
 	
-	private String login;
-	private String senha;
+	//private String login;
+	//private String senha;
 	
 	private Cargo cargo;
 	private Setor setor;
@@ -122,7 +122,7 @@ public class Funcionario implements Serializable{
 	}
 
 
-	public String getLogin() {
+	/*public String getLogin() {
 		return login;
 	}
 
@@ -140,7 +140,7 @@ public class Funcionario implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+	*/
 	
 	
 
