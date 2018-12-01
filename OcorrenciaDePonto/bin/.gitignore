@@ -1,4 +1,6 @@
-/DAO/
-/View/
-/Model/
+/com/
+/Conexao/
 /Controller/
+/DAO/
+/Model/
+/View/

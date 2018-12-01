@@ -4,13 +4,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class login {
+public class Login {
 
+	private int idLogin;
 	private String usuario;
 	private String senha;
 	private Funcionario funcionario;
 
-	public login(String usuario, String senhaMD5, Funcionario funcionario) {
+	public Login(String usuario, String senhaMD5, Funcionario funcionario) {
 		setUsuario(usuario);
 		this.senha = senhaMD5;
 		this.funcionario = funcionario;
@@ -65,5 +66,26 @@ public class login {
 		this.usuario = usuario;
 	}
 
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+
+	public int getIdLogin() {
+		return idLogin;
+	}
+
+
+	public void setIdLogin(int idLogin) {
+		this.idLogin = idLogin;
+	}
+	
+	
 
 }
