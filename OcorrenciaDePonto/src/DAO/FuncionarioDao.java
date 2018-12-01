@@ -53,7 +53,7 @@ public class FuncionarioDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, idFuncionario);
+			stmt.setInt(1, idFuncionario);
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
@@ -75,13 +75,13 @@ public class FuncionarioDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, gerarMaxID());
-			stmt.setString(1, funcionario.getNome_Funcionario());
-			stmt.setInt(2, funcionario.getNum_Registro());
-			stmt.setString(3, funcionario.getLogin());
-			stmt.setString(4, funcionario.getSenha());
-			stmt.setInt(5, funcionario.getSetor().getId_Setor());
-			stmt.setInt(6, funcionario.getCargo().getIdCargo());
+			stmt.setInt(1, funcionario.getId_Funcionario());
+			stmt.setString(2, funcionario.getNome_Funcionario());
+			stmt.setInt(3, funcionario.getNum_Registro());
+			stmt.setString(4, funcionario.getLogin());
+			stmt.setString(5, funcionario.getSenha());
+			stmt.setInt(6, funcionario.getSetor().getId_Setor());
+			stmt.setInt(7, funcionario.getCargo().getIdCargo());
 			stmt.executeUpdate();
 			
 			return true;
@@ -93,7 +93,7 @@ public class FuncionarioDao {
 	}
 	
 	public boolean atualizarFuncionario(Funcionario funcionario) {
-		String sql = "UPDATE funcionario SET  WHERE id_setor = ?";
+		String sql = "UPDATE funcionario SET nome = ?, registro = ?,  WHERE idFuncionario = ?";
 		//terminar de implementar o codigo
 		return false;
 	}
@@ -104,7 +104,7 @@ public class FuncionarioDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, funcionario.getId_Funcionario());
+			stmt.setInt(1, funcionario.getId_Funcionario());
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {

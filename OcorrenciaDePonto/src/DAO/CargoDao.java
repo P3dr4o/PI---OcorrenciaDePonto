@@ -52,7 +52,7 @@ public class CargoDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, idCargo);
+			stmt.setInt(1, idCargo);
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
@@ -73,8 +73,25 @@ public class CargoDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, gerarMaxID());
-			stmt.setString(1, cargo.getNomeCargo());
+			stmt.setInt(1, cargo.getIdCargo());
+			stmt.setString(2, cargo.getNomeCargo());
+			stmt.executeUpdate();
+			
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//metodo para atualizar um cargo
+	public boolean updateCargo(Cargo cargo) {
+		String sql = "UPDATE cargo SET nome = ? WHERE idCargo = ?";
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, cargo.getIdCargo());
 			stmt.executeUpdate();
 			
 			return true;
@@ -91,7 +108,7 @@ public class CargoDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(0, cargo.getIdCargo());
+			stmt.setInt(1, cargo.getIdCargo());
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -104,7 +121,7 @@ public class CargoDao {
 	//metodo para retornar o maior ID possivel para ser inserido na tabela
 	public int gerarMaxID() {
 		String sql = "SELECT max(idCargo) AS maior FROM cargo";
-		int max = 1;
+		int max = 0;
 		try {
 			stmt = con.prepareStatement(sql);
 		    rs = stmt.executeQuery();
