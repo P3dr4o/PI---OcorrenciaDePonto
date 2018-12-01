@@ -5,12 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import Conexao.ConexaoBD;
-import Model.Funcionario;
 import Model.Setor;
 
 public class SetorDao {
@@ -90,10 +86,24 @@ public class SetorDao {
 		}
 	}
 	
+	//metodo para atualizar setor
 	public boolean atualizarSetor(Setor setor) {
-		String sql = "UPDATE FROM setor WHERE id_setor = ?";
-		//terminar de implementar o codigo
-		return false;
+		String sql = "UPDATE setor SET nome = ?, idSetorPai = ?, idGestor = ?  WHERE idSetor = ?";
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, setor.getNome());
+			stmt.setInt(2, setor.getSetorPai().getId_Setor());
+			stmt.setInt(3, setor.getFuncionario().getId_Funcionario());
+			stmt.setInt(4, setor.getId_Setor());
+			
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 	
 	//metodo para excluir um setor
