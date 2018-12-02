@@ -8,6 +8,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import Controller.FuncionarioController;
+import Controller.LoginController;
 import Model.Funcionario;
 
 import javax.swing.JButton;
@@ -30,7 +31,7 @@ public class TelaLogin extends JFrame{
 	private JFrame frame;
 	private JTextField fieldUsuario;
 	private JPasswordField fieldSenha;
-	private FuncionarioController f = new FuncionarioController();
+	private Funcionario f;
 	private TelaPrincipal tl;
 
 	/**
@@ -127,8 +128,9 @@ public class TelaLogin extends JFrame{
 			
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(f.verificaLogin(fieldUsuario.getText(), fieldSenha.getText()))
-					new TelaPrincipal();
+				f = LoginController.verificaLogin(fieldUsuario.getText(), fieldSenha.getPassword());
+				if(f != null)
+					new TelaPrincipal(f);
 				else {
 					JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
 					tl = new TelaPrincipal();

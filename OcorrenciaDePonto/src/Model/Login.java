@@ -34,8 +34,7 @@ public class Login {
 		if(usuario.equals(this.usuario) && sen.equals(this.senha)) {
 			this.ultimoLogin = new GregorianCalendar();//armazena o horário e data do ultimo login
 			persistir();//persiste no banco de dados as informações
-			return true;
-			
+			return true;	
 		}else
 			return false;
 	}

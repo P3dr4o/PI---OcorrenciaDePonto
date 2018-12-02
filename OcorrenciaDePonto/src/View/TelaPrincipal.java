@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
 
+import Model.Funcionario;
+
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -49,6 +51,7 @@ public class TelaPrincipal extends JFrame{
 	private ImageIcon iconAten;
 	private ImageIcon iconOK;
 	private JTable table_1;
+	private Funcionario funcionario;
 
 	/**
 	 * Launch the application.
@@ -83,6 +86,11 @@ public class TelaPrincipal extends JFrame{
 	/**
 	 * Create the application.
 	 */
+	public TelaPrincipal(Funcionario f) {
+		this.funcionario = f;
+		initialize();
+	}
+	
 	public TelaPrincipal() {
 		initialize();
 	}
