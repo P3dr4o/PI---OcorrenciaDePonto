@@ -74,8 +74,8 @@ public class LoginDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, login.getId());
-			stmt.setString(2, cargo.getNomeCargo());
+			//stmt.setInt(1, login.getId());
+			//stmt.setString(2, cargo.getNomeCargo());
 			stmt.executeUpdate();
 			
 			return true;

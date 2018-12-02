@@ -8,6 +8,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
+import java.util.Date;
+
+
 public class Login {
 
 	private int idLogin;
@@ -73,7 +76,22 @@ public class Login {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-
+	
+	public String getSenha() {
+		return senha;
+	}
+	
+	public GregorianCalendar getUltimoLogin() {
+		return ultimoLogin;
+	}
+	
+	public void setUltimoLogin(GregorianCalendar ultimoLogin) {
+		this.ultimoLogin = ultimoLogin;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	public Funcionario getFuncionario() {
 		return funcionario;
