@@ -9,9 +9,10 @@ import java.util.Date;
 
 public class Apontamento implements Serializable{
 	
+	private int idApontamento;
 	private Date dataDoApontamento;
-	private char diaSemana;
-	private int id_Funcionario;
+	private String diaSemana;
+	private Funcionario funcionario;
 	private boolean feriado;
 	
 	private Date[] horaios = new Date[4];// esse vetor vai conter a informa��o dos hor�rios de trabalho do funcion�rio. Hora de chegada, sa�da para almo�o e retorno, e s�ida
@@ -33,35 +34,69 @@ public class Apontamento implements Serializable{
 		
 	}
 	
+	public Apontamento() {}
+	
+	public int getIdApontamento() {
+		return idApontamento;
+	}
+	
+	public void setIdApontamento(int idApontamento) {
+		this.idApontamento = idApontamento;
+	}
 	
 	public Date getDataDoApontamento() {
 		return dataDoApontamento;
 	}
+	
 	public void setDataDoApontamento(Date dataDoApontamento) {
 		this.dataDoApontamento = dataDoApontamento;
 	}
-	public int getId_Funcionario() {
-		return id_Funcionario;
+	
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
-	public void setId_Funcionario(int id_Funcionario) {
-		this.id_Funcionario = id_Funcionario;
+	
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
+	
 	public boolean isFeriado() {
 		return feriado;
 	}
+	
 	public void setFeriado(boolean feriado) {
 		this.feriado = feriado;
 	}
+	
+	public Date[] getHoraios() {
+		return horaios;
+	}
+	
+	public void setHoraios(Date[] horaios) {
+		this.horaios = horaios;
+	}
+	
+	public Date[] getPontos() {
+		return pontos;
+	}
+	
+	public void setPontos(Date[] pontos) {
+		this.pontos = pontos;
+	}
+	
 	public String getObservacoes() {
 		return observacoes;
 	}
+	
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-	public char getDiaSemana() {
+	
+	public String getDiaSemana() {
 		return diaSemana;
 	}
-	public void setDiaSemana(char diaSemana) {
+	
+	public void setDiaSemana(String diaSemana) {
 		this.diaSemana = diaSemana;
 	}
 }
