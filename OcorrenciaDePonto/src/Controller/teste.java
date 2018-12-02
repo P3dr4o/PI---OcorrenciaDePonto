@@ -1,6 +1,11 @@
 package Controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import javax.swing.JOptionPane;
 
 import Model.Cargo;
 import Model.Funcionario;
@@ -13,7 +18,7 @@ public class teste {
 	public static void main(String[] args) {
 		//System.out.println("teste");
 		
-		OcorreciaEvento o1 = new OcorreciaEvento();
+		/*OcorreciaEvento o1 = new OcorreciaEvento();
 		o1.setMotivo("Original1");
 		o1.setFuncionarioAprovador(new Funcionario(1, "Pedro", 1911, new Cargo(1, "Coordenador"), new Setor("TI", 2, null)));
 		OcorrenciaHoraExtra o2 = new OcorrenciaHoraExtra();
@@ -32,6 +37,15 @@ public class teste {
 		System.out.println(ocs.get(0).getMotivo()+"  "+ocs.get(1).getMotivo());
 		System.out.println(ocsTemp.get(0).getMotivo()+"  "+ocsTemp.get(1).getMotivo());
 		System.out.println(ocs.get(0).getFuncionarioAprovador().getNome_Funcionario());
-		System.out.println(ocsTemp.get(0).getFuncionarioAprovador().getNome_Funcionario());
+		System.out.println(ocsTemp.get(0).getFuncionarioAprovador().getNome_Funcionario());*/
+		
+		
+		GregorianCalendar gc = new GregorianCalendar();
+		//SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
+		System.out.println(gc);
+		JOptionPane.showMessageDialog(null, "Teste", "teste", JOptionPane.INFORMATION_MESSAGE);
+		System.out.println(gc);
+		
+		
 	}
 }

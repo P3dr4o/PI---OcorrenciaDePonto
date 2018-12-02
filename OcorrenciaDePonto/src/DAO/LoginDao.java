@@ -57,7 +57,7 @@ public class LoginDao {
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				login = new Login(rs.getString("nome"), rs.getString("senha"), FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")))
+				login = new Login(rs.getString("nome"), rs.getString("senha"), FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")));
 			}
 			
 		} catch (SQLException e) {
@@ -70,11 +70,11 @@ public class LoginDao {
 	
 	//*metodo para criar novo login
 	public boolean createLogin(Login login) {
-		String sql = "INSERT INTO cargo VALUES(?, ?)";
+		String sql = "INSERT INTO Login VALUES(?, ?, ?, ?)";
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, cargo.getIdCargo());
+			stmt.setInt(1, login.getId());
 			stmt.setString(2, cargo.getNomeCargo());
 			stmt.executeUpdate();
 			

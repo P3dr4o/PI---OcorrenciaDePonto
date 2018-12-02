@@ -2,7 +2,8 @@ package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+
 
 public abstract class Ocorrencia implements Serializable{
 	
@@ -10,7 +11,7 @@ public abstract class Ocorrencia implements Serializable{
 	private Funcionario FuncionarioAprovador;
 	private Funcionario FuncionarioSolicitante;
 	
-	private Date dataHora;
+	private Calendar dataHora;
 	private String motivo;
 	//private int tipo;
 	
@@ -49,10 +50,10 @@ public abstract class Ocorrencia implements Serializable{
 	public void setFuncionarioSolicitante(Funcionario funcionarioSolicitante) {
 		FuncionarioSolicitante = funcionarioSolicitante;
 	}
-	public Date getDataHora() {
+	public Calendar getDataHora() {
 		return dataHora;
 	}
-	public void setDataHora(Date dataHora) {
+	public void setDataHora(Calendar dataHora) {
 		this.dataHora = dataHora;
 	}
 	public String getMotivo() {

@@ -3,6 +3,10 @@ package Model;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.DateTimeException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 
 public class Login {
 
@@ -10,6 +14,7 @@ public class Login {
 	private String usuario;
 	private String senha;
 	private Funcionario funcionario;
+	private GregorianCalendar ultimoLogin;
 
 	public Login(String usuario, String senhaMD5, Funcionario funcionario) {
 		setUsuario(usuario);
@@ -20,9 +25,12 @@ public class Login {
 	
 	public boolean autentica(String usuario, String senha) {
 		String sen = getMD5(senha);
-		if(usuario.equals(this.usuario) && sen.equals(this.senha))
+		if(usuario.equals(this.usuario) && sen.equals(this.senha)) {
+			this.ultimoLogin = new GregorianCalendar();//armazena o horário e data do ultimo login
+			persistir();//persiste no banco de dados as informações
 			return true;
-		else
+			
+		}else
 			return false;
 	}
 	
