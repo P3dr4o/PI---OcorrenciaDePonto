@@ -3,12 +3,14 @@ package Model;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 public class Login {
 
 	private int idLogin;
 	private String usuario;
 	private String senha;
+	private Date ultimoLogin;
 	private Funcionario funcionario;
 
 	public Login(String usuario, String senhaMD5, Funcionario funcionario) {
@@ -65,7 +67,22 @@ public class Login {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-
+	
+	public String getSenha() {
+		return senha;
+	}
+	
+	public Date getUltimoLogin() {
+		return ultimoLogin;
+	}
+	
+	public void setUltimoLogin(Date ultimoLogin) {
+		this.ultimoLogin = ultimoLogin;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	public Funcionario getFuncionario() {
 		return funcionario;

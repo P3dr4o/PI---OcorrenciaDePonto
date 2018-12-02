@@ -31,7 +31,7 @@ public class SetorDao {
 			
 			while(rs.next()) {
 				setor = new Setor(rs.getString("nome"), rs.getInt("idSetor"), 
-						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")), selectSetor(rs.getInt("idSetorPai")) );
+						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionarioGestor")), selectSetor(rs.getInt("idSetorPai")) );
 				listSetor.add(setor);
 			}
 			
@@ -55,7 +55,7 @@ public class SetorDao {
 			
 			if(rs.next()) {
 				setor = new Setor(rs.getString("nome"), rs.getInt("idSetor"), 
-						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")), selectSetor(rs.getInt("idSetorPai")) );
+						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionarioGestor")), selectSetor(rs.getInt("idSetorPai")) );
 			}
 			
 		} catch (SQLException e) {
@@ -88,7 +88,7 @@ public class SetorDao {
 	
 	//metodo para atualizar setor
 	public boolean atualizarSetor(Setor setor) {
-		String sql = "UPDATE setor SET nome = ?, idSetorPai = ?, idGestor = ?  WHERE idSetor = ?";
+		String sql = "UPDATE setor SET nome = ?, idSetorPai = ?, idFuncionarioGestor = ?  WHERE idSetor = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
