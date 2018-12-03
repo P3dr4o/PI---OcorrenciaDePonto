@@ -42,7 +42,7 @@ public class FuncionarioDao {
 		return listFuncionario;
 	}
 	
-	//metodo para selecionar funcionario especifico pesquisando pelo nome
+	//metodo para selecionar funcionario especifico pesquisando pelo id
 	public static Funcionario selectFuncionario(int idFuncionario) {
 		String sql = "SELECT * FROM funcionario WHERE idFuncionario = ?";
 		Funcionario funcionario = null;
@@ -65,7 +65,7 @@ public class FuncionarioDao {
 		return funcionario;
 	}
 	
-	//metodo para selecionar funcionario especifico pesquisando pelo nome
+	//metodo para selecionar funcionarioGestor especifico pesquisando pelo id
 		public static Funcionario selectFuncionarioGestor(int idFuncionario) {
 			String sql = "SELECT * FROM funcionario WHERE idFuncionario = ?";
 			Funcionario funcionario = null;
@@ -97,8 +97,6 @@ public class FuncionarioDao {
 			stmt.setInt(1, funcionario.getId_Funcionario());
 			stmt.setString(2, funcionario.getNome_Funcionario());
 			stmt.setInt(3, funcionario.getNum_Registro());
-			//stmt.setString(4, funcionario.getLogin());
-			//stmt.setString(5, funcionario.getSenha());
 			stmt.setInt(4, funcionario.getSetor().getId_Setor());
 			stmt.setInt(5, funcionario.getCargo().getIdCargo());
 			stmt.executeUpdate();
@@ -132,7 +130,7 @@ public class FuncionarioDao {
 		}
 	}
 	
-	//metodo para excluir um setor
+	//metodo para excluir um funcionario
 	public boolean deleteFuncionario(Funcionario funcionario) {
 		String sql = "DELETE FROM funcionario WHERE idFuncionario = ?";
 		

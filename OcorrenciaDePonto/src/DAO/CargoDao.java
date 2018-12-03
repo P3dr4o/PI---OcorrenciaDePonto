@@ -41,7 +41,7 @@ public class CargoDao {
 		return listCargos;
 	}
 	
-	//metodo para selecionar cargo especifico pesquisando pelo nome
+	//metodo para selecionar cargo especifico pesquisando pelo id
 	public static Cargo selectCargo(int idCargo) {
 		String sql = "SELECT * FROM cargo WHERE idCargo = ?";
 		Cargo cargo = null;

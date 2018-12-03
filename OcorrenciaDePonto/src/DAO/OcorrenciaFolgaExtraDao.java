@@ -55,7 +55,7 @@ public class OcorrenciaFolgaExtraDao {
 		return listOcorrenciaFolgaExtra;
 	}
 	
-	//metodo para selecionar ocorrencia especific pesquisando pelo id
+	//metodo para selecionar ocorrencia especifica pesquisando pelo id
 	public static OcorrenciaFolgaExtra selectOcorrenciaFolgaExtra(int idOcorrenciaFolgaExtra) {
 		String sql = "SELECT * FROM ocorrencia WHERE idOcorrencia = ?";
 		OcorrenciaFolgaExtra ofe = null;
@@ -87,7 +87,7 @@ public class OcorrenciaFolgaExtraDao {
 		return ofe;
 	}
 	
-	//metodo para criar nova OcorrenciaEvento
+	//metodo para criar nova OcorrenciaFolgaExtra
 	public boolean createOcorrenciaFolgaExtra(OcorrenciaFolgaExtra ocorrenciaFolgaExtra) {
 		String sql = "INSERT INTO ocorrencia(idOcorrencia, dataHora, motivo, status, observacoesGerente, tipo, idApontamento, "
 				+ "idFuncionarioSolicitante, idFuncionarioAprovador, dataFolga) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -114,7 +114,7 @@ public class OcorrenciaFolgaExtraDao {
 		}
 	}
 	
-	//metodo para atualizar uma ocorrenciaEvento
+	//metodo para atualizar uma ocorrenciaFolgaExtra
 	public boolean updateOcorrenciaFolgaExtra(OcorrenciaFolgaExtra ocorrenciaFolgaExtra) {
 		String sql = "UPDATE ocorrencia SET motivo = ?, observacoesGerente = ?, tipo = ?, dataFolga = ? WHERE idOcorrencia = ?";
 		
@@ -135,7 +135,7 @@ public class OcorrenciaFolgaExtraDao {
 		}
 	}
 	
-	//metodo para excluir uma ocorrenciaEvento
+	//metodo para excluir uma ocorrenciaFolgaExtra
 	public boolean deleteOcorrenciaFolgaExtra(OcorrenciaFolgaExtra ocorrenciaFolgaExtra) {
 		String sql = "DELETE FROM ocorrencia WHERE idOcorrencia = ?";
 		

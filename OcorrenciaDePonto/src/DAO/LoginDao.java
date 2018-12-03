@@ -19,7 +19,7 @@ public class LoginDao {
 	//metodo para selecionar todos os logins
 	public static ArrayList<Login> selectAllLogins() {
 		String sql = "SELECT * FROM login";
-		ArrayList<Login> listLogins = new ArrayList<>();
+		ArrayList<Login> listLogin = new ArrayList<>();
 		Login login = null;
 		
 		try {
@@ -29,7 +29,7 @@ public class LoginDao {
 				login = new Login(rs.getString("usuario"), rs.getString("senha"), FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")));
 				login.setIdLogin(rs.getInt("idLogin"));
 				login.setUltimoLogin(rs.getDate("ultimoLogin"));
-				listLogins.add(login);
+				listLogin.add(login);
 			}
 			
 		} catch (SQLException e) {
@@ -37,10 +37,10 @@ public class LoginDao {
 			e.printStackTrace();
 		}
 	
-		return listLogins;
+		return listLogin;
 	}
 	
-	//metodo para selecionar Login especifico pesquisando pelo idFuncionario
+	//metodo para selecionar Login especifico pesquisando pelo id
 	public static Login selectLogin(int idLogin) {
 		String sql = "SELECT * FROM login WHERE idLogin = ?";
 		Login login = null;

@@ -6,12 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.swing.JOptionPane;
-
 import Conexao.ConexaoBD;
 import Model.Apontamento;
-import Model.Cargo;
 
 public class ApontamentoDao {
 

@@ -1,4 +1,8 @@
+/build.xml
+/com/
 /Conexao/
-/Model/
-/DAO/
 /Controller/
+/DAO/
+/Model/
+/View/
+/jcalendar.manifest

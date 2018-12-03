@@ -17,7 +17,7 @@ public class OcorrenciaEventoDao {
 	private static PreparedStatement stmt;
 	private static ResultSet rs;
 	
-	//metodo para selecionar todos os cargos
+	//metodo para selecionar todas as OcorrenciasEvento
 	public ArrayList<OcorrenciaEvento> selectAllOcorrenciaEvento() {
 		String sql = "SELECT * FROM ocorrencia";
 		ArrayList<OcorrenciaEvento> listOcorrenciaEvento = new ArrayList<>();
@@ -54,7 +54,7 @@ public class OcorrenciaEventoDao {
 		return listOcorrenciaEvento;
 	}
 	
-	//metodo para selecionar ocorrencia especific pesquisando pelo id
+	//metodo para selecionar ocorrencia especifica pesquisando pelo id
 	public static OcorrenciaEvento selectOcorrenciaEvento(int idOcorrenciaEvento) {
 		String sql = "SELECT * FROM ocorrencia WHERE idOcorrencia = ?";
 		OcorrenciaEvento oe = null;

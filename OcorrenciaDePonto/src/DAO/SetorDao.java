@@ -39,7 +39,7 @@ public class SetorDao {
 		return listSetor;
 	}
 	
-	//metodo para selecionar setor especifico pesquisando pelo nome
+	//metodo para selecionar setor especifico pesquisando pelo id
 	public static Setor selectSetor(int idSetor) {
 		String sql = "SELECT * FROM setor WHERE idSetor = ?";
 		Setor setor = null;
@@ -62,7 +62,7 @@ public class SetorDao {
 		return setor;
 	}
 	
-	//metodo para selecionar setor especifico pesquisando pelo nome
+	//metodo para selecionar setorPai especifico pesquisando pelo id
 		public static Setor selectSetorPai(int idSetor) {
 			String sql = "SELECT * FROM setor WHERE idSetor = ?";
 			Setor setor = null;
