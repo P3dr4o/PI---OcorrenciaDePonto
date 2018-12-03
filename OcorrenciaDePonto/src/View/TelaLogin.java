@@ -128,7 +128,7 @@ public class TelaLogin extends JFrame{
 			
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				f = LoginController.verificaLogin(fieldUsuario.getText(), fieldSenha.getPassword());
+				f = LoginController.verificaLogin(fieldUsuario.getText(), String.valueOf(fieldSenha.getPassword()));
 				if(f != null)
 					new TelaPrincipal(f);
 				else {
