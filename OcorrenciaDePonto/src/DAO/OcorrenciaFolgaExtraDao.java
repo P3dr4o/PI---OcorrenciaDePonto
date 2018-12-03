@@ -84,7 +84,7 @@ public class OcorrenciaFolgaExtraDao {
 			e.printStackTrace();
 		}
 		
-		return oe;
+		return ofe;
 	}
 	
 	//metodo para criar nova OcorrenciaEvento
