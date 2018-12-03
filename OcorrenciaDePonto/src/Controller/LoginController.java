@@ -28,8 +28,9 @@ public class LoginController {
 	}
 	
 	public static ArrayList<Login> getLogins() {
-		ArrayList<Login> lo = new LoginDao().selectAllLogins();
-		return (ArrayList<Login>) Objetos.cloneSerializable(lo);
+		ArrayList<Login> lo = LoginDao.selectAllLogins();
+		return lo;
+		//return (ArrayList<Login>) Objetos.cloneSerializable(lo);
 	}
 	
 	public static boolean isExist(int id) {

@@ -16,7 +16,13 @@ public class Funcionario implements Serializable{
 	
 	private ArrayList<Apontamento> apontamentos;
 	
-	
+	public Funcionario(int id_Funcionario, String nome_Funcionario, int num_Registro, Cargo Cargo) {
+		setId_Funcionario(id_Funcionario);
+		setNome_Funcionario(nome_Funcionario);
+		setNum_Registro(num_Registro);
+		setCargo(cargo);
+		//apontamentos = new Apontamentos();
+	}
 	
 	public Funcionario(int id_Funcionario, String nome_Funcionario, int num_Registro, Cargo Cargo, Setor setor) {
 		setId_Funcionario(id_Funcionario);

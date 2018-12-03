@@ -12,17 +12,13 @@ import Model.Login;
 
 
 public class LoginDao {
-	private static Connection con = null;
-	private static PreparedStatement stmt = null;
-	private static ResultSet rs = null;
-	
-	public LoginDao() {
-		con = ConexaoBD.getConnection();
-	}
+	private static Connection con = ConexaoBD.getConnection();
+	private static PreparedStatement stmt;
+	private static ResultSet rs;
 	
 	//metodo para selecionar todos os logins
-	public ArrayList<Login> selectAllLogins() {
-		String sql = "SELECT * FROM Login";
+	public static ArrayList<Login> selectAllLogins() {
+		String sql = "SELECT * FROM login";
 		ArrayList<Login> listLogins = new ArrayList<>();
 		Login login = null;
 		
@@ -46,7 +42,7 @@ public class LoginDao {
 	
 	//metodo para selecionar Login especifico pesquisando pelo idFuncionario
 	public static Login selectLogin(int idLogin) {
-		String sql = "SELECT * FROM Login WHERE idLogin = ?";
+		String sql = "SELECT * FROM login WHERE idLogin = ?";
 		Login login = null;
 		
 		try {

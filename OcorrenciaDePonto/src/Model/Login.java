@@ -18,7 +18,7 @@ public class Login {
 	private LoginDao loginDao;
 
 	public Login(String usuario, String senhaMD5, Funcionario funcionario) {
-		setUsuario(usuario);
+		this.usuario = usuario;
 		this.senha = senhaMD5;
 		this.funcionario = funcionario;
 		loginDao = new LoginDao();

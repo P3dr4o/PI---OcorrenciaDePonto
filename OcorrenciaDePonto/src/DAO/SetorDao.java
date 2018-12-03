@@ -11,13 +11,9 @@ import Model.Setor;
 
 public class SetorDao {
 	
-	private static Connection con = null;
-	private static PreparedStatement stmt = null;
-	private static ResultSet rs = null;
-	
-	public SetorDao() {
-		con = ConexaoBD.getConnection();
-	}
+	private static Connection con = ConexaoBD.getConnection();
+	private static PreparedStatement stmt;
+	private static ResultSet rs;
 	
 	//metodo para selecionar todos os setores
 	public ArrayList<Setor> selectAllSetores() {
@@ -55,7 +51,7 @@ public class SetorDao {
 			
 			if(rs.next()) {
 				setor = new Setor(rs.getString("nome"), rs.getInt("idSetor"), 
-						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionarioGestor")), selectSetor(rs.getInt("idSetorPai")) );
+						FuncionarioDao.selectFuncionarioGestor(rs.getInt("idFuncionarioGestor")), selectSetorPai(rs.getInt("idSetorPai")) );
 			}
 			
 		} catch (SQLException e) {
@@ -65,6 +61,29 @@ public class SetorDao {
 		
 		return setor;
 	}
+	
+	//metodo para selecionar setor especifico pesquisando pelo nome
+		public static Setor selectSetorPai(int idSetor) {
+			String sql = "SELECT * FROM setor WHERE idSetor = ?";
+			Setor setor = null;
+			
+			try {
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(1, idSetor);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					setor = new Setor(rs.getString("nome"), rs.getInt("idSetor"), 
+							FuncionarioDao.selectFuncionarioGestor(rs.getInt("idFuncionarioGestor")));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return setor;
+		}
 	
 	//metodo para criar novo setor
 	public boolean createSetor(Setor setor) {

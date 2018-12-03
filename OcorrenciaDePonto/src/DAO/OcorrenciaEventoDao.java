@@ -12,13 +12,9 @@ import Model.OcorrenciaEvento;
 
 public class OcorrenciaEventoDao {
 	
-	private static Connection con = null;
-	private static PreparedStatement stmt = null;
-	private static ResultSet rs = null;
-	
-	public OcorrenciaEventoDao() {
-		con = ConexaoBD.getConnection();
-	}
+	private static Connection con = ConexaoBD.getConnection();;
+	private static PreparedStatement stmt;
+	private static ResultSet rs;
 	
 	//metodo para selecionar todos os cargos
 	public ArrayList<OcorrenciaEvento> selectAllOcorrenciaEvento() {

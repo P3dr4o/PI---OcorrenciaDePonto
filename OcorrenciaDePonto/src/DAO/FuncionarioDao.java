@@ -14,13 +14,9 @@ import Model.Setor;
 
 public class FuncionarioDao {
 	
-	private static Connection con = null;
-	private static PreparedStatement stmt = null;
-	private static ResultSet rs = null;
-	
-	public FuncionarioDao() {
-		con = ConexaoBD.getConnection();
-	}
+	private static Connection con = ConexaoBD.getConnection();
+	private static PreparedStatement stmt;
+	private static ResultSet rs;
 	
 	//metodo para selecionar todos os funcionarios
 	public ArrayList<Funcionario> selectAllFuncionarios() {
@@ -68,6 +64,29 @@ public class FuncionarioDao {
 		
 		return funcionario;
 	}
+	
+	//metodo para selecionar funcionario especifico pesquisando pelo nome
+		public static Funcionario selectFuncionarioGestor(int idFuncionario) {
+			String sql = "SELECT * FROM funcionario WHERE idFuncionario = ?";
+			Funcionario funcionario = null;
+			
+			try {
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(1, idFuncionario);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					funcionario = new Funcionario(rs.getInt("idFuncionario"), rs.getString("nome"), 
+							rs.getInt("registro"), CargoDao.selectCargo(rs.getInt("idCargo")));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return funcionario;
+		}
 	
 	//metodo para criar novo funcionario
 	public boolean createFuncionario(Funcionario funcionario) {

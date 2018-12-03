@@ -23,9 +23,9 @@ public class ConexaoBD {
 				//Driver do mysql
 				Class.forName("com.mysql.jdbc.Driver");
 				//Caminho/usuario/senha do banco de dados
-				con = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "");
+				con = DriverManager.getConnection("jdbc:mysql://localhost/ocorrenciadeponto", "root", "");
 		                
-		        JOptionPane.showMessageDialog(null, "Conectado ao banco de dados");
+		        //JOptionPane.showMessageDialog(null, "Conectado ao banco de dados");
 		    }
 			
 		}

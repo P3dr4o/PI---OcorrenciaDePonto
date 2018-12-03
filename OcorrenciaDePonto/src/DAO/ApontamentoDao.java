@@ -15,15 +15,11 @@ import Model.Cargo;
 
 public class ApontamentoDao {
 
-	private static Connection con = null;
-	private static PreparedStatement stmt = null;
-	private static ResultSet rs = null;
-	private static Date[] horarios = null;
-	private static Date[] pontos = null;
-
-	public ApontamentoDao() {
-		con = ConexaoBD.getConnection();
-	}
+	private static Connection con = ConexaoBD.getConnection();
+	private static PreparedStatement stmt;
+	private static ResultSet rs;
+	private static Date[] horarios;
+	private static Date[] pontos;
 
 	// metodo para selecionar todos os apontamentos
 	public ArrayList<Apontamento> selectAllApontamentos() {

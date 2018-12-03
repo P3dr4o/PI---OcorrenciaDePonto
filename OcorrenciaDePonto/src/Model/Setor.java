@@ -14,6 +14,18 @@ public class Setor implements Serializable{
 	private Funcionario funcionario;//Gestor aprovador da área
 	private static SetorDao setorDAO = new SetorDao();
 	
+	public Setor(String nome, int id_Setor,Funcionario funcionario) {
+		//Encaminhar uma exce��o caso alguns dos dados sej� inv�lido
+		if(nome != null && id_Setor > 0) {
+			this.nome = nome;
+			this.id_Setor = id_Setor;
+			this.funcionario = funcionario;
+		}else {
+			//reportar exce��o aqui sinalizando que existe dados erados!!
+		}
+		
+	}
+	
 	public Setor(String nome, int id_Setor,Funcionario funcionario,Setor setorPai) {
 		//Encaminhar uma exce��o caso alguns dos dados sej� inv�lido
 		if(nome != null && id_Setor > 0) {

@@ -14,13 +14,9 @@ import Model.Cargo;
 
 public class CargoDao {
 	
-	private static Connection con = null;
-	private static PreparedStatement stmt = null;
-	private static ResultSet rs = null;
-	
-	public CargoDao() {
-		con = ConexaoBD.getConnection();
-	}
+	private static Connection con = ConexaoBD.getConnection();
+	private static PreparedStatement stmt;
+	private static ResultSet rs;
 	
 	//metodo para selecionar todos os cargos
 	public ArrayList<Cargo> selectAllCargos() {
