@@ -123,7 +123,7 @@ public class OcorrenciaEventoDao {
 	}
 	
 	//metodo para atualizar uma ocorrenciaEvento
-	public boolean updateCargo(OcorrenciaEvento ocorrenciaEvento) {
+	public boolean updateOcorrenciaEvento(OcorrenciaEvento ocorrenciaEvento) {
 		String sql = "UPDATE ocorrencia SET motivo = ?, observacoesGerente = ?, tipo = ?, chegadaAntecipada = ?, chegadaAtrasada = ?, "
 				+ "ausenteMarcacao = ?, saidaAntecipada = ?, naoComparecimento = ? WHERE idOcorrencia = ?";
 		

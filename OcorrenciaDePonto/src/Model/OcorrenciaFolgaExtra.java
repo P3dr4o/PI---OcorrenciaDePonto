@@ -1,11 +1,11 @@
 package Model;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class OcorrenciaFolgaExtra extends Ocorrencia{
 	
 	
-	private Calendar dataFolga;
+	private Date dataFolga;
 	
  	public OcorrenciaFolgaExtra() {
  		super.tipo = 2;//Define o tipo como Folga Extra
@@ -17,7 +17,11 @@ public class OcorrenciaFolgaExtra extends Ocorrencia{
 		return false;
 	}
 	
-	public Calendar getDataFolga() {
+	public Date getDataFolga() {
 		return dataFolga;
+	}
+	
+	public void setDataFolga(Date dataFolga) {
+		this.dataFolga = dataFolga;
 	}
 }
