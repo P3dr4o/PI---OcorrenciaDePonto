@@ -3,6 +3,7 @@ package Controller;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import DAO.SetorDao;
 import Model.Funcionario;
 import Model.Setor;
 
@@ -16,9 +17,19 @@ public class SetorController {
 		}
 	}
 	
+	public static boolean isExist(int id) {
+		//codigo para verificar se esse id existe
+		ArrayList<Setor> setores = getSetores();
+		for (int i = 0; i < setores.size(); i++) {
+			if(setores.get(i).getId_Setor() == id)
+				return true;
+		}
+		return false;
+	}
+	
 	public static ArrayList<Setor> getSetores(){
 		
-		ArrayList<Setor> S = Setor.getSetores();
+		ArrayList<Setor> S = new SetorDao().selectAllSetores();
 		ArrayList<Setor> setores = (ArrayList<Setor>) Objetos.cloneSerializable(S); 
 		
 		return setores;

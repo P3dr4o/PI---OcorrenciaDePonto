@@ -3,6 +3,7 @@ package Model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import Controller.LoginController;
 import DAO.SetorDao;
 
 public class Setor implements Serializable{
@@ -26,19 +27,6 @@ public class Setor implements Serializable{
 		
 	}
 	
-	public static boolean isExist(int id) {
-		//codigo para verificar se esse id existe
-		ArrayList<Setor> setores = getSetores();
-		for (int i = 0; i < setores.size(); i++) {
-			if(setores.get(i).getId_Setor() == id)
-				return true;
-		}
-		return false;
-	}
-	public static ArrayList<Setor> getSetores(){
-		ArrayList<Setor> setores = new ArrayList<Setor>();
-		return setorDAO.selectAllSetores();
-	}
 	
 	public String getNome() {
 		return nome;
@@ -66,7 +54,7 @@ public class Setor implements Serializable{
 	}
 	
 	public boolean presistir() {
-		if(isExist(this.id_Setor)) {
+		if(LoginController.isExist(this.id_Setor)) {
 			//chamar o update
 			return setorDAO.atualizarSetor(this);
 		}else {

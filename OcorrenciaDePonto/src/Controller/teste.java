@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import Model.Cargo;
 import Model.Funcionario;
+import Model.Login;
 import Model.OcorreciaEvento;
 import Model.Ocorrencia;
 import Model.OcorrenciaHoraExtra;
@@ -46,6 +47,8 @@ public class teste {
 		JOptionPane.showMessageDialog(null, "Teste", "teste", JOptionPane.INFORMATION_MESSAGE);
 		System.out.println(gc);
 		
-		
+		String senha = "admin";
+		Login login = new Login("admin", LoginController.getMD5(senha), new Funcionario(0, "Administrador", 0, null, null));
+		login.persistir();
 	}
 }

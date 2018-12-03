@@ -70,15 +70,15 @@ public class LoginDao {
 	
 	//*metodo para criar novo login
 	public boolean createLogin(Login login) {
-		String sql = "INSERT INTO login VALUES(?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO login VALUES(?, ?, ?, ?)";
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, login.getIdLogin());
-			stmt.setString(2, login.getUsuario());
-			stmt.setString(3, login.getSenha());
-			stmt.setDate(4, (Date) login.getUltimoLogin());
-			stmt.setInt(5, login.getFuncionario().getId_Funcionario());
+			//stmt.setInt(1, login.getIdLogin());
+			stmt.setString(1, login.getUsuario());
+			stmt.setString(2, login.getSenha());
+			stmt.setDate(3, (Date) login.getUltimoLogin());
+			stmt.setInt(4, login.getFuncionario().getId_Funcionario());
 			stmt.executeUpdate();
 			
 			return true;
