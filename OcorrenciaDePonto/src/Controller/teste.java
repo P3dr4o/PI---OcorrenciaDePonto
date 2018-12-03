@@ -48,8 +48,9 @@ public class teste {
 		System.out.println(gc);
 		
 		String senha = "admin";
-		Login login = new Login("admin", LoginController.getMD5(senha), new Funcionario(0, "Administrador", 0, null, null));
-		login.persistir();
+		System.out.println(LoginController.getMD5(senha));
+		//Login login = new Login("admin", LoginController.getMD5(senha), new Funcionario(0, "Administrador", 0, null, null));
+		//login.persistir();
 		
 		//teste
 	}

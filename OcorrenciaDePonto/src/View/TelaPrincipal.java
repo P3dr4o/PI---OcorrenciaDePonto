@@ -89,6 +89,7 @@ public class TelaPrincipal extends JFrame{
 	public TelaPrincipal(Funcionario f) {
 		this.funcionario = f;
 		initialize();
+		rodar();
 	}
 	
 	public TelaPrincipal() {
