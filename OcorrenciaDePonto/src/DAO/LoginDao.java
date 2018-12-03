@@ -1,7 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -73,7 +73,7 @@ public class LoginDao {
 			//stmt.setInt(1, login.getIdLogin());
 			stmt.setString(1, login.getUsuario());
 			stmt.setString(2, login.getSenha());
-			stmt.setDate(3, (Date) login.getUltimoLogin());
+			stmt.setTimestamp(3, new Timestamp(login.getUltimoLogin().getTime()));
 			stmt.setInt(4, login.getFuncionario().getId_Funcionario());
 			stmt.executeUpdate();
 			
@@ -87,13 +87,14 @@ public class LoginDao {
 	
 	//metodo para atualizar um login
 	public boolean updateLogin(Login login) {
-		String sql = "UPDATE login SET usuario = ?, senha = ? WHERE idLogin = ?";
+		String sql = "UPDATE login SET usuario = ?, senha = ?, ultimoLogin = ? WHERE idLogin = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, login.getUsuario());
 			stmt.setString(2, login.getSenha());
-			stmt.setInt(3, login.getIdLogin());
+			stmt.setTimestamp(3, new Timestamp(login.getUltimoLogin().getTime()));
+			stmt.setInt(4, login.getIdLogin());
 			stmt.executeUpdate();
 			
 			return true;

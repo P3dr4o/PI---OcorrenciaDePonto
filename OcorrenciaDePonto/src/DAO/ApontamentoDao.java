@@ -98,13 +98,13 @@ public class ApontamentoDao {
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, apontamento.getIdApontamento());
-			stmt.setDate(2, (java.sql.Date) apontamento.getDataDoApontamento());
+			stmt.setDate(2, new java.sql.Date(apontamento.getDataDoApontamento().getTime()));
 			stmt.setString(3, apontamento.getDiaSemana());
 			stmt.setBoolean(4, apontamento.isFeriado());
 			for(int i = 0; i < 3; i++) 
-				stmt.setDate(i + 5, (java.sql.Date) apontamento.getHoraios()[i]);
+				stmt.setDate(i + 5, new java.sql.Date(apontamento.getHoraios()[i].getTime()));
 			for(int i = 0; i < 15; i++)
-				stmt.setDate(i + 9, (java.sql.Date) apontamento.getPontos()[i]);
+				stmt.setDate(i + 9, new java.sql.Date(apontamento.getPontos()[i].getTime()));
 			stmt.setString(25, apontamento.getObservacoes());
 			stmt.setInt(26, apontamento.getFuncionario().getId_Funcionario());
 			stmt.executeUpdate();

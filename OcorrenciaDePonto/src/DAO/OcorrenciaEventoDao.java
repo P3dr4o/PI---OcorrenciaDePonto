@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import Conexao.ConexaoBD;
@@ -29,7 +30,7 @@ public class OcorrenciaEventoDao {
 			while(rs.next()) {
 				oe = new OcorrenciaEvento();
 				oe.setId(rs.getInt("idOcorrencia"));
-				oe.setDataHora(rs.getDate("dataHora"));
+				oe.setDataHora(rs.getTimestamp("dataHora"));
 				oe.setMotivo(rs.getString("motivo"));
 				oe.setStatus(rs.getString("status").charAt(0));
 				oe.setObservacaoGestor(rs.getString("observacoesGerente"));
@@ -37,10 +38,10 @@ public class OcorrenciaEventoDao {
 				oe.setApontamento(ApontamentoDao.selectApontamento(rs.getInt("idApontamento")));
 				oe.setFuncionarioSolicitante(FuncionarioDao.selectFuncionario(rs.getInt("idFuncionarioSolicitante")));
 				oe.setFuncionarioAprovador(FuncionarioDao.selectFuncionario(rs.getInt("idFuncionarioAprovador")));
-				oe.setChegadaAntecipada(rs.getDate("chegadaAntecipada"));
-				oe.setChegadaAtrasada(rs.getDate("chegadaAtrasada"));
-				oe.setAusenteMarcacao(rs.getDate("ausenteMarcacao"));
-				oe.setSaidaAntecipada(rs.getDate("saidaAntecipada"));
+				oe.setChegadaAntecipada(rs.getTimestamp("chegadaAntecipada"));
+				oe.setChegadaAtrasada(rs.getTimestamp("chegadaAtrasada"));
+				oe.setAusenteMarcacao(rs.getTimestamp("ausenteMarcacao"));
+				oe.setSaidaAntecipada(rs.getTimestamp("saidaAntecipada"));
 				oe.setNaoComparecimento(rs.getDate("naoComparecimento"));
 				listOcorrenciaEvento.add(oe);
 			}
@@ -66,7 +67,7 @@ public class OcorrenciaEventoDao {
 			if(rs.next()) {
 				oe = new OcorrenciaEvento();
 				oe.setId(rs.getInt("idOcorrencia"));
-				oe.setDataHora(rs.getDate("dataHora"));
+				oe.setDataHora(rs.getTimestamp("dataHora"));
 				oe.setMotivo(rs.getString("motivo"));
 				oe.setStatus(rs.getString("status").charAt(0));
 				oe.setObservacaoGestor(rs.getString("observacoesGerente"));
@@ -74,10 +75,10 @@ public class OcorrenciaEventoDao {
 				oe.setApontamento(ApontamentoDao.selectApontamento(rs.getInt("idApontamento")));
 				oe.setFuncionarioSolicitante(FuncionarioDao.selectFuncionario(rs.getInt("idFuncionarioSolicitante")));
 				oe.setFuncionarioAprovador(FuncionarioDao.selectFuncionario(rs.getInt("idFuncionarioAprovador")));
-				oe.setChegadaAntecipada(rs.getDate("chegadaAntecipada"));
-				oe.setChegadaAtrasada(rs.getDate("chegadaAtrasada"));
-				oe.setAusenteMarcacao(rs.getDate("ausenteMarcacao"));
-				oe.setSaidaAntecipada(rs.getDate("saidaAntecipada"));
+				oe.setChegadaAntecipada(rs.getTimestamp("chegadaAntecipada"));
+				oe.setChegadaAtrasada(rs.getTimestamp("chegadaAtrasada"));
+				oe.setAusenteMarcacao(rs.getTimestamp("ausenteMarcacao"));
+				oe.setSaidaAntecipada(rs.getTimestamp("saidaAntecipada"));
 				oe.setNaoComparecimento(rs.getDate("naoComparecimento"));
 			}
 			
@@ -98,7 +99,7 @@ public class OcorrenciaEventoDao {
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, ocorrenciaEvento.getId());
-			stmt.setDate(2, (Date) ocorrenciaEvento.getDataHora());
+			stmt.setTimestamp(2, new Timestamp(ocorrenciaEvento.getDataHora().getTime()));
 			stmt.setString(3, ocorrenciaEvento.getMotivo());
 			stmt.setString(4, String.valueOf(ocorrenciaEvento.getStatus()));
 			stmt.setString(5, ocorrenciaEvento.getObservacaoGestor());
@@ -106,11 +107,11 @@ public class OcorrenciaEventoDao {
 			stmt.setInt(7, ocorrenciaEvento.getApontamento().getIdApontamento());
 			stmt.setInt(8, ocorrenciaEvento.getFuncionarioSolicitante().getId_Funcionario());
 			stmt.setInt(9, ocorrenciaEvento.getFuncionarioAprovador().getId_Funcionario());
-			stmt.setDate(10, (Date) ocorrenciaEvento.getChegadaAntecipada());
-			stmt.setDate(11, (Date) ocorrenciaEvento.getChegadaAtrasada());
-			stmt.setDate(12, (Date) ocorrenciaEvento.getAusenteMarcacao());
-			stmt.setDate(13, (Date) ocorrenciaEvento.getSaidaAntecipada());
-			stmt.setDate(14, (Date) ocorrenciaEvento.getNaoComparecimento());
+			stmt.setTimestamp(10, new Timestamp(ocorrenciaEvento.getChegadaAntecipada().getTime()));
+			stmt.setTimestamp(11, new Timestamp(ocorrenciaEvento.getChegadaAtrasada().getTime()));
+			stmt.setTimestamp(12, new Timestamp(ocorrenciaEvento.getAusenteMarcacao().getTime()));
+			stmt.setTimestamp(13, new Timestamp(ocorrenciaEvento.getSaidaAntecipada().getTime()));
+			stmt.setDate(14, new Date(ocorrenciaEvento.getNaoComparecimento().getTime()));
 			stmt.executeUpdate();
 			
 			return true;
@@ -131,11 +132,11 @@ public class OcorrenciaEventoDao {
 			stmt.setString(1, ocorrenciaEvento.getMotivo());
 			stmt.setString(2, ocorrenciaEvento.getObservacaoGestor());
 			stmt.setInt(3, ocorrenciaEvento.getTipo());
-			stmt.setDate(4, (Date) ocorrenciaEvento.getChegadaAntecipada());
-			stmt.setDate(5, (Date) ocorrenciaEvento.getChegadaAtrasada());
-			stmt.setDate(6, (Date) ocorrenciaEvento.getAusenteMarcacao());
-			stmt.setDate(7, (Date) ocorrenciaEvento.getSaidaAntecipada());
-			stmt.setDate(8, (Date) ocorrenciaEvento.getNaoComparecimento());
+			stmt.setTimestamp(4, new Timestamp(ocorrenciaEvento.getChegadaAntecipada().getTime()));
+			stmt.setTimestamp(5, new Timestamp(ocorrenciaEvento.getChegadaAtrasada().getTime()));
+			stmt.setTimestamp(6, new Timestamp(ocorrenciaEvento.getAusenteMarcacao().getTime()));
+			stmt.setTimestamp(7, new Timestamp(ocorrenciaEvento.getSaidaAntecipada().getTime()));
+			stmt.setDate(8, new Date(ocorrenciaEvento.getNaoComparecimento().getTime()));
 			stmt.setInt(9, ocorrenciaEvento.getId());
 			stmt.executeUpdate();
 			
