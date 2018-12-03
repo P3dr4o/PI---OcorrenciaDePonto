@@ -50,5 +50,7 @@ public class teste {
 		String senha = "admin";
 		Login login = new Login("admin", LoginController.getMD5(senha), new Funcionario(0, "Administrador", 0, null, null));
 		login.persistir();
+		
+		//teste
 	}
 }
