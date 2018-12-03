@@ -15,12 +15,12 @@ public class LoginController {
 	public static Funcionario verificaLogin(String usu, char[] senha) {
 		ArrayList<Login> logins = getLogins();
 		String sen = "";
-		for (int i = 0; i < senha.length; i++) {
+		for (int i = 0; i < senha.length; i++) {//transforma a senha de vetor de caracteres para uma string
 			sen = sen+senha[i];	
 		}
 		for (int i = 0; i < logins.size(); i++) {
 			if(logins.get(i).autentica(usu, sen)) {
-				if(usu.equals("admin"))
+				if(usu.equalsIgnoreCase("admin"))
 					return new Funcionario(0, "Administrador", 0, null, null);
 				else
 					return logins.get(i).getFuncionario();
