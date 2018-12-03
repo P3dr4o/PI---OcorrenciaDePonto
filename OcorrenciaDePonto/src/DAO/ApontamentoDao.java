@@ -45,7 +45,7 @@ public class ApontamentoDao {
 					horarios[i] = rs.getDate("hora" + ++i);
 				apontamento.setHoraios(horarios);
 				for(int i = 0; i < 15; i++) 
-					pontos[i] = rs.getDate("hora" + ++i);
+					pontos[i] = rs.getDate("apont" + ++i);
 				apontamento.setPontos(pontos);
 				apontamento.setObservacoes(rs.getString("observacoes"));
 				apontamento.setFuncionario(FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")));
@@ -81,7 +81,7 @@ public class ApontamentoDao {
 					horarios[i] = rs.getDate("hora" + ++i);
 				apontamento.setHoraios(horarios);
 				for(int i = 0; i < 15; i++) 
-					pontos[i] = rs.getDate("hora" + ++i);
+					pontos[i] = rs.getDate("apont" + ++i);
 				apontamento.setPontos(pontos);
 				apontamento.setObservacoes(rs.getString("observacoes"));
 				apontamento.setFuncionario(FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")));

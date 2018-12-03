@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import Model.Cargo;
 import Model.Funcionario;
 import Model.Login;
-import Model.OcorreciaEvento;
+import Model.OcorrenciaEvento;
 import Model.Ocorrencia;
 import Model.OcorrenciaHoraExtra;
 import Model.Setor;

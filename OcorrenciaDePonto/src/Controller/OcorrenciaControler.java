@@ -2,7 +2,7 @@ package Controller;
 
 import java.util.ArrayList;
 
-import Model.OcorreciaEvento;
+import Model.OcorrenciaEvento;
 import Model.Ocorrencia;
 import Model.OcorrenciaFolgaExtra;
 import Model.OcorrenciaHoraExtra;
@@ -16,7 +16,7 @@ public class OcorrenciaControler {
 		Ocorrencia ocorrencia = (Ocorrencia) Objetos.cloneSerializable(o);
 		switch (ocorrencia.getTipo()) {
 		case 1:
-			OcorreciaEvento ocE = (OcorreciaEvento) ocorrencia;
+			OcorrenciaEvento ocE = (OcorrenciaEvento) ocorrencia;
 			ocE.persistir();
 			break;
 		case 2:

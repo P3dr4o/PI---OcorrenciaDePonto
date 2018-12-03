@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
 import Model.Funcionario;
-import Model.OcorreciaEvento;
+import Model.OcorrenciaEvento;
 import Model.Ocorrencia;
 import Model.OcorrenciaFolgaExtra;
 import Model.OcorrenciaHoraExtra;

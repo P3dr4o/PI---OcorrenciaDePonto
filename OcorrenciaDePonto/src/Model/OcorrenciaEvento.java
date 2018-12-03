@@ -2,24 +2,24 @@ package Model;
 
 import java.util.Date;
 
-public class OcorreciaEvento extends Ocorrencia{
+public class OcorrenciaEvento extends Ocorrencia{
 	
 	private Date chegadaAntecipada;//
 	private Date chegadaAtrasada;//
 	private Date ausenteMarcacao;//
 	private Date saidaAntecipada;//
-	private boolean naoComparecimento;//
+	private Date naoComparecimento;//
 	
-	public OcorreciaEvento() {
+	public OcorrenciaEvento() {
 		super.tipo = 1;//define o tipo como EVENTO
 	}
 	
 	
 	
-	public boolean isNaoComparecimento() {
+	public Date getNaoComparecimento() {
 		return naoComparecimento;
 	}
-	public void setNaoComparecimento(boolean naoComparecimento) {
+	public void setNaoComparecimento(Date naoComparecimento) {
 		this.naoComparecimento = naoComparecimento;
 	}
 	public Date getChegadaAntecipada() {
