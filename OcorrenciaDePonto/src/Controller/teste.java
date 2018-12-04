@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
+import DAO.CargoDao;
 import Model.Cargo;
 import Model.Funcionario;
 import Model.Login;
@@ -41,17 +42,22 @@ public class teste {
 		System.out.println(ocsTemp.get(0).getFuncionarioAprovador().getNome_Funcionario());*/
 		
 		
-		GregorianCalendar gc = new GregorianCalendar();
+		//GregorianCalendar gc = new GregorianCalendar();
 		//SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
-		System.out.println(gc);
-		JOptionPane.showMessageDialog(null, "Teste", "teste", JOptionPane.INFORMATION_MESSAGE);
-		System.out.println(gc);
+		//System.out.println(gc);
+		//JOptionPane.showMessageDialog(null, "Teste", "teste", JOptionPane.INFORMATION_MESSAGE);
+		//System.out.println(gc);
 		
-		String senha = "admin";
-		System.out.println(LoginController.getMD5(senha));
+		//String senha = "admin";
+		//System.out.println(LoginController.getMD5(senha));
 		//Login login = new Login("admin", LoginController.getMD5(senha), new Funcionario(0, "Administrador", 0, null, null));
 		//login.persistir();
 		
 		//teste
+		CargoDao cd = new CargoDao();
+		Cargo c = new Cargo();
+		c.setIdCargo(2);
+		c.setNomeCargo("teste2");
+		cd.createCargo(c);
 	}
 }

@@ -87,7 +87,8 @@ public class CargoDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, cargo.getIdCargo());
+			stmt.setString(1, cargo.getNomeCargo());
+			stmt.setInt(2, cargo.getIdCargo());
 			stmt.executeUpdate();
 			
 			return true;
@@ -99,12 +100,12 @@ public class CargoDao {
 	}
 	
 	//metodo para excluir um cargo
-	public boolean deleteCargo(Cargo cargo) {
+	public boolean deleteCargo(int idCargo) {
 		String sql = "DELETE FROM cargo WHERE idCargo = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, cargo.getIdCargo());
+			stmt.setInt(1, idCargo);
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -115,7 +116,7 @@ public class CargoDao {
 	}
 	
 	//metodo para retornar o maior ID possivel para ser inserido na tabela
-	public int gerarMaxID() {
+	public static int gerarMaxID() {
 		String sql = "SELECT max(idCargo) AS maior FROM cargo";
 		int max = 0;
 		try {

@@ -2,14 +2,26 @@ package Controller;
 
 import java.util.ArrayList;
 
+import DAO.CargoDao;
 import Model.Cargo;
 
 public class CargoController {
 	
-	public static boolean salvarCargo(String nome_Cargo, String id){
-		int id_Cargo = Integer.parseInt(id);//tratar o erro que eventualmente pode acontecer nessa conversão
+	public static boolean salvarCargo(String nome_Cargo){
+		//int id_Cargo = Integer.parseInt(id);//tratar o erro que eventualmente pode acontecer nessa conversão
+		int id_Cargo = CargoDao.gerarMaxID();
 		Cargo c = new Cargo(id_Cargo, nome_Cargo);
-		return c.persistir();
+		//return c.persistir();
+		return new CargoDao().createCargo(c);
+	}
+	
+	public static boolean excluirCargo(int id) {
+		return new CargoDao().deleteCargo(id);
+	}
+	
+	public static boolean alterarCargo(int id, String nome) {
+		Cargo cargo = new Cargo(id, nome);
+		return new CargoDao().updateCargo(cargo);
 	}
 	
 	public ArrayList<String[]> getCargos(){
@@ -23,4 +35,5 @@ public class CargoController {
 		}
 		return cargos;
 	}
+	
 }

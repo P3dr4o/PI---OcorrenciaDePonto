@@ -8,7 +8,7 @@ public class Cargo implements Serializable{
 	private int idCargo;
 	private String nomeCargo;
 	
-
+	public Cargo() {}
 	
 	public Cargo(int idCargo, String nomeCargo) {
 		if (nomeCargo != null && idCargo > 0) {
@@ -19,7 +19,7 @@ public class Cargo implements Serializable{
 		}
 		
 	}
-	
+
 	public int getIdCargo() {
 		return idCargo;
 	}
