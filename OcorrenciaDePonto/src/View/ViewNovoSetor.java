@@ -187,9 +187,13 @@ public class ViewNovoSetor extends JFrame {
 			if(setorEdit.getSetorPai() != null)
 				for(int i = 0; i < setores.size(); i++) 
 					if(setores.get(i).getSetorPai() != null)
-						if(setores.get(i).getSetorPai().getNome().equals(setorEdit.getSetorPai().getNome()))
-							jcbFuncionarios.setSelectedIndex(i);
-				
+						if(setores.get(i).getSetorPai().getNome().equals(setorEdit.getSetorPai().getNome())) {
+							Setor aux = setores.get(i).getSetorPai();
+							for(int i2 = 0; i2 < setores.size(); i2++) {
+								if(setores.get(i2).getNome().equals(aux.getNome()))
+									jcbSetores.setSelectedIndex(i2 + 1);
+							}
+						}
 		}
 		
 	}
