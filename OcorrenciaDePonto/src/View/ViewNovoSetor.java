@@ -188,7 +188,7 @@ public class ViewNovoSetor extends JFrame {
 				for(int i = 0; i < setores.size(); i++) 
 					if(setores.get(i).getSetorPai() != null)
 						if(setores.get(i).getSetorPai().getNome().equals(setorEdit.getSetorPai().getNome()))
-							jcbFuncionarios.setSelectedIndex(i + 1);
+							jcbFuncionarios.setSelectedIndex(i);
 				
 		}
 		
