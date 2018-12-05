@@ -26,6 +26,10 @@ import java.awt.event.FocusEvent;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame{
 
@@ -34,6 +38,7 @@ public class TelaLogin extends JFrame{
 	private JPasswordField fieldSenha;
 	private Funcionario f;
 	private TelaPrincipal tl;
+	private JButton btnLogin;
 
 	/**
 	 * Launch the application.
@@ -116,6 +121,14 @@ public class TelaLogin extends JFrame{
 		
 		
 		fieldUsuario = new JTextField();
+		fieldUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					btnLogin.doClick();
+			}
+		});
+		
 		
 	
 		fieldUsuario.setText("Digite o seu usu\u00E1rio");
@@ -124,11 +137,9 @@ public class TelaLogin extends JFrame{
 		frame.getContentPane().add(fieldUsuario);
 		fieldUsuario.setColumns(10);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
+		btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				f = LoginController.verificaLogin(fieldUsuario.getText(), String.valueOf(fieldSenha.getPassword()));
 				if(f != null)
 					new TelaPrincipal(f);
@@ -154,6 +165,13 @@ public class TelaLogin extends JFrame{
 			public void focusGained(FocusEvent arg0) {
 				fieldSenha.setText("");
 				fieldSenha.setEchoChar('●');			}
+		});
+		fieldSenha.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					btnLogin.doClick();
+			}
 		});
 		fieldSenha.setToolTipText("");
 		fieldSenha.setBounds(130, 130, 213, 25);
