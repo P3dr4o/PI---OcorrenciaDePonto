@@ -10,11 +10,11 @@ import Model.Setor;
 public class SetorController {
 	public static boolean salvarSetor(String nome,int id_Setor, Funcionario funcionarioAprovador, Setor setorPai) {
 		Setor s = new Setor(nome, id_Setor, funcionarioAprovador, setorPai);
-		if(funcionarioAprovador.getId_Funcionario()  > 0 && setorPai.getId_Setor() > 0) {
+		//if(funcionarioAprovador.getId_Funcionario()  > 0 && setorPai.getId_Setor() > 0) {
 				return s.presistir();
-		}else {
-				return false;
-		}
+		//}else {
+		//		return false;
+		//}
 	}
 	
 	public static boolean isExist(int id) {
@@ -32,7 +32,7 @@ public class SetorController {
 		ArrayList<Setor> S = new SetorDao().selectAllSetores();
 		ArrayList<Setor> setores = (ArrayList<Setor>) Objetos.cloneSerializable(S); 
 		
-		return setores;
+		return S;//setores;
 	}
 
 }
