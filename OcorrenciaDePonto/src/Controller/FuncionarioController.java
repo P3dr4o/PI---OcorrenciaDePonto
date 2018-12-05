@@ -3,6 +3,7 @@ package Controller;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
+import DAO.FuncionarioDao;
 import Model.Funcionario;
 import Model.OcorrenciaEvento;
 import Model.Ocorrencia;
@@ -21,7 +22,7 @@ public class FuncionarioController {
 
 	
 	public static ArrayList<Funcionario> getFuncionarios() {
-		ArrayList<Funcionario> fs = Funcionario.getFuncionarios();
+		ArrayList<Funcionario> fs = new FuncionarioDao().selectAllFuncionarios();
 		ArrayList<Funcionario> funcionarios = (ArrayList<Funcionario>) Objetos.cloneSerializable(fs);
 		return funcionarios;
 	}

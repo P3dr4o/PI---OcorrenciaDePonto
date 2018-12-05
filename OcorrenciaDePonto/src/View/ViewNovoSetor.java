@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Controller.FuncionarioController;
 import Controller.SetorController;
+import DAO.SetorDao;
 import Model.Funcionario;
 import Model.Setor;
 
@@ -37,9 +38,12 @@ public class ViewNovoSetor extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtSetor;
-	private JComboBox jcbFuncionarios;
-	private JComboBox jcbSetores;
-	private ArrayList<Funcionario> gestores;
+	private JComboBox<String> jcbFuncionarios;
+	private JComboBox<String> jcbSetores;
+	private ArrayList<Funcionario> gestores = FuncionarioController.getFuncionarios();
+	private ArrayList<Setor> setores = SetorController.getSetores();
+	private Funcionario funcionario;
+	private Setor setor;
 
 	/**
 	 * by Pedro e Junio
@@ -71,9 +75,11 @@ public class ViewNovoSetor extends JFrame {
 	}
 	
 	public void carregarInformacoes() {
-		gestores = FuncionarioController.getFuncionarios();
 		for (int i = 0; i < gestores.size(); i++) {
 			jcbFuncionarios.addItem(gestores.get(i).getNome_Funcionario());
+		}
+		for (int i = 0; i < setores.size(); i++) {
+			jcbSetores.addItem(setores.get(i).getNome());
 		}
 	}
 	
@@ -103,19 +109,51 @@ public class ViewNovoSetor extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				
-				if(JOptionPane.showConfirmDialog(null, "Deseja realmente salvar?", "Salvar", JOptionPane.YES_NO_OPTION) == 0) {
-					
+				if(txtSetor.getText() != "" && jcbFuncionarios.getSelectedIndex() != 0 && jcbSetores.getSelectedIndex() != 0) {
+					funcionario = gestores.get(jcbFuncionarios.getSelectedIndex() - 1);
+					setor = setores.get(jcbSetores.getSelectedIndex() - 1);
+					if(JOptionPane.showConfirmDialog(null, "Deseja realmente salvar?", "Salvar", JOptionPane.YES_NO_OPTION) == 0) {
+						if(SetorController.salvarSetor(txtSetor.getText(), new SetorDao().gerarMaxID(), funcionario, setor)) {
+							JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
+							txtSetor.setText("");
+							jcbFuncionarios.setSelectedIndex(0);
+							jcbSetores.setSelectedIndex(0);
+						} else {
+							JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Informe todos os campos", "Alerta", JOptionPane.WARNING_MESSAGE);
 				}
+				
 			}
 		});
 		btnSalvar.setBounds(121, 99, 89, 23);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja cancelar esta operação?", "Alerta", JOptionPane.YES_NO_OPTION) == 0) {
+					txtSetor.setText("");
+					jcbFuncionarios.setSelectedIndex(0);
+					jcbSetores.setSelectedIndex(0);
+				}
+			}
+		});
 		btnCancelar.setBounds(220, 99, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		JButton btnConcluir = new JButton("Concluir");
+		btnConcluir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				ViewSetor vs = new ViewSetor();
+				vs.setVisible(true);
+				dispose();
+			}
+		});
 		btnConcluir.setBounds(319, 99, 89, 23);
 		contentPane.add(btnConcluir);
 		
@@ -135,6 +173,6 @@ public class ViewNovoSetor extends JFrame {
 		jcbSetores.setBounds(66, 68, 342, 20);
 		contentPane.add(jcbSetores);
 		
- 		
+		carregarInformacoes();
 	}
 }

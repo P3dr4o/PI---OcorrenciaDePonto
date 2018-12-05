@@ -79,19 +79,19 @@ public class ViewCargo extends JFrame {
 		
 		tableCargo = new JTable();
 		modelo = new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Cargos"
-				}
-			) {
-				boolean[] columnEditables = new boolean[] {
-					false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
+			new Object[][] {
+			},
+			new String[] {
+				"Cargos"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false
 			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		};
 		while (iterator.hasNext()) {
 			Cargo c = iterator.next();
 			modelo.addRow(new String[] {

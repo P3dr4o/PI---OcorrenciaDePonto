@@ -27,7 +27,7 @@ public class SetorDao {
 			
 			while(rs.next()) {
 				setor = new Setor(rs.getString("nome"), rs.getInt("idSetor"), 
-						FuncionarioDao.selectFuncionario(rs.getInt("idFuncionarioGestor")), selectSetor(rs.getInt("idSetorPai")) );
+						FuncionarioDao.selectFuncionarioGestor(rs.getInt("idFuncionarioGestor")), selectSetorPai(rs.getInt("idSetorPai")) );
 				listSetor.add(setor);
 			}
 			
@@ -91,7 +91,7 @@ public class SetorDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, gerarMaxID());
+			stmt.setInt(1, setor.getId_Setor());
 			stmt.setString(2, setor.getNome());
 			stmt.setInt(3, setor.getSetorPai().getId_Setor());
 			stmt.setInt(4, setor.getFuncionario().getId_Funcionario());

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import Controller.LoginController;
+import Controller.SetorController;
 import DAO.SetorDao;
 
 public class Setor implements Serializable{
@@ -66,7 +67,7 @@ public class Setor implements Serializable{
 	}
 	
 	public boolean presistir() {
-		if(LoginController.isExist(this.id_Setor)) {
+		if(SetorController.isExist(this.id_Setor)) {
 			//chamar o update
 			return setorDAO.atualizarSetor(this);
 		}else {
