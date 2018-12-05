@@ -12,13 +12,20 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.DefaultTableModel;
+
+import Controller.SetorController;
+import Model.Setor;
+
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class ViewSetor extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableSetor;
+	private DefaultTableModel modelo;
+	private ArrayList<Setor> listSetor = SetorController.getSetores();
 
 	/**
 	 * Launch the application.
@@ -65,7 +72,7 @@ public class ViewSetor extends JFrame {
 		contentPane.add(scrollPaneSetor);
 		
 		tableSetor = new JTable();
-		tableSetor.setModel(new DefaultTableModel(
+		modelo = new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -78,7 +85,21 @@ public class ViewSetor extends JFrame {
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
-		});
+		};
+		tableSetor.setModel(modelo);
+		for (int i = 0; i < listSetor.size(); i++) {
+			Setor setor = listSetor.get(i);
+			if(setor.getFuncionario() == null) {
+				modelo.addRow(new String[] {
+						setor.getNome(),
+				});
+			} else {
+				modelo.addRow(new String[] {
+						setor.getNome(),
+						setor.getFuncionario().getNome_Funcionario()
+				});
+			}
+		}
 		tableSetor.getColumnModel().getColumn(0).setResizable(false);
 		
 		//código para NÃO deixar mover o cabeçalho da tabela
