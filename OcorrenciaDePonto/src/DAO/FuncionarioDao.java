@@ -28,11 +28,26 @@ public class FuncionarioDao {
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
-			while(rs.next()) {
-				funcionario = new Funcionario(rs.getInt("idFuncionario"), rs.getString("nome"), 
-						rs.getInt("registro"), CargoDao.selectCargo(rs.getInt("idCargo")), SetorDao.selectSetor(rs.getInt("idSetor")));
+	
+			ArrayList<String[]> r = new ArrayList<String[]>();
+
+			while (rs.next())
+				r.add(new String[] { rs.getString("idFuncionario"), rs.getString("nome"), rs.getString("registro"),
+						rs.getString("idCargo") , rs.getString("idSetor")});
+			for (int i = 0; i < r.size(); i++) {
+				int idCargo = 0;
+				int idSet = 0;
+				if (r.get(i)[3] != null)
+					idCargo = Integer.parseInt(r.get(i)[3]);
+				if (r.get(i)[4] != null)
+					idSet = Integer.parseInt(r.get(i)[4]);
+				funcionario = new Funcionario(Integer.parseInt(r.get(i)[0]), r.get(i)[1], 
+						Integer.parseInt(r.get(i)[2]), CargoDao.selectCargo(idCargo), SetorDao.selectSetor(idSet));
 				listFuncionario.add(funcionario);
 			}
+			
+			
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -130,7 +145,7 @@ public class FuncionarioDao {
 	}
 	
 	//metodo para excluir um funcionario
-	public boolean deleteFuncionario(Funcionario funcionario) {
+	public static boolean deleteFuncionario(Funcionario funcionario) {
 		String sql = "DELETE FROM funcionario WHERE idFuncionario = ?";
 		
 		try {
@@ -146,7 +161,7 @@ public class FuncionarioDao {
 	}
 	
 	//metodo para retornar o maior ID possivel para ser inserido na tabela
-	public int gerarMaxID() {
+	public static int gerarMaxID() {
 		String sql = "SELECT max(idFuncionario) AS maior FROM Funcionario";
 		int max = 1;
 		try {

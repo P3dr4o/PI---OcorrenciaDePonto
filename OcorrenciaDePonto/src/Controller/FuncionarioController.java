@@ -24,7 +24,7 @@ public class FuncionarioController {
 	public static ArrayList<Funcionario> getFuncionarios() {
 		ArrayList<Funcionario> fs = new FuncionarioDao().selectAllFuncionarios();
 		ArrayList<Funcionario> funcionarios = (ArrayList<Funcionario>) Objetos.cloneSerializable(fs);
-		return funcionarios;
+		return fs;
 	}
 
 	/*public static Funcionario getFuncionario(int idFuncionario) {

@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.FuncionarioController;
 import Controller.LoginController;
 import Controller.Objetos;
 import DAO.CargoDao;
@@ -59,14 +60,11 @@ public class ViewFuncionario extends JFrame {
 	 */
 	
 	public void carregaTabela() {
-		listFuncionario = new FuncionarioDao().selectAllFuncionarios();
-		iterator = listFuncionario.iterator();
-		while (iterator.hasNext()) {
-			Funcionario f = iterator.next();
-			modelo.addRow(new String[] {String.valueOf(f.getNum_Registro()),
-					f.getNome_Funcionario()
-			});
+		ArrayList<Funcionario> funcionarios = FuncionarioDao.selectAllFuncionarios();
+		for (Funcionario fs : funcionarios) {
+			modelo.addRow(new String[] {String.valueOf(fs.getNum_Registro()), fs.getNome_Funcionario()});
 		}
+		
 	}
 	public static void main(String[] args) {
 		
@@ -188,11 +186,11 @@ public class ViewFuncionario extends JFrame {
 				new Object[][] {
 				},
 				new String[] {"nº Registro",
-					"Nome", 
+					"Nome" 
 				}
 			) {
 				boolean[] columnEditables = new boolean[] {
-					false
+					false, false
 				};
 				public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
@@ -245,9 +243,11 @@ public class ViewFuncionario extends JFrame {
 					Login l;
 					if(txtNRegistro.getText() != null && txtNome.getText() != null && passwordField.getPassword() != null && texUsuario.getText() != null && c.getIdCargo() > 0 && s.getId_Setor() > 0) {
 						f = new Funcionario(-1, txtNome.getText(), Integer.parseInt(txtNRegistro.getText()), c, s);
-						l = new Login(texUsuario.getText(), LoginController.getMD5(""+passwordField.getPassword()), f);
+						int idFun = FuncionarioDao.gerarMaxID();
+						
+						l = new Login(texUsuario.getText(), LoginController.getMD5(""+passwordField.getPassword()), new Funcionario(idFun, "", 0, null));
 						if(f.persistir() && l.persistir())
-							JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.OK_OPTION);
+							JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao gravar no banco de dados!", "", JOptionPane.ERROR_MESSAGE);	
 					}else {
@@ -257,7 +257,7 @@ public class ViewFuncionario extends JFrame {
 				//} catch (Exception e2) {
 					// @TODO: handle exception
 				//}
-				carregaTabela();
+					modelo.addRow(new String[] { txtNRegistro.getText(), txtNome.getText() });
 			}
 		});
 		btnSalvar.setEnabled(false);
