@@ -46,6 +46,13 @@ public class Setor implements Serializable{
 	}
 	
 	
+	public Setor(String nome, Funcionario funcionario, Setor setorPai) {
+		this.id_Setor = 0;
+		this.nome = nome;
+		this.setorPai = setorPai;
+		this.funcionario = funcionario;
+	}
+
 	public String getNome() {
 		return nome;
 	}

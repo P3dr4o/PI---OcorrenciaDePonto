@@ -14,6 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.CargoController;
 import Controller.SetorController;
 import Model.Setor;
 
@@ -148,6 +149,15 @@ public class ViewSetor extends JFrame {
 		btnAlterar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				if(tableSetor.getSelectedRow() != -1) {
+					
+					ViewNovoSetor vns = new ViewNovoSetor(listSetor.get(tableSetor.getSelectedRow()), true);
+					vns.setVisible(true);
+					dispose();
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um setor para Alterar", "Excluir", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		btnAlterar.setBounds(138, 261, 89, 23);

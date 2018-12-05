@@ -140,14 +140,32 @@ public class SetorDao {
 
 	// metodo para atualizar setor
 	public boolean atualizarSetor(Setor setor) {
-		String sql = "UPDATE setor SET nome = ?, idSetorPai = ?, idFuncionarioGestor = ?  WHERE idSetor = ?";
+		String sql; 
 
 		try {
-			stmt = con.prepareStatement(sql);
+			if (setor.getSetorPai() != null && setor.getFuncionario() != null) {
+				sql = "UPDATE setor SET nome = ?, idSetorPai = ?, idFuncionarioGestor = ?  WHERE idSetor = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(2, setor.getSetorPai().getId_Setor());
+				stmt.setInt(3, setor.getFuncionario().getId_Funcionario());
+				stmt.setInt(4, setor.getId_Setor());
+			} else if(setor.getSetorPai() == null && setor.getFuncionario() == null) {
+				sql = "UPDATE setor SET nome = ? WHERE idSetor = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(2, setor.getId_Setor());
+			} else if(setor.getSetorPai() != null) {
+				sql = "UPDATE setor SET nome = ?, idSetorPai = ? WHERE idSetor = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(2, setor.getSetorPai().getId_Setor());
+				stmt.setInt(3, setor.getId_Setor());
+			} else {
+				sql = "UPDATE setor SET nome = ?, idFuncionarioGestor = ? WHERE idSetor = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(2, setor.getFuncionario().getId_Funcionario());
+				stmt.setInt(3, setor.getId_Setor());
+			}
 			stmt.setString(1, setor.getNome());
-			stmt.setInt(2, setor.getSetorPai().getId_Setor());
-			stmt.setInt(3, setor.getFuncionario().getId_Funcionario());
-			stmt.setInt(4, setor.getId_Setor());
+			stmt.executeUpdate();
 
 			return true;
 		} catch (SQLException e) {

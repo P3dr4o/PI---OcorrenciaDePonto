@@ -86,7 +86,7 @@ public class ViewNovoSetor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ViewNovoSetor() {
+	public ViewNovoSetor(Setor setorEdit, boolean alterar) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 436, 171);
@@ -116,15 +116,24 @@ public class ViewNovoSetor extends JFrame {
 					index = jcbSetores.getSelectedIndex();
 					if(index > 0)
 						setor = setores.get(jcbSetores.getSelectedIndex() - 1);
+					
 					if(JOptionPane.showConfirmDialog(null, "Deseja realmente salvar?", "Salvar", JOptionPane.YES_NO_OPTION) == 0) {
-						if(SetorController.salvarSetor(txtSetor.getText(), new SetorDao().gerarMaxID(), funcionario, setor)) {
-							JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
-							txtSetor.setText("");
-							jcbFuncionarios.setSelectedIndex(0);
-							jcbSetores.setSelectedIndex(0);
+						if(alterar == false) {
+							if(SetorController.salvarSetor(txtSetor.getText(), funcionario, setor)) {
+								JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
+							if(SetorController.salvarSetor(txtSetor.getText(), setorEdit.getId_Setor(), funcionario, setor)) {
+								JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
 						}
+						ViewSetor vs = new ViewSetor();
+						vs.setVisible(true);
+						dispose();
 					}
 				//} else {
 				//	JOptionPane.showMessageDialog(null, "Informe todos os campos", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -178,5 +187,31 @@ public class ViewNovoSetor extends JFrame {
 		contentPane.add(jcbSetores);
 		
 		carregarInformacoes();
+		
+		if(setorEdit != null) {
+			if(setorEdit.getNome() != null) 
+				txtSetor.setText(setorEdit.getNome());
+			
+			if(setorEdit.getFuncionario()!= null)
+				for(int i = 0; i < gestores.size(); i++) 
+					if(gestores.get(i).getNome_Funcionario().equals(setorEdit.getFuncionario().getNome_Funcionario()))
+						jcbSetores.setSelectedIndex(i + 1);
+						
+			if(setorEdit.getSetorPai() != null)
+				for(int i = 0; i < setores.size(); i++) 
+					if(setores.get(i).getSetorPai() != null)
+						if(setores.get(i).getSetorPai().getNome().equals(setorEdit.getSetorPai().getNome())) {
+							Setor aux = setores.get(i).getSetorPai();
+							for(int i2 = 0; i2 < setores.size(); i2++)
+								if(setores.get(i2).getNome().equals(aux.getNome()))
+									jcbSetores.setSelectedIndex(i2 + 1);
+							
+						}
+		}
+		
+	}
+
+	public ViewNovoSetor() {
+		this(null, false);
 	}
 }
