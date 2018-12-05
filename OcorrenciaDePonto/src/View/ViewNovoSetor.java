@@ -86,7 +86,7 @@ public class ViewNovoSetor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ViewNovoSetor() {
+	public ViewNovoSetor(Setor setorEdit) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 436, 171);
@@ -178,5 +178,23 @@ public class ViewNovoSetor extends JFrame {
 		contentPane.add(jcbSetores);
 		
 		carregarInformacoes();
+		
+		if(setorEdit != null) {
+			if(setorEdit.getNome() != null) 
+				txtSetor.setText(setorEdit.getNome());
+			if(setorEdit.getFuncionario()!= null)
+				jcbFuncionarios.setSelectedItem(setorEdit.getFuncionario().getNome_Funcionario());
+			if(setorEdit.getSetorPai() != null)
+				for(int i = 0; i < setores.size(); i++) 
+					if(setores.get(i).getSetorPai() != null)
+						if(setores.get(i).getSetorPai().getNome().equals(setorEdit.getSetorPai().getNome()))
+							jcbFuncionarios.setSelectedIndex(i + 1);
+				
+		}
+		
+	}
+
+	public ViewNovoSetor() {
+		this(null);
 	}
 }

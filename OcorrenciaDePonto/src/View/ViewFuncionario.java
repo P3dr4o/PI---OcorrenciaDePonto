@@ -131,7 +131,7 @@ public class ViewFuncionario extends JFrame {
 		lblSetor.setBounds(249, 107, 46, 14);
 		panel.add(lblSetor);
 		
-		JComboBox comboBoxSetor = new JComboBox();
+		JComboBox<Setor> comboBoxSetor = new JComboBox<Setor>();
 		ArrayList<Setor> setores = SetorDao.selectAllSetores();
 		for(Setor setor : setores) {
 			comboBoxSetor.addItem(setor);
