@@ -86,7 +86,7 @@ public class ViewNovoSetor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ViewNovoSetor(Setor setorEdit) {
+	public ViewNovoSetor(Setor setorEdit, boolean alterar) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 436, 171);
@@ -116,15 +116,28 @@ public class ViewNovoSetor extends JFrame {
 					index = jcbSetores.getSelectedIndex();
 					if(index > 0)
 						setor = setores.get(jcbSetores.getSelectedIndex() - 1);
+					
 					if(JOptionPane.showConfirmDialog(null, "Deseja realmente salvar?", "Salvar", JOptionPane.YES_NO_OPTION) == 0) {
-						if(SetorController.salvarSetor(txtSetor.getText(), setorEdit.getId_Setor(), funcionario, setor)) {
-							JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
-							txtSetor.setText("");
-							jcbFuncionarios.setSelectedIndex(0);
-							jcbSetores.setSelectedIndex(0);
+						if(alterar == false) {
+							if(SetorController.salvarSetor(txtSetor.getText(), funcionario, setor)) {
+								JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
+								txtSetor.setText("");
+								jcbFuncionarios.setSelectedIndex(0);
+								jcbSetores.setSelectedIndex(0);
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
+							if(SetorController.salvarSetor(txtSetor.getText(), setorEdit.getId_Setor(), funcionario, setor)) {
+								JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
+								txtSetor.setText("");
+								jcbFuncionarios.setSelectedIndex(0);
+								jcbSetores.setSelectedIndex(0);
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
 						}
+						
 					}
 				//} else {
 				//	JOptionPane.showMessageDialog(null, "Informe todos os campos", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -203,6 +216,6 @@ public class ViewNovoSetor extends JFrame {
 	}
 
 	public ViewNovoSetor() {
-		this(null);
+		this(null, false);
 	}
 }

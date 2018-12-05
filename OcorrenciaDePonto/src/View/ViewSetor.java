@@ -151,7 +151,7 @@ public class ViewSetor extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				if(tableSetor.getSelectedRow() != -1) {
 					
-					ViewNovoSetor vns = new ViewNovoSetor(listSetor.get(tableSetor.getSelectedRow()));
+					ViewNovoSetor vns = new ViewNovoSetor(listSetor.get(tableSetor.getSelectedRow()), true);
 					vns.setVisible(true);
 					dispose();
 					

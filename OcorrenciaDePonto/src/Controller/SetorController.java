@@ -17,6 +17,11 @@ public class SetorController {
 		//}
 	}
 	
+	public static boolean salvarSetor(String nome, Funcionario funcionarioAprovador, Setor setorPai) {
+		Setor s = new Setor(nome, funcionarioAprovador, setorPai);
+		return s.presistir();
+	}
+	
 	public static boolean isExist(int id) {
 		//codigo para verificar se esse id existe
 		ArrayList<Setor> setores = getSetores();
