@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
@@ -19,6 +20,8 @@ import Model.Setor;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ViewSetor extends JFrame {
 
@@ -119,8 +122,35 @@ public class ViewSetor extends JFrame {
 		contentPane.add(btnNovo);
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+				if(tableSetor.getSelectedRow() != -1) {
+					if(SetorController.excluirSetor(listSetor.get(tableSetor.getSelectedRow()).getId_Setor())) {
+						listSetor.remove(tableSetor.getSelectedRow());
+						JOptionPane.showMessageDialog(null, "Setor apagado com sucesso");
+						modelo.removeRow(tableSetor.getSelectedRow());
+					} else {
+						JOptionPane.showMessageDialog(null, "Erro ao deletar setor: não é possível apagar um setor que possui setor pai ou um funcionario gestor",
+								"Erro", JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um setor para excluir", "Excluir", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+			
+		});
 		btnExcluir.setBounds(237, 261, 89, 23);
 		contentPane.add(btnExcluir);
+		
+		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+		btnAlterar.setBounds(138, 261, 89, 23);
+		contentPane.add(btnAlterar);
 	}
-
 }
