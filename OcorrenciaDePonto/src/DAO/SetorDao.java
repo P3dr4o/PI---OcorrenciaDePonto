@@ -105,7 +105,7 @@ public class SetorDao {
 
 		try {
 			if (setor.getSetorPai() != null && setor.getFuncionario() != null) {
-				sql = "INSERT INTO setor (nome, idSetorPai, Funcionario_idFuncionario) VALUES(?, ?, ?)";
+				sql = "INSERT INTO setor (nome, idSetorPai,idFuncionarioGestor) VALUES(?, ?, ?)";
 				stmt = con.prepareStatement(sql);
 				stmt.setInt(2, setor.getSetorPai().getId_Setor());
 				stmt.setInt(3, setor.getFuncionario().getId_Funcionario());
@@ -119,7 +119,7 @@ public class SetorDao {
 						stmt = con.prepareStatement(sql);
 						stmt.setInt(2, setor.getSetorPai().getId_Setor());
 					} else {
-						sql = "INSERT INTO setor (nome, Funcionario_idFuncionario) VALUES(?, ?)";
+						sql = "INSERT INTO setor (nome, idFuncionarioGestor) VALUES(?, ?)";
 						stmt = con.prepareStatement(sql);
 						stmt.setInt(2, setor.getFuncionario().getId_Funcionario());
 					}
@@ -159,12 +159,12 @@ public class SetorDao {
 	}
 
 	// metodo para excluir um setor
-	public boolean deleteSetor(Setor setor) {
+	public boolean deleteSetor(int id) {
 		String sql = "DELETE FROM setor WHERE idSetor = ?";
 
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, setor.getId_Setor());
+			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {

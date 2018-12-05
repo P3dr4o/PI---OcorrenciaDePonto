@@ -34,5 +34,9 @@ public class SetorController {
 		
 		return S;//setores;
 	}
+	
+	public static boolean excluirSetor(int id) {
+		return new SetorDao().deleteSetor(id);
+	}
 
 }
