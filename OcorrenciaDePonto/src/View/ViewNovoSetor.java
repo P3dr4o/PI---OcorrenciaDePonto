@@ -121,23 +121,19 @@ public class ViewNovoSetor extends JFrame {
 						if(alterar == false) {
 							if(SetorController.salvarSetor(txtSetor.getText(), funcionario, setor)) {
 								JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
-								txtSetor.setText("");
-								jcbFuncionarios.setSelectedIndex(0);
-								jcbSetores.setSelectedIndex(0);
 							} else {
 								JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 						} else {
 							if(SetorController.salvarSetor(txtSetor.getText(), setorEdit.getId_Setor(), funcionario, setor)) {
 								JOptionPane.showMessageDialog(null, "Setor salvo com sucesso");
-								txtSetor.setText("");
-								jcbFuncionarios.setSelectedIndex(0);
-								jcbSetores.setSelectedIndex(0);
 							} else {
 								JOptionPane.showMessageDialog(null, "Erro ao salvar setor", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 						}
-						
+						ViewSetor vs = new ViewSetor();
+						vs.setVisible(true);
+						dispose();
 					}
 				//} else {
 				//	JOptionPane.showMessageDialog(null, "Informe todos os campos", "Alerta", JOptionPane.WARNING_MESSAGE);

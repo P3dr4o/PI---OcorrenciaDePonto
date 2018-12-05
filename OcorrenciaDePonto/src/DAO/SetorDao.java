@@ -165,6 +165,7 @@ public class SetorDao {
 				stmt.setInt(3, setor.getId_Setor());
 			}
 			stmt.setString(1, setor.getNome());
+			stmt.executeUpdate();
 
 			return true;
 		} catch (SQLException e) {
