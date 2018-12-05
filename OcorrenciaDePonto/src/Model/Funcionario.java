@@ -14,6 +14,14 @@ public class Funcionario implements Serializable{
 	private Cargo cargo;
 	private Setor setor;
 	
+	
+	
+	@Override
+	public String toString() {
+		return nome_Funcionario;
+	}
+
+
 	private ArrayList<Apontamento> apontamentos;
 	
 	public Funcionario(int id_Funcionario, String nome_Funcionario, int num_Registro, Cargo Cargo) {

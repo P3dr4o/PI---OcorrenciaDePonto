@@ -16,7 +16,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import DAO.CargoDao;
+import DAO.FuncionarioDao;
+import DAO.SetorDao;
+import Model.Cargo;
+import Model.Funcionario;
+import Model.Setor;
+
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -35,6 +45,9 @@ public class ViewFuncionario extends JFrame {
 	private JTextField textField;
 	private JLabel lblSenha;
 	private JPasswordField passwordField;
+	private ArrayList<Funcionario> listFuncionario = new FuncionarioDao().selectAllFuncionarios();
+	private Iterator<Funcionario> iterator = listFuncionario.iterator();
+	private DefaultTableModel modelo;
 
 	/**
 	 * Launch the application.
@@ -104,7 +117,13 @@ public class ViewFuncionario extends JFrame {
 		lblCargo.setBounds(10, 107, 46, 14);
 		panel.add(lblCargo);
 		
-		JComboBox comboBoxCargo = new JComboBox();
+		JComboBox<Cargo> comboBoxCargo = new JComboBox<Cargo>();
+		ArrayList<Cargo> cargos = CargoDao.selectAllCargos();
+		for(Cargo cargo : cargos) {
+			comboBoxCargo.addItem(cargo);
+		}
+		
+		
 		comboBoxCargo.setBounds(65, 104, 150, 20);
 		panel.add(comboBoxCargo);
 		
@@ -113,7 +132,16 @@ public class ViewFuncionario extends JFrame {
 		panel.add(lblSetor);
 		
 		JComboBox comboBoxSetor = new JComboBox();
+		ArrayList<Setor> setores = SetorDao.selectAllSetores();
+		for(Setor setor : setores) {
+			comboBoxSetor.addItem(setor);
+		}
+		
+		
 		comboBoxSetor.setBounds(305, 104, 169, 20);
+		
+		
+		
 		panel.add(comboBoxSetor);
 		
 		lblUsurio = new JLabel("Usuário");
@@ -138,24 +166,33 @@ public class ViewFuncionario extends JFrame {
 		contentPane.add(scrollPaneFuncionario);
 		
 		tableFuncionario = new JTable();
-		tableFuncionario.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"N\u00BA Registro", "Nome", "Cargo", "Setor"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
+		modelo = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {"nº Registro",
+					"Nome", 
+				}
+			) {
+				boolean[] columnEditables = new boolean[] {
+					false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
 			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
+			while (iterator.hasNext()) {
+				Funcionario f = iterator.next();
+				modelo.addRow(new String[] {String.valueOf(f.getNum_Registro()),
+						f.getNome_Funcionario()
+				});
 			}
-		});
-		tableFuncionario.getColumnModel().getColumn(0).setResizable(false);
+			tableFuncionario.setModel(modelo);
+		tableFuncionario.getColumnModel().getColumn(0).setPreferredWidth(70);
+		tableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(400);	
+	/*	tableFuncionario.getColumnModel().getColumn(0).setResizable(false);
 		tableFuncionario.getColumnModel().getColumn(1).setResizable(false);
 		tableFuncionario.getColumnModel().getColumn(2).setResizable(false);
-		tableFuncionario.getColumnModel().getColumn(3).setResizable(false);
+		tableFuncionario.getColumnModel().getColumn(3).setResizable(false);*/
 		
 		//código para NÃO deixar mover o cabeçalho da tabela
 		tableFuncionario.getTableHeader().setReorderingAllowed(false);

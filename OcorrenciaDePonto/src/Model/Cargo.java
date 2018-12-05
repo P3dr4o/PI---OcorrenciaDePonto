@@ -19,6 +19,13 @@ public class Cargo implements Serializable{
 		}
 		
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return nomeCargo;
+	}
 
 	public int getIdCargo() {
 		return idCargo;

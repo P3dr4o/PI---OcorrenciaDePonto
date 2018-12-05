@@ -19,7 +19,7 @@ public class CargoDao {
 	private static ResultSet rs;
 	
 	//metodo para selecionar todos os cargos
-	public ArrayList<Cargo> selectAllCargos() {
+	public static ArrayList<Cargo> selectAllCargos() {
 		String sql = "SELECT * FROM cargo";
 		ArrayList<Cargo> listCargos = new ArrayList<>();
 		Cargo cargo = null;

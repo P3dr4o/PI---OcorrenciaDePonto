@@ -141,10 +141,11 @@ public class TelaLogin extends JFrame{
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				f = LoginController.verificaLogin(fieldUsuario.getText(), String.valueOf(fieldSenha.getPassword()));
-				if(f != null)
+				if(f != null) {
 					new TelaPrincipal(f);
+					frame.setVisible(false);
 					//tl.rodar();
-				else {
+				}else {
 					JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
 					//tl = new TelaPrincipal(f);
 					//tl.rodar();

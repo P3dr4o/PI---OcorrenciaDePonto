@@ -27,6 +27,11 @@ public class Setor implements Serializable{
 		
 	}
 	
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
 	public Setor(String nome, int id_Setor,Funcionario funcionario,Setor setorPai) {
 		//Encaminhar uma exce��o caso alguns dos dados sej� inv�lido
 		if(nome != null && id_Setor > 0) {
