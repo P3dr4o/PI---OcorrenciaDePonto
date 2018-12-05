@@ -19,7 +19,7 @@ public class FuncionarioDao {
 	private static ResultSet rs;
 	
 	//metodo para selecionar todos os funcionarios
-	public ArrayList<Funcionario> selectAllFuncionarios() {
+	public static ArrayList<Funcionario> selectAllFuncionarios() {
 		String sql = "SELECT * FROM funcionario";
 		ArrayList<Funcionario> listFuncionario = new ArrayList<>();
 		Funcionario funcionario = null;
@@ -89,16 +89,16 @@ public class FuncionarioDao {
 		}
 	
 	//metodo para criar novo funcionario
-	public boolean createFuncionario(Funcionario funcionario) {
-		String sql = "INSERT INTO funcionario VALUES(?, ?, ?, ?, ?, ?, ?)";
+	public static boolean createFuncionario(Funcionario funcionario) {
+		String sql = "INSERT INTO Funcionario(nome, registro, idSetor, idCargo) VALUES(?, ?, ?, ?)";
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, funcionario.getId_Funcionario());
-			stmt.setString(2, funcionario.getNome_Funcionario());
-			stmt.setInt(3, funcionario.getNum_Registro());
-			stmt.setInt(4, funcionario.getSetor().getId_Setor());
-			stmt.setInt(5, funcionario.getCargo().getIdCargo());
+			//stmt.setInt(1, funcionario.getId_Funcionario());
+			stmt.setString(1, funcionario.getNome_Funcionario());
+			stmt.setInt(2, funcionario.getNum_Registro());
+			stmt.setInt(3, funcionario.getSetor().getId_Setor());
+			stmt.setInt(4, funcionario.getCargo().getIdCargo());
 			stmt.executeUpdate();
 			
 			return true;
@@ -110,7 +110,7 @@ public class FuncionarioDao {
 	}
 	
 	//metodo para atualizar funcionario
-	public boolean atualizarFuncionario(Funcionario funcionario) {
+	public static boolean atualizarFuncionario(Funcionario funcionario) {
 		String sql = "UPDATE funcionario SET nome = ?, registro = ?, cargo = ?, setor = ? WHERE idFuncionario = ?";
 		
 		try {
@@ -121,7 +121,6 @@ public class FuncionarioDao {
 			stmt.setInt(4, funcionario.getSetor().getId_Setor());
 			stmt.setInt(5, funcionario.getId_Funcionario());
 			stmt.executeUpdate();
-			
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

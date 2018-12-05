@@ -3,6 +3,9 @@ package Model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import Controller.FuncionarioController;
+import DAO.FuncionarioDao;
+
 public class Funcionario implements Serializable{
 	private int id_Funcionario;
 	private String nome_Funcionario;
@@ -25,35 +28,38 @@ public class Funcionario implements Serializable{
 	private ArrayList<Apontamento> apontamentos;
 	
 	public Funcionario(int id_Funcionario, String nome_Funcionario, int num_Registro, Cargo Cargo) {
-		setId_Funcionario(id_Funcionario);
+		this.id_Funcionario = id_Funcionario;
 		setNome_Funcionario(nome_Funcionario);
 		setNum_Registro(num_Registro);
 		setCargo(cargo);
 		//apontamentos = new Apontamentos();
 	}
 	
-	public Funcionario(int id_Funcionario, String nome_Funcionario, int num_Registro, Cargo Cargo, Setor setor) {
+	public Funcionario(int id_Funcionario, String nome_Funcionario, int num_Registro, Cargo cargo, Setor setor) {
 		setId_Funcionario(id_Funcionario);
 		setNome_Funcionario(nome_Funcionario);
 		setNum_Registro(num_Registro);
-		setCargo(cargo);
+		this.cargo = cargo;
 		setSetor(setor);
 		//apontamentos = new Apontamentos();
 	}
 
 
 	public boolean persistir() {
-		
-/*		Implementar aqui um c�digo para comunicar 
-		com a camada Dao solicitando para persistir
-		os as informa��es deste(this) funcion�rio
-		no banco de dados.*/
-		return false;
+		if (isExist(this.id_Funcionario)) {
+			return FuncionarioDao.atualizarFuncionario(this);
+		}else {
+			return FuncionarioDao.createFuncionario(this);
+		}
 	}
 	
 	public static boolean isExist(int id) {
-		//Código para verificar se existe esse id no banco de dados
-		return true;
+		ArrayList<Funcionario> funcionarios = FuncionarioController.getFuncionarios();
+		for(Funcionario f : funcionarios) {
+			if (f.getId_Funcionario() == id)
+				return true;
+		}
+		return false;
 	}
 	public static ArrayList<Funcionario> getFuncionarios(){
 		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
@@ -92,7 +98,7 @@ public class Funcionario implements Serializable{
 	}
 
 
-	public void setCargo(Cargo cargo) throws NumberFormatException {
+	public void setCargo(Cargo cargo) {
 		/*Aqui deve ser implementado um c�digo,
 		caso necess�rio, para relizar as devidas
 		valida��es dos dados vindos do usu�rio*/

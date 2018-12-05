@@ -11,12 +11,12 @@ public class Cargo implements Serializable{
 	public Cargo() {}
 	
 	public Cargo(int idCargo, String nomeCargo) {
-		if (nomeCargo != null && idCargo > 0) {
+		//if (nomeCargo != null && idCargo > 0) {
 			setNomeCargo(nomeCargo);
-			setIdCargo(idCargo);
-		}else {
+			this.idCargo = idCargo;
+		//}else {
 			//reportar exce��o informando a exist�ncia de inconsist�ncia nos dados repassados
-		}
+		//}
 		
 	}
 	

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -17,11 +18,14 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.LoginController;
+import Controller.Objetos;
 import DAO.CargoDao;
 import DAO.FuncionarioDao;
 import DAO.SetorDao;
 import Model.Cargo;
 import Model.Funcionario;
+import Model.Login;
 import Model.Setor;
 
 import java.awt.event.ActionListener;
@@ -42,16 +46,28 @@ public class ViewFuncionario extends JFrame {
 	private JButton btnSalvar;
 	private JButton btnCancelar;
 	private JLabel lblUsurio;
-	private JTextField textField;
+	private JTextField texUsuario;
 	private JLabel lblSenha;
 	private JPasswordField passwordField;
-	private ArrayList<Funcionario> listFuncionario = new FuncionarioDao().selectAllFuncionarios();
-	private Iterator<Funcionario> iterator = listFuncionario.iterator();
+	private ArrayList<Funcionario> listFuncionario;
+	private Iterator<Funcionario> iterator;
 	private DefaultTableModel modelo;
 
 	/**
 	 * Launch the application.
+	 * 
 	 */
+	
+	public void carregaTabela() {
+		listFuncionario = new FuncionarioDao().selectAllFuncionarios();
+		iterator = listFuncionario.iterator();
+		while (iterator.hasNext()) {
+			Funcionario f = iterator.next();
+			modelo.addRow(new String[] {String.valueOf(f.getNum_Registro()),
+					f.getNome_Funcionario()
+			});
+		}
+	}
 	public static void main(String[] args) {
 		
 		try {
@@ -119,6 +135,7 @@ public class ViewFuncionario extends JFrame {
 		
 		JComboBox<Cargo> comboBoxCargo = new JComboBox<Cargo>();
 		ArrayList<Cargo> cargos = CargoDao.selectAllCargos();
+		comboBoxCargo.addItem(new Cargo(-1, "Selecione o cargo"));
 		for(Cargo cargo : cargos) {
 			comboBoxCargo.addItem(cargo);
 		}
@@ -131,8 +148,9 @@ public class ViewFuncionario extends JFrame {
 		lblSetor.setBounds(249, 107, 46, 14);
 		panel.add(lblSetor);
 		
-		JComboBox comboBoxSetor = new JComboBox();
+		JComboBox<Setor> comboBoxSetor = new JComboBox<Setor>();
 		ArrayList<Setor> setores = SetorDao.selectAllSetores();
+		comboBoxSetor.addItem(new Setor("Selecione o setor", -1, null));
 		for(Setor setor : setores) {
 			comboBoxSetor.addItem(setor);
 		}
@@ -148,10 +166,10 @@ public class ViewFuncionario extends JFrame {
 		lblUsurio.setBounds(10, 143, 46, 14);
 		panel.add(lblUsurio);
 		
-		textField = new JTextField();
-		textField.setBounds(66, 140, 149, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		texUsuario = new JTextField();
+		texUsuario.setBounds(66, 140, 149, 20);
+		panel.add(texUsuario);
+		texUsuario.setColumns(10);
 		
 		lblSenha = new JLabel("Senha");
 		lblSenha.setBounds(249, 146, 46, 14);
@@ -180,12 +198,7 @@ public class ViewFuncionario extends JFrame {
 					return columnEditables[column];
 				}
 			};
-			while (iterator.hasNext()) {
-				Funcionario f = iterator.next();
-				modelo.addRow(new String[] {String.valueOf(f.getNum_Registro()),
-						f.getNome_Funcionario()
-				});
-			}
+			carregaTabela();
 			tableFuncionario.setModel(modelo);
 		tableFuncionario.getColumnModel().getColumn(0).setPreferredWidth(70);
 		tableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(400);	
@@ -225,6 +238,26 @@ public class ViewFuncionario extends JFrame {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				statusBotoes(true, true, false, true, false);
+				//try {
+					Cargo c = (Cargo) comboBoxCargo.getSelectedItem();
+					Setor s = (Setor) comboBoxSetor.getSelectedItem();
+					Funcionario f;
+					Login l;
+					if(txtNRegistro.getText() != null && txtNome.getText() != null && passwordField.getPassword() != null && texUsuario.getText() != null && c.getIdCargo() > 0 && s.getId_Setor() > 0) {
+						f = new Funcionario(-1, txtNome.getText(), Integer.parseInt(txtNRegistro.getText()), c, s);
+						l = new Login(texUsuario.getText(), LoginController.getMD5(""+passwordField.getPassword()), f);
+						if(f.persistir() && l.persistir())
+							JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.OK_OPTION);
+						else
+							JOptionPane.showMessageDialog(null, "Erro ao gravar no banco de dados!", "", JOptionPane.ERROR_MESSAGE);	
+					}else {
+						JOptionPane.showMessageDialog(null, "Falta informação ou são inválidas!", null, JOptionPane.WARNING_MESSAGE);
+					}
+						
+				//} catch (Exception e2) {
+					// @TODO: handle exception
+				//}
+				carregaTabela();
 			}
 		});
 		btnSalvar.setEnabled(false);
@@ -235,6 +268,7 @@ public class ViewFuncionario extends JFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				statusBotoes(true, true, false, true, false);
+				
 			}
 		});
 		btnCancelar.setEnabled(false);

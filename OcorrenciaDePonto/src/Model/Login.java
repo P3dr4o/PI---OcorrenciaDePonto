@@ -22,6 +22,7 @@ public class Login {
 		this.senha = senhaMD5;
 		this.funcionario = funcionario;
 		loginDao = new LoginDao();
+		ultimoLogin = new Date();
 	}
 	
 	
@@ -49,10 +50,9 @@ public class Login {
 	
 	public boolean persistir() {
 		if(LoginController.isExist(this.idLogin))
-			loginDao.updateLogin(this);
+			return loginDao.updateLogin(this);
 		else
-			loginDao.createLogin(this);
-		return false;
+			return loginDao.createLogin(this);
 	}
 
 	public String getUsuario() {

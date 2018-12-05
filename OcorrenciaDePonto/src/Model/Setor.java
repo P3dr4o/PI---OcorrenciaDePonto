@@ -17,13 +17,13 @@ public class Setor implements Serializable{
 	
 	public Setor(String nome, int id_Setor,Funcionario funcionario) {
 		//Encaminhar uma exce��o caso alguns dos dados sej� inv�lido
-		if(nome != null && id_Setor > 0) {
+		//if(nome != null && id_Setor > 0) {
 			this.nome = nome;
 			this.id_Setor = id_Setor;
 			this.funcionario = funcionario;
-		}else {
+		//}else {
 			//reportar exce��o aqui sinalizando que existe dados erados!!
-		}
+	//	}
 		
 	}
 	
