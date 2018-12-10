@@ -246,7 +246,7 @@ public class ViewFuncionario extends JFrame {
 						int idFun = FuncionarioDao.gerarMaxID();
 						
 						l = new Login(texUsuario.getText(), LoginController.getMD5(""+passwordField.getPassword()), new Funcionario(idFun, "", 0, null));
-						if(f.persistir() && l.persistir())
+						if(f.persistir() && l.persistir()) 
 							JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
 						else
 							JOptionPane.showMessageDialog(null, "Erro ao gravar no banco de dados!", "", JOptionPane.ERROR_MESSAGE);	
@@ -258,6 +258,12 @@ public class ViewFuncionario extends JFrame {
 					// @TODO: handle exception
 				//}
 					modelo.addRow(new String[] { txtNRegistro.getText(), txtNome.getText() });
+					txtNRegistro.setText("");
+					txtNome.setText("");
+					comboBoxCargo.setSelectedIndex(0);
+					comboBoxSetor.setSelectedIndex(0);
+					texUsuario.setText("");
+					passwordField.setText("");
 			}
 		});
 		btnSalvar.setEnabled(false);
