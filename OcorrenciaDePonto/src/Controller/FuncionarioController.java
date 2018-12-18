@@ -27,12 +27,12 @@ public class FuncionarioController {
 		return fs;
 	}
 
-	/*public static Funcionario getFuncionario(int idFuncionario) {
+	public static Funcionario getFuncionario(int idFuncionario) {
 		ArrayList<Funcionario> funcionarios = getFuncionarios();
 		for (int i = 0; i < funcionarios.size(); i++) {
 			if(funcionarios.get(i).getId_Funcionario() == idFuncionario)
 				return funcionarios.get(i);
 		}
 		return null;
-	}*/
+	}
 }

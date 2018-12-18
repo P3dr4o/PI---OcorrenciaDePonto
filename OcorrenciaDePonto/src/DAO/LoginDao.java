@@ -70,11 +70,8 @@ public class LoginDao {
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			//stmt.setInt(1, login.getIdLogin());
 			stmt.setString(1, login.getUsuario());
 			stmt.setString(2, login.getSenha());
-			//stmt.setTimestamp(3, new Timestamp(login.getUltimoLogin().getTime()));
-			System.out.println(login.getFuncionario().getId_Funcionario());
 			stmt.setInt(3, login.getFuncionario().getId_Funcionario());
 			stmt.executeUpdate();
 			

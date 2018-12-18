@@ -156,7 +156,7 @@ public class ViewSetor extends JFrame {
 					dispose();
 					
 				} else {
-					JOptionPane.showMessageDialog(null, "Selecione um setor para Alterar", "Excluir", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Selecione um setor para Alterar", "Alterar", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});

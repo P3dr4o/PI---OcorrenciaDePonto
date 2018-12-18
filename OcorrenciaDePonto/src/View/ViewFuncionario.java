@@ -34,12 +34,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ViewFuncionario extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtNRegistro;
+	private JComboBox<Cargo> comboBoxCargo;
+	private JComboBox<Setor> comboBoxSetor;
 	private JTable tableFuncionario;
 	private JButton btnNovo;
 	private JButton btnEditar;
@@ -47,11 +51,12 @@ public class ViewFuncionario extends JFrame {
 	private JButton btnSalvar;
 	private JButton btnCancelar;
 	private JLabel lblUsurio;
-	private JTextField texUsuario;
+	private JTextField txtUsuario;
 	private JLabel lblSenha;
-	private JPasswordField passwordField;
+	private JPasswordField txtSenha;
 	private ArrayList<Funcionario> listFuncionario;
-	private Iterator<Funcionario> iterator;
+	private ArrayList<Cargo> cargos;
+	private ArrayList<Setor> setores;
 	private DefaultTableModel modelo;
 
 	/**
@@ -60,9 +65,14 @@ public class ViewFuncionario extends JFrame {
 	 */
 	
 	public void carregaTabela() {
-		ArrayList<Funcionario> funcionarios = FuncionarioDao.selectAllFuncionarios();
-		for (Funcionario fs : funcionarios) {
-			modelo.addRow(new String[] {String.valueOf(fs.getNum_Registro()), fs.getNome_Funcionario()});
+		listFuncionario = FuncionarioDao.selectAllFuncionarios();
+		for (Funcionario fs : listFuncionario) {
+			modelo.addRow(new String[] {
+						String.valueOf(fs.getNum_Registro()),
+						fs.getNome_Funcionario(),
+						fs.getCargo().getNomeCargo(),
+						fs.getSetor().getNome()
+					});
 		}
 		
 	}
@@ -114,6 +124,7 @@ public class ViewFuncionario extends JFrame {
 		panel.add(lblNome);
 		
 		txtNome = new JTextField();
+		txtNome.setEditable(false);
 		txtNome.setBounds(66, 67, 408, 20);
 		panel.add(txtNome);
 		txtNome.setColumns(10);
@@ -123,6 +134,7 @@ public class ViewFuncionario extends JFrame {
 		panel.add(lblNRegistro);
 		
 		txtNRegistro = new JTextField();
+		txtNRegistro.setEditable(false);
 		txtNRegistro.setBounds(100, 25, 169, 20);
 		panel.add(txtNRegistro);
 		txtNRegistro.setColumns(10);
@@ -131,8 +143,9 @@ public class ViewFuncionario extends JFrame {
 		lblCargo.setBounds(10, 107, 46, 14);
 		panel.add(lblCargo);
 		
-		JComboBox<Cargo> comboBoxCargo = new JComboBox<Cargo>();
-		ArrayList<Cargo> cargos = CargoDao.selectAllCargos();
+		comboBoxCargo = new JComboBox<Cargo>();
+		comboBoxCargo.setEnabled(false);
+		cargos = CargoDao.selectAllCargos();
 		comboBoxCargo.addItem(new Cargo(-1, "Selecione o cargo"));
 		for(Cargo cargo : cargos) {
 			comboBoxCargo.addItem(cargo);
@@ -146,8 +159,9 @@ public class ViewFuncionario extends JFrame {
 		lblSetor.setBounds(249, 107, 46, 14);
 		panel.add(lblSetor);
 		
-		JComboBox<Setor> comboBoxSetor = new JComboBox<Setor>();
-		ArrayList<Setor> setores = SetorDao.selectAllSetores();
+		comboBoxSetor = new JComboBox<Setor>();
+		comboBoxSetor.setEnabled(false);
+		setores = SetorDao.selectAllSetores();
 		comboBoxSetor.addItem(new Setor("Selecione o setor", -1, null));
 		for(Setor setor : setores) {
 			comboBoxSetor.addItem(setor);
@@ -164,18 +178,20 @@ public class ViewFuncionario extends JFrame {
 		lblUsurio.setBounds(10, 143, 46, 14);
 		panel.add(lblUsurio);
 		
-		texUsuario = new JTextField();
-		texUsuario.setBounds(66, 140, 149, 20);
-		panel.add(texUsuario);
-		texUsuario.setColumns(10);
+		txtUsuario = new JTextField();
+		txtUsuario.setEditable(false);
+		txtUsuario.setBounds(66, 140, 149, 20);
+		panel.add(txtUsuario);
+		txtUsuario.setColumns(10);
 		
 		lblSenha = new JLabel("Senha");
 		lblSenha.setBounds(249, 146, 46, 14);
 		panel.add(lblSenha);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(305, 143, 169, 20);
-		panel.add(passwordField);
+		txtSenha = new JPasswordField();
+		txtSenha.setEditable(false);
+		txtSenha.setBounds(305, 143, 169, 20);
+		panel.add(txtSenha);
 		
 		JScrollPane scrollPaneFuncionario = new JScrollPane();
 		scrollPaneFuncionario.setBounds(10, 235, 484, 274);
@@ -183,23 +199,25 @@ public class ViewFuncionario extends JFrame {
 		
 		tableFuncionario = new JTable();
 		modelo = new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {"nº Registro",
-					"Nome" 
-				}
-			) {
-				boolean[] columnEditables = new boolean[] {
-					false, false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
-			};
-			carregaTabela();
-			tableFuncionario.setModel(modelo);
-		tableFuncionario.getColumnModel().getColumn(0).setPreferredWidth(70);
-		tableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(400);	
+						new Object[][] {
+						},
+						new String[] {
+							"n\u00BA Registro", "Nome", "Cargo", "Setor"
+						}
+					) {
+						boolean[] columnEditables = new boolean[] {
+							false, false, false, false
+						};
+						public boolean isCellEditable(int row, int column) {
+							return columnEditables[column];
+						}
+					};
+		carregaTabela();
+		tableFuncionario.setModel(modelo);
+		tableFuncionario.getColumnModel().getColumn(0).setPreferredWidth(90);
+		tableFuncionario.getColumnModel().getColumn(1).setPreferredWidth(300);
+		tableFuncionario.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tableFuncionario.getColumnModel().getColumn(3).setPreferredWidth(100);
 	/*	tableFuncionario.getColumnModel().getColumn(0).setResizable(false);
 		tableFuncionario.getColumnModel().getColumn(1).setResizable(false);
 		tableFuncionario.getColumnModel().getColumn(2).setResizable(false);
@@ -214,17 +232,41 @@ public class ViewFuncionario extends JFrame {
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				statusBotoes(false, false, true, false, true);
+				statusCampos(true);
 			}
 		});
 		btnNovo.setBounds(10, 201, 89, 23);
 		contentPane.add(btnNovo);
 		
 		btnEditar = new JButton("Editar");
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				statusBotoes(false, false, true, false, true);
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+				if(tableFuncionario.getSelectedRow() != -1) {
+					statusBotoes(false, false, true, false, true);
+					statusCampos(true);
+					txtNRegistro.setText((String) tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 0));
+					txtNome.setText((String) tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 1));
+					for(int i = 0; i < cargos.size(); i++) {
+						if(cargos.get(i).getNomeCargo().equals(tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 2))) {
+							comboBoxCargo.setSelectedIndex(i + 1);
+						}
+					}
+					for(int i = 0; i < setores.size(); i++) {
+						if(setores.get(i).getNome().equals(tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 3))) {
+							comboBoxSetor.setSelectedIndex(i + 1);
+						}
+					}
+					for(int i = 0; i < listFuncionario.size(); i++) {
+						if(listFuncionario.get(i).get)
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um funcionário para Alterar", "Alterar", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
+		
 		btnEditar.setBounds(109, 201, 89, 23);
 		contentPane.add(btnEditar);
 		
@@ -235,35 +277,39 @@ public class ViewFuncionario extends JFrame {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				statusBotoes(true, true, false, true, false);
 				//try {
 					Cargo c = (Cargo) comboBoxCargo.getSelectedItem();
 					Setor s = (Setor) comboBoxSetor.getSelectedItem();
 					Funcionario f;
 					Login l;
-					if(txtNRegistro.getText() != null && txtNome.getText() != null && passwordField.getPassword() != null && texUsuario.getText() != null && c.getIdCargo() > 0 && s.getId_Setor() > 0) {
+					if(txtNRegistro.getText() != null && txtNome.getText() != null && txtSenha.getPassword() != null && txtUsuario.getText() != null && c.getIdCargo() > 0 && s.getId_Setor() > 0) {
 						f = new Funcionario(-1, txtNome.getText(), Integer.parseInt(txtNRegistro.getText()), c, s);
 						int idFun = FuncionarioDao.gerarMaxID();
 						
-						l = new Login(texUsuario.getText(), LoginController.getMD5(""+passwordField.getPassword()), new Funcionario(idFun, "", 0, null));
-						if(f.persistir() && l.persistir()) 
+						l = new Login(txtUsuario.getText(), LoginController.getMD5(""+txtSenha.getPassword()), new Funcionario(idFun, "", 0, null));
+						if(f.persistir() && l.persistir()) {
 							JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
-						else
-							JOptionPane.showMessageDialog(null, "Erro ao gravar no banco de dados!", "", JOptionPane.ERROR_MESSAGE);	
-					}else {
+							modelo.addRow(new String[] { 
+									txtNRegistro.getText(),
+									txtNome.getText(),
+									comboBoxCargo.getSelectedItem().toString(),
+									comboBoxSetor.getSelectedItem().toString()
+							});
+							listFuncionario = FuncionarioDao.selectAllFuncionarios();
+							limparCampos();
+							statusBotoes(true, true, false, true, false);
+							statusCampos(false);
+						} else {
+							JOptionPane.showMessageDialog(null, "Erro ao gravar no banco de dados!", "", JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
 						JOptionPane.showMessageDialog(null, "Falta informação ou são inválidas!", null, JOptionPane.WARNING_MESSAGE);
 					}
 						
 				//} catch (Exception e2) {
 					// @TODO: handle exception
 				//}
-					modelo.addRow(new String[] { txtNRegistro.getText(), txtNome.getText() });
-					txtNRegistro.setText("");
-					txtNome.setText("");
-					comboBoxCargo.setSelectedIndex(0);
-					comboBoxSetor.setSelectedIndex(0);
-					texUsuario.setText("");
-					passwordField.setText("");
+					
 			}
 		});
 		btnSalvar.setEnabled(false);
@@ -273,8 +319,9 @@ public class ViewFuncionario extends JFrame {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				limparCampos();
 				statusBotoes(true, true, false, true, false);
-				
+				statusCampos(false);
 			}
 		});
 		btnCancelar.setEnabled(false);
@@ -310,14 +357,30 @@ public class ViewFuncionario extends JFrame {
 				btnCancelar.setEnabled(false);
 		}
 		
-		//metodo para mudar o status dos campos cnpj e razao social
+		//metodo para mudar o status dos campos
 		private void statusCampos(boolean editable) {
-			/*if(editable == true) {
-				txtCNPJ.setEditable(true);
-				txtRazaoSocial.setEditable(true);
+			if(editable == true) {
+				txtNRegistro.setEditable(true);
+				txtNome.setEditable(true);
+				comboBoxCargo.setEnabled(true);
+				comboBoxSetor.setEnabled(true);
+				txtUsuario.setEditable(true);
+				txtSenha.setEditable(true);
 			} else {
-				txtCNPJ.setEditable(false);
-				txtRazaoSocial.setEditable(false);
-			}*/
+				txtNRegistro.setEditable(false);
+				txtNome.setEditable(false);
+				comboBoxCargo.setEnabled(false);
+				comboBoxSetor.setEnabled(false);
+				txtUsuario.setEditable(false);
+			}
+		}
+		
+		private void limparCampos() {
+			txtNRegistro.setText("");
+			txtNome.setText("");
+			comboBoxCargo.setSelectedIndex(0);
+			comboBoxSetor.setSelectedIndex(0);
+			txtUsuario.setText("");
+			txtSenha.setText("");
 		}
 }
