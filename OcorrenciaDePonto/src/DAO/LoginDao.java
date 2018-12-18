@@ -26,7 +26,7 @@ public class LoginDao {
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
-				login = new Login(rs.getString("usuario"), rs.getString("senha"), FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")));
+				login = new Login(rs.getString("usuario"), rs.getString("senha"));
 				login.setIdLogin(rs.getInt("idLogin"));
 				login.setUltimoLogin(rs.getDate("ultimoLogin"));
 				listLogin.add(login);
@@ -40,19 +40,19 @@ public class LoginDao {
 		return listLogin;
 	}
 	
-	//metodo para selecionar Login especifico pesquisando pelo id
-	public static Login selectLogin(int idLogin) {
-		String sql = "SELECT * FROM login WHERE idLogin = ?";
+	//metodo para selecionar Login especifico pesquisando pelo id do funcionário
+	public static Login selectLogin(int idFuncionario) {
+		String sql = "SELECT * FROM login WHERE idFuncionario = ?";
 		Login login = null;
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, idLogin);
+			stmt.setInt(1, idFuncionario);
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				login = new Login(rs.getString("nome"), rs.getString("senha"), FuncionarioDao.selectFuncionario(rs.getInt("idFuncionario")));
-				login.setIdLogin(idLogin);
+				login = new Login(rs.getString("usuario"), rs.getString("senha"));
+				login.setIdLogin(rs.getInt("idLogin"));
 				login.setUltimoLogin(rs.getDate("ultimoLogin"));
 			}
 			

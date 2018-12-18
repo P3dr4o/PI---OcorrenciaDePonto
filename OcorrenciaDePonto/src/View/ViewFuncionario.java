@@ -259,7 +259,9 @@ public class ViewFuncionario extends JFrame {
 						}
 					}
 					for(int i = 0; i < listFuncionario.size(); i++) {
-						if(listFuncionario.get(i).get)
+						if(listFuncionario.get(i).getNum_Registro() ==  Integer.parseInt((String) tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 0))) {
+							txtUsuario.setText(listFuncionario.get(i).getLogin().getUsuario());
+						}
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecione um funcionário para Alterar", "Alterar", JOptionPane.WARNING_MESSAGE);

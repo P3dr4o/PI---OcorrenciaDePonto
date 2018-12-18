@@ -16,6 +16,7 @@ public class Funcionario implements Serializable{
 	
 	private Cargo cargo;
 	private Setor setor;
+	private Login login;
 	
 	
 	
@@ -140,27 +141,14 @@ public class Funcionario implements Serializable{
 	public void setId_Funcionario(int id_Funcionario) {
 		this.id_Funcionario = id_Funcionario;
 	}
-
-
-	/*public String getLogin() {
+	
+	public Login getLogin() {
 		return login;
 	}
-
-
-	public void setLogin(String login) {
+	
+	public void setLogin(Login login) {
 		this.login = login;
 	}
-
-
-	public String getSenha() {
-		return senha;
-	}
-
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	*/
 	
 	
 

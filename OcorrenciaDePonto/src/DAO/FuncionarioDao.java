@@ -43,6 +43,7 @@ public class FuncionarioDao {
 					idSet = Integer.parseInt(r.get(i)[4]);
 				funcionario = new Funcionario(Integer.parseInt(r.get(i)[0]), r.get(i)[1], 
 						Integer.parseInt(r.get(i)[2]), CargoDao.selectCargo(idCargo), SetorDao.selectSetor(idSet));
+				funcionario.setLogin(LoginDao.selectLogin(Integer.parseInt(r.get(i)[0])));
 				listFuncionario.add(funcionario);
 			}
 			

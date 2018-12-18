@@ -16,6 +16,13 @@ public class Login {
 	private Funcionario funcionario;
 	private Date ultimoLogin;
 	private LoginDao loginDao;
+	
+	public Login(String usuario, String senhaMD5) {
+		this.usuario = usuario;
+		this.senha = senhaMD5;
+		loginDao = new LoginDao();
+		ultimoLogin = new Date();
+	}
 
 	public Login(String usuario, String senhaMD5, Funcionario funcionario) {
 		this.usuario = usuario;
