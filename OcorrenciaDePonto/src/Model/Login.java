@@ -24,6 +24,15 @@ public class Login implements Serializable{
 		loginDao = new LoginDao();
 		ultimoLogin = new Date();
 	}
+	
+	public Login(int idLogin, String usuario, String senhaMD5, Funcionario funcionario) {
+		this.idLogin = idLogin;
+		this.usuario = usuario;
+		this.senha = senhaMD5;
+		this.funcionario = funcionario;
+		loginDao = new LoginDao();
+		ultimoLogin = new Date();
+	}
 
 	public Login(String usuario, String senhaMD5, Funcionario funcionario) {
 		this.usuario = usuario;

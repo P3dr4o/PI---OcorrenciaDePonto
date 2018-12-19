@@ -65,6 +65,7 @@ public class ViewFuncionario extends JFrame {
 	private JMenuItem mntmRedefinirSenha;
 	private boolean alterar;
 	private int idFuncionario;
+	private int idLogin;
 	private String senhaCript;
 
 	/**
@@ -304,6 +305,7 @@ public class ViewFuncionario extends JFrame {
 						if(listFuncionario.get(i).getNum_Registro() ==  Integer.parseInt((String) tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 0))) {
 							txtUsuario.setText(listFuncionario.get(i).getLogin().getUsuario());
 							idFuncionario = listFuncionario.get(i).getId_Funcionario();
+							idLogin = listFuncionario.get(i).getLogin().getIdLogin();
 							senhaCript = listFuncionario.get(i).getLogin().getSenha();
 						}
 					}
@@ -354,7 +356,7 @@ public class ViewFuncionario extends JFrame {
 					} else {
 						if(txtNRegistro.getText() != null && txtNome.getText() != null && txtUsuario.getText() != null && c.getIdCargo() > 0 && s.getId_Setor() > 0) {
 							f = new Funcionario(idFuncionario, txtNome.getText(), Integer.parseInt(txtNRegistro.getText()), c, s);
-							l = new Login(txtUsuario.getText(), senhaCript, new Funcionario(idFuncionario, null, 0, null));
+							l = new Login(idLogin, txtUsuario.getText(), senhaCript, new Funcionario(idFuncionario, null, 0, null));
 							if(f.persistir() && l.persistir()) {
 								JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
 								tableFuncionario.setValueAt(txtNRegistro.getText(), tableFuncionario.getSelectedRow(), 0);
@@ -386,9 +388,11 @@ public class ViewFuncionario extends JFrame {
 		btnCancelar.setBounds(406, 201, 89, 23);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limparCampos();
-				statusBotoes(true, true, false, true, false);
-				statusCampos(false);
+				if(JOptionPane.showConfirmDialog(null, "Deseja realmente cancela esta operação?", "Confirmar", JOptionPane.YES_NO_OPTION) == 0) {
+					limparCampos();
+					statusBotoes(true, true, false, true, false);
+					statusCampos(false);
+				}
 			}
 		});
 		btnCancelar.setEnabled(false);
@@ -438,6 +442,7 @@ public class ViewFuncionario extends JFrame {
 				comboBoxCargo.setEnabled(false);
 				comboBoxSetor.setEnabled(false);
 				txtUsuario.setEditable(false);
+				txtSenha.setEditable(false);
 			}
 		}
 		
