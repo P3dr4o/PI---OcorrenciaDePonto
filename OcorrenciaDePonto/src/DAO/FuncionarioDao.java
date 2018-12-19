@@ -147,12 +147,12 @@ public class FuncionarioDao {
 	}
 	
 	//metodo para excluir um funcionario
-	public static boolean deleteFuncionario(Funcionario funcionario) {
+	public static boolean deleteFuncionario(int idFuncionario) {
 		String sql = "DELETE FROM funcionario WHERE idFuncionario = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, funcionario.getId_Funcionario());
+			stmt.setInt(1, idFuncionario);
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {

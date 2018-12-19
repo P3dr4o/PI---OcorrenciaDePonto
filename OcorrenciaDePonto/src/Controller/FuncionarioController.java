@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
 import DAO.FuncionarioDao;
+import DAO.LoginDao;
 import Model.Funcionario;
 import Model.OcorrenciaEvento;
 import Model.Ocorrencia;
@@ -34,5 +35,14 @@ public class FuncionarioController {
 				return funcionarios.get(i);
 		}
 		return null;
+	}
+	
+	public static boolean removeFuncionario(int numRegistro) {
+		for(Funcionario f : getFuncionarios()) {
+			if(f.getNum_Registro() == numRegistro) {
+				return LoginDao.deleteLogin(f.getLogin().getIdLogin()) && FuncionarioDao.deleteFuncionario(f.getId_Funcionario());
+			}
+		}
+		return false;
 	}
 }

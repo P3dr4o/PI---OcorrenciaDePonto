@@ -318,6 +318,26 @@ public class ViewFuncionario extends JFrame {
 		contentPane.add(btnEditar);
 		
 		btnExcluir = new JButton("Excluir");
+		btnExcluir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				int row = tableFuncionario.getSelectedRow();
+				if( row != -1) {
+					if(JOptionPane.showConfirmDialog(null, "Deseja realmente apagar este funcionário?", "Apagar", JOptionPane.YES_NO_OPTION) == 0) {
+						if(FuncionarioController.removeFuncionario(Integer.parseInt((String) tableFuncionario.getValueAt(row, 0)))) {
+							JOptionPane.showMessageDialog(null, "Funcionário apagado com sucesso", "", JOptionPane.INFORMATION_MESSAGE);
+							listFuncionario.remove(row);
+							modelo.removeRow(row);
+						} else {
+							JOptionPane.showMessageDialog(null, "Erro ao apagar o funcionário", "Erro", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um funcionário para excluir", "Alerta", JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+		});
 		btnExcluir.setBounds(307, 201, 89, 23);
 		contentPane.add(btnExcluir);
 		

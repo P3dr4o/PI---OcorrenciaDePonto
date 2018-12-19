@@ -149,12 +149,12 @@ public class LoginDao {
 	}
 	
 	//metodo para excluir um login
-	public boolean deleteLogin(Login login) {
+	public static boolean deleteLogin(int idLogin) {
 		String sql = "DELETE FROM login WHERE idLogin = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, login.getIdLogin());
+			stmt.setInt(1, idLogin);
 			stmt.executeUpdate();
 			
 			return true;
