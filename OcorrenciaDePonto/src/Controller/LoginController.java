@@ -27,6 +27,18 @@ public class LoginController {
 		return null;
 	}
 	
+	public static boolean redefinirSenha(String usuario, String senhaAntiga, String senhaNova) {
+
+		for(Login login : getLogins()) {
+			if(login.getUsuario().equals(usuario) && login.getSenha().equals(senhaAntiga)) {
+				login.setUsuario(null);
+				login.setSenha(getMD5(senhaNova));
+				return LoginDao.updateLogin(login);
+			}
+		}
+		return false;
+	}
+	
 	public static ArrayList<Login> getLogins() {
 		ArrayList<Login> lo = LoginDao.selectAllLogins();
 		return lo;

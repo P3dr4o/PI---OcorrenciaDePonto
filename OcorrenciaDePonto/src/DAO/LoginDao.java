@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.JOptionPane;
 import Conexao.ConexaoBD;
 import Model.Login;
@@ -17,6 +19,7 @@ public class LoginDao {
 	private static ResultSet rs;
 	
 	//metodo para selecionar todos os logins
+	@SuppressWarnings("deprecation")
 	public static ArrayList<Login> selectAllLogins() {
 		String sql = "SELECT * FROM login";
 		ArrayList<Login> listLogin = new ArrayList<>();
@@ -25,10 +28,32 @@ public class LoginDao {
 		try {
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
+			
+			ArrayList<String[]> r = new ArrayList<String[]>();
 			while(rs.next()) {
-				login = new Login(rs.getString("usuario"), rs.getString("senha"));
-				login.setIdLogin(rs.getInt("idLogin"));
-				login.setUltimoLogin(rs.getDate("ultimoLogin"));
+				r.add(new String[] {
+						rs.getString("idLogin"),
+						rs.getString("usuario"),
+						rs.getString("senha"),
+						rs.getString("ultimoLogin"),
+						rs.getString("idFuncionario")
+						
+				});
+			}
+			for(int i = 0; i < r.size(); i++) {
+				int idLogin = 0;
+				int idFuncionario = 0;
+				Date ultimoLogin = null;
+				if (r.get(i)[0] != null)
+					idLogin = Integer.parseInt(r.get(i)[0]);
+				if (r.get(i)[4] != null)
+					idFuncionario = Integer.parseInt(r.get(i)[4]);
+				/*if(r.get(i)[3] != null)
+					ultimoLogin = new Date(r.get(i)[3]);*/
+				login = new Login(r.get(i)[1], r.get(i)[2]);
+				login.setIdLogin(idLogin);
+				//login.setUltimoLogin(ultimoLogin);
+				login.setFuncionario(FuncionarioDao.selectFuncionario(idFuncionario));
 				listLogin.add(login);
 			}
 			
@@ -84,22 +109,42 @@ public class LoginDao {
 	}
 	
 	//metodo para atualizar um login
-	public boolean updateLogin(Login login) {
-		String sql = "UPDATE login SET usuario = ?, senha = ?, ultimoLogin = ? WHERE idLogin = ?";
+	public static boolean updateLogin(Login login) {
 		
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setString(1, login.getUsuario());
-			stmt.setString(2, login.getSenha());
-			stmt.setTimestamp(3, new Timestamp(login.getUltimoLogin().getTime()));
-			stmt.setInt(4, login.getIdLogin());
-			stmt.executeUpdate();
+		if(login.getUsuario() != null) {
+			String sql = "UPDATE login SET usuario = ?, senha = ?, ultimoLogin = ? WHERE idLogin = ?";
 			
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
+			try {
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, login.getUsuario());
+				stmt.setString(2, login.getSenha());
+				stmt.setTimestamp(3, new Timestamp(login.getUltimoLogin().getTime()));
+				stmt.setInt(4, login.getIdLogin());
+				stmt.executeUpdate();
+				
+				return true;
+		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		} else {
+			String sql = "UPDATE login SET senha = ? WHERE idLogin = ?";
+			
+			try {
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, login.getSenha());
+				stmt.setInt(2, login.getIdLogin());
+				stmt.executeUpdate();
+				
+				return true;
+		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
 		}
 	}
 	

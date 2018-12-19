@@ -143,16 +143,18 @@ public class ViewCargo extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				if(tableCargo.getSelectedRow() != -1) {
 					String cargoEdit = JOptionPane.showInputDialog(null, "Alterar", tableCargo.getValueAt(tableCargo.getSelectedRow(), 0));
-					if(! cargoEdit.equals("")) {
-						if(CargoController.alterarCargo(listCargo.get(tableCargo.getSelectedRow()).getIdCargo(), cargoEdit)) {
-							listCargo.get(tableCargo.getSelectedRow()).setNomeCargo(cargoEdit);
-							modelo.setValueAt(cargoEdit, tableCargo.getSelectedRow(), 0);
-							JOptionPane.showMessageDialog(null, "Cargo alterado com sucesso");
+					if(!(cargoEdit == null)) {
+						if(!cargoEdit.equals("")) {
+							if(CargoController.alterarCargo(listCargo.get(tableCargo.getSelectedRow()).getIdCargo(), cargoEdit)) {
+								listCargo.get(tableCargo.getSelectedRow()).setNomeCargo(cargoEdit);
+								modelo.setValueAt(cargoEdit, tableCargo.getSelectedRow(), 0);
+								JOptionPane.showMessageDialog(null, "Cargo alterado com sucesso");
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao alterar cargo", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Erro ao alterar cargo", "Erro", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Erro ao alterar cargo: Digite um valor válido", "Erro", JOptionPane.ERROR_MESSAGE);
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Erro ao alterar cargo: Digite um valor válido", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecione um cargo para Alterar", "Excluir", JOptionPane.WARNING_MESSAGE);

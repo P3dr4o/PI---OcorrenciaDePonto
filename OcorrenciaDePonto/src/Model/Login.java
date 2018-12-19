@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import Controller.LoginController;
@@ -8,7 +9,7 @@ import DAO.LoginDao;
 
 
 
-public class Login {
+public class Login implements Serializable{
 
 	private int idLogin;
 	private String usuario;

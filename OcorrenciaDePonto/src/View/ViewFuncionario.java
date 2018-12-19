@@ -23,6 +23,7 @@ import Controller.LoginController;
 import Controller.Objetos;
 import DAO.CargoDao;
 import DAO.FuncionarioDao;
+import DAO.LoginDao;
 import DAO.SetorDao;
 import Model.Cargo;
 import Model.Funcionario;
@@ -36,6 +37,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import javax.swing.JMenuItem;
 
 public class ViewFuncionario extends JFrame {
 
@@ -44,7 +48,7 @@ public class ViewFuncionario extends JFrame {
 	private JTextField txtNRegistro;
 	private JComboBox<Cargo> comboBoxCargo;
 	private JComboBox<Setor> comboBoxSetor;
-	private JTable tableFuncionario;
+	private static JTable tableFuncionario;
 	private JButton btnNovo;
 	private JButton btnEditar;
 	private JButton btnExcluir;
@@ -58,6 +62,10 @@ public class ViewFuncionario extends JFrame {
 	private ArrayList<Cargo> cargos;
 	private ArrayList<Setor> setores;
 	private DefaultTableModel modelo;
+	private JMenuItem mntmRedefinirSenha;
+	private boolean alterar;
+	private int idFuncionario;
+	private String senhaCript;
 
 	/**
 	 * Launch the application.
@@ -226,26 +234,60 @@ public class ViewFuncionario extends JFrame {
 		//código para NÃO deixar mover o cabeçalho da tabela
 		tableFuncionario.getTableHeader().setReorderingAllowed(false);
 		
+		JPopupMenu popupMenu = new JPopupMenu();
+		addPopup(tableFuncionario, popupMenu);
+		
+		mntmRedefinirSenha = new JMenuItem("Redefinir Senha");
+		mntmRedefinirSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewRedefinirSenha vrs = new ViewRedefinirSenha();
+				vrs.setModal(true);
+				vrs.setVisible(true);
+				String usuario = null;
+				String senhaAntiga = null;
+				for(Funcionario funcionario : listFuncionario) {
+					if(funcionario.getNum_Registro() == Integer.parseInt((String) tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 0))) {
+						usuario = funcionario.getLogin().getUsuario();
+						senhaAntiga = funcionario.getLogin().getSenha();
+					}
+				}
+				if(vrs.getRetorno() != null) {
+					String senhaNova = vrs.getRetorno();
+					if(LoginController.redefinirSenha(usuario, senhaAntiga, senhaNova)) {
+						JOptionPane.showMessageDialog(null, "Senha redefinida");
+					} else {
+						JOptionPane.showMessageDialog(null, "Erro ao redefinir senha", "Erro", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				
+			}
+		});
+		popupMenu.add(mntmRedefinirSenha);
+		
 		scrollPaneFuncionario.setViewportView(tableFuncionario);
 		
 		btnNovo = new JButton("Novo");
+		btnNovo.setBounds(10, 201, 89, 23);
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				statusBotoes(false, false, true, false, true);
 				statusCampos(true);
+				alterar = false;
 			}
 		});
-		btnNovo.setBounds(10, 201, 89, 23);
 		contentPane.add(btnNovo);
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.setBounds(109, 201, 89, 23);
 		btnEditar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				
 				if(tableFuncionario.getSelectedRow() != -1) {
+					alterar = true;
 					statusBotoes(false, false, true, false, true);
 					statusCampos(true);
+					txtSenha.setEditable(false);
 					txtNRegistro.setText((String) tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 0));
 					txtNome.setText((String) tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 1));
 					for(int i = 0; i < cargos.size(); i++) {
@@ -261,6 +303,8 @@ public class ViewFuncionario extends JFrame {
 					for(int i = 0; i < listFuncionario.size(); i++) {
 						if(listFuncionario.get(i).getNum_Registro() ==  Integer.parseInt((String) tableFuncionario.getValueAt(tableFuncionario.getSelectedRow(), 0))) {
 							txtUsuario.setText(listFuncionario.get(i).getLogin().getUsuario());
+							idFuncionario = listFuncionario.get(i).getId_Funcionario();
+							senhaCript = listFuncionario.get(i).getLogin().getSenha();
 						}
 					}
 				} else {
@@ -268,8 +312,6 @@ public class ViewFuncionario extends JFrame {
 				}
 			}
 		});
-		
-		btnEditar.setBounds(109, 201, 89, 23);
 		contentPane.add(btnEditar);
 		
 		btnExcluir = new JButton("Excluir");
@@ -277,6 +319,7 @@ public class ViewFuncionario extends JFrame {
 		contentPane.add(btnExcluir);
 		
 		btnSalvar = new JButton("Salvar");
+		btnSalvar.setBounds(208, 201, 89, 23);
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//try {
@@ -284,28 +327,50 @@ public class ViewFuncionario extends JFrame {
 					Setor s = (Setor) comboBoxSetor.getSelectedItem();
 					Funcionario f;
 					Login l;
-					if(txtNRegistro.getText() != null && txtNome.getText() != null && txtSenha.getPassword() != null && txtUsuario.getText() != null && c.getIdCargo() > 0 && s.getId_Setor() > 0) {
-						f = new Funcionario(-1, txtNome.getText(), Integer.parseInt(txtNRegistro.getText()), c, s);
-						int idFun = FuncionarioDao.gerarMaxID();
-						
-						l = new Login(txtUsuario.getText(), LoginController.getMD5(""+txtSenha.getPassword()), new Funcionario(idFun, "", 0, null));
-						if(f.persistir() && l.persistir()) {
-							JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
-							modelo.addRow(new String[] { 
-									txtNRegistro.getText(),
-									txtNome.getText(),
-									comboBoxCargo.getSelectedItem().toString(),
-									comboBoxSetor.getSelectedItem().toString()
-							});
-							listFuncionario = FuncionarioDao.selectAllFuncionarios();
-							limparCampos();
-							statusBotoes(true, true, false, true, false);
-							statusCampos(false);
+					if(alterar == false) {
+						if(txtNRegistro.getText() != null && txtNome.getText() != null && txtSenha.getPassword() != null && txtUsuario.getText() != null && c.getIdCargo() > 0 && s.getId_Setor() > 0) {
+							f = new Funcionario(-1, txtNome.getText(), Integer.parseInt(txtNRegistro.getText()), c, s);
+							int idFun = FuncionarioDao.gerarMaxID();
+							
+							l = new Login(txtUsuario.getText(), LoginController.getMD5(""+txtSenha.getPassword()), new Funcionario(idFun, "", 0, null));
+							if(f.persistir() && l.persistir()) {
+								JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+								modelo.addRow(new String[] { 
+										txtNRegistro.getText(),
+										txtNome.getText(),
+										comboBoxCargo.getSelectedItem().toString(),
+										comboBoxSetor.getSelectedItem().toString()
+								});
+								listFuncionario = FuncionarioDao.selectAllFuncionarios();
+								limparCampos();
+								statusBotoes(true, true, false, true, false);
+								statusCampos(false);
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao gravar no banco de dados!", "", JOptionPane.ERROR_MESSAGE);
+							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Erro ao gravar no banco de dados!", "", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Falta informação ou são inválidas!", null, JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Falta informação ou são inválidas!", null, JOptionPane.WARNING_MESSAGE);
+						if(txtNRegistro.getText() != null && txtNome.getText() != null && txtUsuario.getText() != null && c.getIdCargo() > 0 && s.getId_Setor() > 0) {
+							f = new Funcionario(idFuncionario, txtNome.getText(), Integer.parseInt(txtNRegistro.getText()), c, s);
+							l = new Login(txtUsuario.getText(), senhaCript, new Funcionario(idFuncionario, null, 0, null));
+							if(f.persistir() && l.persistir()) {
+								JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+								tableFuncionario.setValueAt(txtNRegistro.getText(), tableFuncionario.getSelectedRow(), 0);
+								tableFuncionario.setValueAt(txtNome.getText(), tableFuncionario.getSelectedRow(), 1);
+								tableFuncionario.setValueAt(comboBoxCargo.getSelectedItem().toString(), tableFuncionario.getSelectedRow(), 2);
+								tableFuncionario.setValueAt(comboBoxSetor.getSelectedItem().toString(), tableFuncionario.getSelectedRow(), 3);
+								listFuncionario = FuncionarioDao.selectAllFuncionarios();
+								limparCampos();
+								statusBotoes(true, true, false, true, false);
+								statusCampos(false);
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao gravar no banco de dados!", "", JOptionPane.ERROR_MESSAGE);
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Falta informação ou são inválidas!", null, JOptionPane.WARNING_MESSAGE);
+						}
 					}
 						
 				//} catch (Exception e2) {
@@ -315,10 +380,10 @@ public class ViewFuncionario extends JFrame {
 			}
 		});
 		btnSalvar.setEnabled(false);
-		btnSalvar.setBounds(208, 201, 89, 23);
 		contentPane.add(btnSalvar);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(406, 201, 89, 23);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limparCampos();
@@ -327,7 +392,6 @@ public class ViewFuncionario extends JFrame {
 			}
 		});
 		btnCancelar.setEnabled(false);
-		btnCancelar.setBounds(406, 201, 89, 23);
 		contentPane.add(btnCancelar);
 	}
 	
@@ -385,4 +449,37 @@ public class ViewFuncionario extends JFrame {
 			txtUsuario.setText("");
 			txtSenha.setText("");
 		}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+					if (e.getButton() == MouseEvent.BUTTON3) {  
+			            int col = tableFuncionario.columnAtPoint(e.getPoint());  
+			            int row = tableFuncionario.rowAtPoint(e.getPoint());  
+			            if (col != -1 && row != -1) {  
+			                tableFuncionario.setColumnSelectionInterval(col, col);  
+			                tableFuncionario.setRowSelectionInterval(row, row);  
+			            }  
+			        }  
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+					if (e.getButton() == MouseEvent.BUTTON3) {  
+			            int col = tableFuncionario.columnAtPoint(e.getPoint());  
+			            int row = tableFuncionario.rowAtPoint(e.getPoint());  
+			            if (col != -1 && row != -1) {  
+			                tableFuncionario.setColumnSelectionInterval(col, col);  
+			                tableFuncionario.setRowSelectionInterval(row, row);  
+			            }  
+			        }  
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
 }

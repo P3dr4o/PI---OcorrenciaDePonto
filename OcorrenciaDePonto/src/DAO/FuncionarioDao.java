@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.mysql.jdbc.Statement;
+
 import Conexao.ConexaoBD;
 import Model.Funcionario;
 import Model.Setor;
@@ -107,7 +109,6 @@ public class FuncionarioDao {
 	//metodo para criar novo funcionario
 	public static boolean createFuncionario(Funcionario funcionario) {
 		String sql = "INSERT INTO Funcionario(nome, registro, idSetor, idCargo) VALUES(?, ?, ?, ?)";
-		
 		try {
 			stmt = con.prepareStatement(sql);
 			//stmt.setInt(1, funcionario.getId_Funcionario());
@@ -127,7 +128,7 @@ public class FuncionarioDao {
 	
 	//metodo para atualizar funcionario
 	public static boolean atualizarFuncionario(Funcionario funcionario) {
-		String sql = "UPDATE funcionario SET nome = ?, registro = ?, cargo = ?, setor = ? WHERE idFuncionario = ?";
+		String sql = "UPDATE funcionario SET nome = ?, registro = ?, idCargo = ?, idSetor = ? WHERE idFuncionario = ?";
 		
 		try {
 			stmt = con.prepareStatement(sql);
