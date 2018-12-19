@@ -47,6 +47,7 @@ public class ViewRedefinirSenha extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblSenha = new JLabel("Digite uma senha");
 		lblSenha.setBounds(10, 11, 99, 14);

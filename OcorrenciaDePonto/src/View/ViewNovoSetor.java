@@ -94,6 +94,7 @@ public class ViewNovoSetor extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblSetor = new JLabel("Setor");
 		lblSetor.setBounds(10, 11, 46, 14);

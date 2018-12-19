@@ -89,6 +89,7 @@ public class ViewOcorrenciaDePonto extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblOcorrnciaDePonto = new JLabel("Ocorr\u00EAncia de Ponto");
 		lblOcorrnciaDePonto.setHorizontalAlignment(SwingConstants.CENTER);

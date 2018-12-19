@@ -118,6 +118,7 @@ public class TelaLogin extends JFrame{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
+		setLocationRelativeTo(null);
 		
 		
 		fieldUsuario = new JTextField();

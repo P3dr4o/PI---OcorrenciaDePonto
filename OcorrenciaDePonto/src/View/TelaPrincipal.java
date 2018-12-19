@@ -261,6 +261,7 @@ public class TelaPrincipal extends JFrame{
 		frame.setBounds(100, 100, 800, 600);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("icons\\icons8-cartao-de-ponto-48.png"));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);

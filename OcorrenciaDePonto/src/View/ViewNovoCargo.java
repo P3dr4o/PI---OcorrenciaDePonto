@@ -74,6 +74,7 @@ public class ViewNovoCargo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblCargo = new JLabel("Cargo");
 		lblCargo.setBounds(10, 11, 46, 14);
