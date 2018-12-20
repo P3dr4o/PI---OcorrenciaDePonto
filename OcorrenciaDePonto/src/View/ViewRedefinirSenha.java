@@ -41,6 +41,7 @@ public class ViewRedefinirSenha extends JDialog {
 	 * Create the dialog.
 	 */
 	public ViewRedefinirSenha() {
+		setModal(true);
 		setTitle("Redefinir Senha");
 		setBounds(100, 100, 269, 220);
 		getContentPane().setLayout(new BorderLayout());

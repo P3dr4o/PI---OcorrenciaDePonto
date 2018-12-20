@@ -115,6 +115,7 @@ public class ViewFuncionario extends JFrame {
 	 * Create the frame.
 	 */
 	public ViewFuncionario() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 526, 559);
 		contentPane = new JPanel();
@@ -243,7 +244,6 @@ public class ViewFuncionario extends JFrame {
 		mntmRedefinirSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewRedefinirSenha vrs = new ViewRedefinirSenha();
-				vrs.setModal(true);
 				vrs.setVisible(true);
 				String usuario = null;
 				String senhaAntiga = null;
