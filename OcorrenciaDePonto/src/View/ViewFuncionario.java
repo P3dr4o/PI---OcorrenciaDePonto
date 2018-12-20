@@ -1,8 +1,6 @@
 package View;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,22 +15,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import Controller.FuncionarioController;
 import Controller.LoginController;
-import Controller.Objetos;
 import DAO.CargoDao;
 import DAO.FuncionarioDao;
-import DAO.LoginDao;
 import DAO.SetorDao;
 import Model.Cargo;
 import Model.Funcionario;
 import Model.Login;
 import Model.Setor;
-
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.event.MouseAdapter;
@@ -83,8 +76,8 @@ public class ViewFuncionario extends JFrame {
 						fs.getSetor().getNome()
 					});
 		}
-		
 	}
+	
 	public static void main(String[] args) {
 		
 		try {
@@ -161,8 +154,6 @@ public class ViewFuncionario extends JFrame {
 		for(Cargo cargo : cargos) {
 			comboBoxCargo.addItem(cargo);
 		}
-		
-		
 		comboBoxCargo.setBounds(65, 104, 150, 20);
 		panel.add(comboBoxCargo);
 		
@@ -177,12 +168,7 @@ public class ViewFuncionario extends JFrame {
 		for(Setor setor : setores) {
 			comboBoxSetor.addItem(setor);
 		}
-		
-		
 		comboBoxSetor.setBounds(305, 104, 169, 20);
-		
-		
-		
 		panel.add(comboBoxSetor);
 		
 		lblUsurio = new JLabel("Usuário");
@@ -420,91 +406,84 @@ public class ViewFuncionario extends JFrame {
 		contentPane.add(btnCancelar);
 	}
 	
-	//metodo para mudar o status dos bot�es
-		private void statusBotoes(boolean novo, boolean editar, boolean salvar, boolean excluir, boolean cancelar) {
-			if(novo == true)
-				btnNovo.setEnabled(true);
-			else
-				btnNovo.setEnabled(false);
-			
-			if(editar == true)
-				btnEditar.setEnabled(true);
-			else
-				btnEditar.setEnabled(false);
-			
-			if(salvar == true) 
-				btnSalvar.setEnabled(true);
-			else
-				btnSalvar.setEnabled(false);
-			
-			if(excluir == true)
-				btnExcluir.setEnabled(true);
-			else
-				btnExcluir.setEnabled(false);
-			
-			if(cancelar == true)
-				btnCancelar.setEnabled(true);
-			else
-				btnCancelar.setEnabled(false);
-		}
+	//metodo para mudar o status dos botões
+	private void statusBotoes(boolean novo, boolean editar, boolean salvar, boolean excluir, boolean cancelar) {
+		if(novo == true)
+			btnNovo.setEnabled(true);
+		else
+			btnNovo.setEnabled(false);
 		
-		//metodo para mudar o status dos campos
-		private void statusCampos(boolean editable) {
-			if(editable == true) {
-				txtNRegistro.setEditable(true);
-				txtNome.setEditable(true);
-				comboBoxCargo.setEnabled(true);
-				comboBoxSetor.setEnabled(true);
-				txtUsuario.setEditable(true);
-				txtSenha.setEditable(true);
-			} else {
-				txtNRegistro.setEditable(false);
-				txtNome.setEditable(false);
-				comboBoxCargo.setEnabled(false);
-				comboBoxSetor.setEnabled(false);
-				txtUsuario.setEditable(false);
-				txtSenha.setEditable(false);
-			}
-		}
+		if(editar == true)
+			btnEditar.setEnabled(true);
+		else
+			btnEditar.setEnabled(false);
 		
-		private void limparCampos() {
-			txtNRegistro.setText("");
-			txtNome.setText("");
-			comboBoxCargo.setSelectedIndex(0);
-			comboBoxSetor.setSelectedIndex(0);
-			txtUsuario.setText("");
-			txtSenha.setText("");
+		if(salvar == true) 
+			btnSalvar.setEnabled(true);
+		else
+			btnSalvar.setEnabled(false);
+		
+		if(excluir == true)
+			btnExcluir.setEnabled(true);
+		else
+			btnExcluir.setEnabled(false);
+		
+		if(cancelar == true)
+			btnCancelar.setEnabled(true);
+		else
+			btnCancelar.setEnabled(false);
+	}
+	
+	//metodo para mudar o status dos campos
+	private void statusCampos(boolean editable) {
+		if(editable == true) {
+			txtNRegistro.setEditable(true);
+			txtNome.setEditable(true);
+			comboBoxCargo.setEnabled(true);
+			comboBoxSetor.setEnabled(true);
+			txtUsuario.setEditable(true);
+			txtSenha.setEditable(true);
+		} else {
+			txtNRegistro.setEditable(false);
+			txtNome.setEditable(false);
+			comboBoxCargo.setEnabled(false);
+			comboBoxSetor.setEnabled(false);
+			txtUsuario.setEditable(false);
+			txtSenha.setEditable(false);
 		}
+	}
+	
+	private void limparCampos() {
+		txtNRegistro.setText("");
+		txtNome.setText("");
+		comboBoxCargo.setSelectedIndex(0);
+		comboBoxSetor.setSelectedIndex(0);
+		txtUsuario.setText("");
+		txtSenha.setText("");
+	}
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showMenu(e);
-					if (e.getButton() == MouseEvent.BUTTON3) {  
-			            int col = tableFuncionario.columnAtPoint(e.getPoint());  
-			            int row = tableFuncionario.rowAtPoint(e.getPoint());  
-			            if (col != -1 && row != -1) {  
-			                tableFuncionario.setColumnSelectionInterval(col, col);  
-			                tableFuncionario.setRowSelectionInterval(row, row);  
-			            }  
-			        }  
 				}
 			}
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showMenu(e);
-					if (e.getButton() == MouseEvent.BUTTON3) {  
-			            int col = tableFuncionario.columnAtPoint(e.getPoint());  
-			            int row = tableFuncionario.rowAtPoint(e.getPoint());  
-			            if (col != -1 && row != -1) {  
-			                tableFuncionario.setColumnSelectionInterval(col, col);  
-			                tableFuncionario.setRowSelectionInterval(row, row);  
-			            }  
-			        }  
 				}
 			}
 			private void showMenu(MouseEvent e) {
 				popup.show(e.getComponent(), e.getX(), e.getY());
+				if (e.getButton() == MouseEvent.BUTTON3) {  
+		            int col = tableFuncionario.columnAtPoint(e.getPoint());  
+		            int row = tableFuncionario.rowAtPoint(e.getPoint());  
+		            if (col != -1 && row != -1) {  
+		                tableFuncionario.setColumnSelectionInterval(col, col);  
+		                tableFuncionario.setRowSelectionInterval(row, row);  
+		            }  
+		        }  
 			}
 		});
 	}
